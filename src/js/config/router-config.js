@@ -36,18 +36,26 @@ const initRouter = () => {
                     name: 'NotfoundError',
                     component: (resolve) => require(['components/error-pages/404'], resolve),
                     meta: { title: '页面找不到' }
-                }, {
-                    path: '/authorization',
-                    name: 'Authorization',
-                    component: (resolve) => require(['components/management/authorization'], resolve),
-                    meta: { title: '权限管理' }
-                }, {
-                    path: '/users',
-                    name: 'Users',
-                    component: (resolve) => require(['components/management/users'], resolve),
-                    meta: { title: '用户管理' }
                 },
-                ...demoComponents,
+                {
+                    path: '/announcement',
+                    name: 'Announcement',
+                    component: (resolve) => require(['components/announcement/index'], resolve),
+                    meta: { title: '公告' }
+                },
+                {
+                    path: '/announcement/create',
+                    name: 'AnnouncementCreate',
+                    component: (resolve) => require(['components/announcement/create'], resolve),
+                    meta: { title: '添加公告' },
+                },
+                {
+                    path: '/announcement/:id/edit',
+                    name: 'AnnouncementEdit',
+                    component: (resolve) => require(['components/announcement/edit'], resolve),
+                    meta: { title: '编辑公告' },
+                    props: true
+                },
                 {
                     path: '*',
                     name: 'CommonNotfoundError',
@@ -68,9 +76,9 @@ const initRouter = () => {
         }
         HeyUI.$LoadingBar.start();
         if (to.meta && to.meta.title) {
-            document.title = to.meta.title + ' - 管理应用';
+            document.title = to.meta.title + ' - MeEdu';
         } else {
-            document.title = '管理系统';
+            document.title = 'MeEdu';
         }
         isFirstRouter = false;
         next();
@@ -82,10 +90,6 @@ const initRouter = () => {
         let layoutContent = document.querySelector('.h-layout-content');
         if (layoutContent) {
             layoutContent.scrollTop = 0;
-        }
-        // baidu 统计，如果有自己的统计，请至index.html修改至自己的埋点
-        if (window._hmt) {
-            window._hmt.push(['_trackPageview', window.location.pathname]);
         }
     });
     return router;

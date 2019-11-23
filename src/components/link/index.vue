@@ -1,30 +1,21 @@
 <template>
   <div class="table-basic-vue frame-page h-panel">
-    <div class="h-panel-bar"><span class="h-panel-title">VIP角色</span></div>
+    <div class="h-panel-bar"><span class="h-panel-title">友情链接</span></div>
     <div class="h-panel-body">
       <p>
         <Button color="blue" icon="h-icon-plus" @click="create()">添加</Button>
       </p>
       <Table :loading="loading" :datas="datas">
         <TableItem prop="id" title="ID"></TableItem>
-        <TableItem prop="name" title="角色名"></TableItem>
-        <TableItem prop="weight" title="权重"></TableItem>
-        <TableItem prop="charge" title="价格" unit="元"></TableItem>
-        <TableItem prop="expire_days" title="时长" unit="天"></TableItem>
-        <TableItem title="是否显示">
-          <template slot-scope="{ data }">
-            <span v-if="data.is_show === 1">是</span>
-            <span v-else>否</span>
-          </template>
-        </TableItem>
-        <TableItem prop="updated_at" title="最后编辑时间"></TableItem>
+        <TableItem prop="sort" title="升序"></TableItem>
+        <TableItem prop="name" title="链接名"></TableItem>
+        <TableItem prop="url" title="URL"></TableItem>
         <TableItem title="操作" align="center" :width="80">
           <template slot-scope="{ data }">
             <Poptip content="确认删除？" @confirm="remove(datas, data)">
               <button class="h-btn h-btn-s h-btn-red">删除</button>
             </Poptip>
             <button class="h-btn h-btn-s h-btn-primary" @click="edit(data)">编辑</button>
-            <button class="h-btn h-btn-s" @click="showContent(data)">查看权限</button>
           </template>
         </TableItem>
       </Table>
@@ -61,7 +52,7 @@ export default {
         this.pagination.page = 1;
       }
       this.loading = true;
-      R.Role.List(this.pagination).then(resp => {
+      R.Link.List(this.pagination).then(resp => {
         this.datas = resp.data.data;
         this.pagination.total = resp.data.total;
         this.pagination.page = resp.data.current_page;
@@ -70,22 +61,16 @@ export default {
       });
     },
     create() {
-      this.$router.push({ name: 'RoleCreate' });
+      this.$router.push({ name: 'LinkCreate' });
     },
     remove(data, item) {
-      R.Role.Delete({ id: item.id }).then(resp => {
+      R.Link.Delete({ id: item.id }).then(resp => {
         HeyUI.$Message.success('成功');
         this.getData(true);
       });
     },
     edit(item) {
-      this.$router.push({ name: 'RoleEdit', params: { id: item.id } });
-    },
-    showContent(data) {
-      this.$Modal({
-        title: '权限',
-        content: data.description
-      });
+      this.$router.push({ name: 'LinkEdit', params: { id: item.id } });
     }
   }
 };

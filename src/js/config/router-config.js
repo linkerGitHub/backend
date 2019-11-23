@@ -60,19 +60,38 @@ const initRouter = () => {
                     path: '/role',
                     name: 'Role',
                     component: (resolve) => require(['components/role/index'], resolve),
-                    meta: { title: '公告' }
+                    meta: { title: 'VIP角色' }
                 },
                 {
                     path: '/role/create',
                     name: 'RoleCreate',
                     component: (resolve) => require(['components/role/create'], resolve),
-                    meta: { title: '添加公告' },
+                    meta: { title: '添加VIP角色' },
                 },
                 {
                     path: '/role/:id/edit',
                     name: 'RoleEdit',
                     component: (resolve) => require(['components/role/edit'], resolve),
-                    meta: { title: '编辑公告' },
+                    meta: { title: '编辑VIP角色' },
+                    props: true
+                },
+                {
+                    path: '/link',
+                    name: 'Link',
+                    component: (resolve) => require(['components/link/index'], resolve),
+                    meta: { title: '友情链接' }
+                },
+                {
+                    path: '/link/create',
+                    name: 'LinkCreate',
+                    component: (resolve) => require(['components/link/create'], resolve),
+                    meta: { title: '添加友情链接' },
+                },
+                {
+                    path: '/link/:id/edit',
+                    name: 'LinkEdit',
+                    component: (resolve) => require(['components/link/edit'], resolve),
+                    meta: { title: '编辑友情链接' },
                     props: true
                 },
                 {

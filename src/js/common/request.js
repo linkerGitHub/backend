@@ -45,6 +45,23 @@ const Request = {
             return Ajax.delete('/role/' + param.id, param);
         }
     },
+    Link: {
+        List(param) {
+            return Ajax.get('/link', param);
+        },
+        Create(param) {
+            return Ajax.postJson('/link', param);
+        },
+        Edit(param) {
+            return Ajax.get('/link/' + param.id);
+        },
+        Update(param) {
+            return Ajax.putJson('/link/' + param.id, param);
+        },
+        Delete(param) {
+            return Ajax.delete('/link/' + param.id, param);
+        }
+    },
 };
 
 export default Request;

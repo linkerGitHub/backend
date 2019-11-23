@@ -57,6 +57,25 @@ const initRouter = () => {
                     props: true
                 },
                 {
+                    path: '/role',
+                    name: 'Role',
+                    component: (resolve) => require(['components/role/index'], resolve),
+                    meta: { title: '公告' }
+                },
+                {
+                    path: '/role/create',
+                    name: 'RoleCreate',
+                    component: (resolve) => require(['components/role/create'], resolve),
+                    meta: { title: '添加公告' },
+                },
+                {
+                    path: '/role/:id/edit',
+                    name: 'RoleEdit',
+                    component: (resolve) => require(['components/role/edit'], resolve),
+                    meta: { title: '编辑公告' },
+                    props: true
+                },
+                {
                     path: '*',
                     name: 'CommonNotfoundError',
                     component: (resolve) => require(['components/error-pages/404'], resolve),

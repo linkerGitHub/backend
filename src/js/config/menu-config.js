@@ -13,23 +13,23 @@ const fullMenus = [{
             },
             {
                 title: 'VIP会员',
-                key: 'role'
+                key: 'Role'
             },
             {
                 title: '友情链接',
-                key: 'link'
+                key: 'Link'
             },
             {
                 title: '推广链接',
-                key: 'adfrom'
+                key: 'AdFrom'
             },
             {
                 title: '课程评论',
-                key: 'cousecomment'
+                key: 'CourseComment'
             },
             {
                 title: '视频评论',
-                key: 'videocomment'
+                key: 'VideoComment'
             }
         ]
     },

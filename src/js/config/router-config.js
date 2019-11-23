@@ -114,6 +114,18 @@ const initRouter = () => {
                     props: true
                 },
                 {
+                    path: '/course_comment',
+                    name: 'CourseComment',
+                    component: (resolve) => require(['components/course_comment/index'], resolve),
+                    meta: { title: '课程评论' }
+                },
+                {
+                    path: '/video_comment',
+                    name: 'VideoComment',
+                    component: (resolve) => require(['components/video_comment/index'], resolve),
+                    meta: { title: '视频评论' }
+                },
+                {
                     path: '*',
                     name: 'CommonNotfoundError',
                     component: (resolve) => require(['components/error-pages/404'], resolve),

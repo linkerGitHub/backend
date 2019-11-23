@@ -79,6 +79,22 @@ const Request = {
             return Ajax.delete('/ad_from/' + param.id, param);
         }
     },
+    CourseComment: {
+        List(param) {
+            return Ajax.get('/course_comment', param);
+        },
+        Delete(param) {
+            return Ajax.delete('/course_comment/' + param.id, param);
+        }
+    },
+    VideoComment: {
+        List(param) {
+            return Ajax.get('/video_comment', param);
+        },
+        Delete(param) {
+            return Ajax.delete('/video_comment/' + param.id, param);
+        }
+    }
 };
 
 export default Request;

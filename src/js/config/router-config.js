@@ -126,6 +126,23 @@ const initRouter = () => {
                     meta: { title: '视频评论' }
                 },
                 {
+                    path: '/order',
+                    name: 'Order',
+                    component: (resolve) => require(['components/order/index'], resolve),
+                    meta: { title: '视频评论' }
+                },
+                {
+                    path: '/member',
+                    name: 'Member',
+                    component: (resolve) => require(['components/member/index'], resolve),
+                    meta: { title: '用户' }
+                }, {
+                    path: '/member/create',
+                    name: 'MemberCreate',
+                    component: (resolve) => require(['components/member/create'], resolve),
+                    meta: { title: '用户' }
+                },
+                {
                     path: '*',
                     name: 'CommonNotfoundError',
                     component: (resolve) => require(['components/error-pages/404'], resolve),

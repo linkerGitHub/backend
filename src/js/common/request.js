@@ -94,7 +94,20 @@ const Request = {
         Delete(param) {
             return Ajax.delete('/video_comment/' + param.id, param);
         }
-    }
+    },
+    Order: {
+        List(param) {
+            return Ajax.get('/order', param);
+        },
+    },
+    Member: {
+        List(param) {
+            return Ajax.get('/member', param);
+        },
+        Create(param) {
+            return Ajax.postJson('/member', param);
+        },
+    },
 };
 
 export default Request;

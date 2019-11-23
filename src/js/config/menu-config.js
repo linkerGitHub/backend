@@ -39,16 +39,16 @@ const fullMenus = [{
         icon: 'icon-paper',
         children: [{
             title: '订单列表',
-            key: 'order'
+            key: 'Order'
         }]
     },
     {
-        title: '会员',
+        title: '用户',
         key: 'members',
         icon: 'icon-head',
         children: [{
-            title: '会员',
-            key: 'member'
+            title: '用户',
+            key: 'Member'
         }]
     },
     {

@@ -107,10 +107,10 @@
   <div class="login-vue">
     <div class="login-container">
       <div class="login-content">
-        <div class="login-title">管理系统</div>
+        <div class="login-title">MeEdu</div>
         <div class="login-name login-input">
           <input type="text" name="username" v-model="login.username" autocomplete="off"/>
-          <span class="placeholder" :class="{fixed: login.username != '' && login.username != null}">用户名</span>
+          <span class="placeholder" :class="{fixed: login.username != '' && login.username != null}">邮箱</span>
         </div>
         <div class="login-password login-input">
           <input type="password" name="password" v-model="login.password" @keyup.enter="submit" autocomplete="off"/>
@@ -120,7 +120,7 @@
           <Button :loading="loading" block color="primary" size="l" @click="submit">登录</Button>
         </div>
       </div>
-      <p class="copyright"> Copyright © 2019 vvpvvp - <a href="https://www.heyui.top/">heyui.top</a></p>
+      <p class="copyright"> Copyright © 2019 小滕 - <a href="https://github.com/Qsnh/meedu">MeEdu</a></p>
     </div>
   </div>
 </template>
@@ -142,8 +142,7 @@ export default {
       this.loading = true;
       R.Login.login(Login.dispose(this.login)).then(resp => {
         if (resp.ok) {
-          let msg = resp.body;
-          Utils.saveLocal('token', msg.value);
+          Utils.saveLocal('token', resp.data.token);
           window.location = '/';
         }
         this.loading = false;

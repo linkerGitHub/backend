@@ -12,16 +12,6 @@
     font-size: 20px;
     vertical-align: middle;
   }
-  .app-logo-icon {
-    background: url(../../images/logo.png);
-    background-size: contain;
-    height: 26px;
-    width: 26px;
-    display: inline-block;
-    margin-right: 10px;
-    transition: .3s;
-    vertical-align: middle;
-  }
 }
 .h-layout-sider-collapsed {
   .app-logo-text {
@@ -33,7 +23,7 @@
 }
 </style>
 <template>
-  <div class="app-logo"><router-link to="/"><span class="app-logo-icon"></span><span class="app-logo-text">HEYUI ADMIN</span></router-link></div>
+  <div class="app-logo"><router-link to="/"><span class="app-logo-text">MeEdu Admin</span></router-link></div>
 </template>
 <script>
 export default {

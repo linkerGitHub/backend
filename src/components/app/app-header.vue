@@ -88,18 +88,10 @@
 
 <template>
   <div class="app-header">
-    <div style="width:50px;float:left;"><Button :icon="siderCollapsed ? 'icon-align-right':'icon-align-left'" size="l" noBorder class="font20" @click="siderCollapsed=!siderCollapsed"></Button></div>
+    <!-- <div style="width:50px;float:left;"><Button :icon="siderCollapsed ? 'icon-align-right':'icon-align-left'" size="l" noBorder class="font20" @click="siderCollapsed=!siderCollapsed"></Button></div> -->
     <div class="float-right app-header-info">
-      <AutoComplete :showDropdownWhenNoResult="false" v-model="searchText" config="globalSearch" placeholder="全局搜索.."></AutoComplete>
       <div class="app-header-icon-item" v-tooltip content="系统布局配置" theme="white" @click="showSettingModal">
         <i class="icon-content-left"></i>
-      </div>
-      <appHeaderMessage></appHeaderMessage>
-      <div class="app-header-icon-item" v-tooltip content="GitHub" theme="white" @click="goGithub">
-        <i class="h-icon-github"></i>
-      </div>
-      <div class="app-header-icon-item" v-tooltip content="教学文档" theme="white" @click="goBook">
-        <i class="h-icon-help"></i>
       </div>
       <DropdownMenu className="app-header-dropdown" trigger="hover" offset="0,5" :width="150" placement="bottom-end" :datas="infoMenu" @onclick="trigger">
         <Avatar :src="User.avatar" :width="30"><span>{{User.name}}</span></Avatar>
@@ -109,12 +101,8 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import appHeaderMessage from './modules/app-header-message';
 
 export default {
-  components: {
-    appHeaderMessage
-  },
   data() {
     return {
       searchText: '',
@@ -156,12 +144,6 @@ export default {
         window.removeEventListener('resize', resizeEvent);
       });
       window.dispatchEvent(new Event('resize'));
-    },
-    goGithub() {
-      window.open('https://github.com/heyui/heyui-admin');
-    },
-    goBook() {
-      window.open('https://heyui.github.io/heyui-admin-docs');
     },
     trigger(data) {
       if (data == 'logout') {

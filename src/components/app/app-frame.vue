@@ -52,11 +52,8 @@ export default {
     };
   },
   mounted() {
-    // 如果无后台数据，将此处屏蔽
     this.init();
-
-    // 如果无后台数据，将此处打开
-    // this.loading = false;
+    this.loading = false;
 
     const listener = G.addlistener('SYS_MENU_REFRESH', () => {
       this.initMenu();
@@ -67,27 +64,14 @@ export default {
   },
   methods: {
     init() {
-      this.$Loading('加载中');
       R.User.info().then(resp => {
         if (resp.ok) {
-          resp.body.avatar = require('../../images/avatar.png');
-          G.set('account', resp.body);
-          store.dispatch('updateAccount', resp.body);
-          this.initDict();
+          let info = resp.data;
+          info.avatar = require('../../images/avatar.png');
+          G.set('account', info);
+          store.dispatch('updateAccount', info);
           this.initMenu();
         }
-      });
-    },
-    initDict() {
-      R.Dict.get().then(resp => {
-        if (resp.ok) {
-          let dicts = resp.body;
-          for (let dict of dicts) {
-            HeyUI.addDict(dict.name, dict.data);
-          }
-        }
-        this.loading = false;
-        this.$Loading.close();
       });
     },
     updateLayoutConfig({ key, value }) {
@@ -104,9 +88,9 @@ export default {
       let menus = Utils.getLocal2Json('SYS_CONFIG_MENU') || fullMenuKeys;
       G.set('SYS_MENUS', menus);
       G.trigger('SYS_MENU_UPDATE');
-      if (!isAuthPage(this.$route.name)) {
-        this.$router.replace({ name: 'PermissionError' });
-      }
+      // if (!isAuthPage(this.$route.name)) {
+      //   this.$router.replace({ name: 'PermissionError' });
+      // }
     }
   },
   computed: {

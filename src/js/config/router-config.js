@@ -95,6 +95,25 @@ const initRouter = () => {
                     props: true
                 },
                 {
+                    path: '/ad_from',
+                    name: 'AdFrom',
+                    component: (resolve) => require(['components/ad_from/index'], resolve),
+                    meta: { title: '推广链接' }
+                },
+                {
+                    path: '/ad_from/create',
+                    name: 'AdFromCreate',
+                    component: (resolve) => require(['components/ad_from/create'], resolve),
+                    meta: { title: '添加推广链接' },
+                },
+                {
+                    path: '/ad_from/:id/edit',
+                    name: 'AdFromEdit',
+                    component: (resolve) => require(['components/ad_from/edit'], resolve),
+                    meta: { title: '编辑推广链接' },
+                    props: true
+                },
+                {
                     path: '*',
                     name: 'CommonNotfoundError',
                     component: (resolve) => require(['components/error-pages/404'], resolve),

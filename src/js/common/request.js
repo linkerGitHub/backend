@@ -62,6 +62,23 @@ const Request = {
             return Ajax.delete('/link/' + param.id, param);
         }
     },
+    AdFrom: {
+        List(param) {
+            return Ajax.get('/ad_from', param);
+        },
+        Create(param) {
+            return Ajax.postJson('/ad_from', param);
+        },
+        Edit(param) {
+            return Ajax.get('/ad_from/' + param.id);
+        },
+        Update(param) {
+            return Ajax.putJson('/ad_from/' + param.id, param);
+        },
+        Delete(param) {
+            return Ajax.delete('/ad_from/' + param.id, param);
+        }
+    },
 };
 
 export default Request;

@@ -32,7 +32,7 @@
         <Cell width="5" style="border-right: 1px solid rgb(238, 238, 238);">
           <Row>
             <Cell v-for="item in items" width="24" class="left-menu-item" :class="{ active: item.key === activeItem }">
-              <span @click="switchItem(item)">{{ item.name }}</span>
+              <span style="display: inline-block; width: 100%" @click="switchItem(item)">{{ item.name }}</span>
             </Cell>
           </Row>
         </Cell>

@@ -26,7 +26,10 @@
           </FormItem>
           <FormItem label="价格" prop="charge">
             <template v-slot:label>价格</template>
-            <input type="text" v-model="course.charge" />
+            <div class="h-input-group" v-width="200">
+              <input type="text" v-model="course.charge" />
+              <span class="h-input-addon">元</span>
+            </div>
           </FormItem>
           <FormItem label="简短介绍" prop="short_description">
             <template v-slot:label>简短介绍</template>
@@ -38,7 +41,7 @@
           </FormItem>
           <FormItem label="上架时间" prop="published_at">
             <template v-slot:label>上架时间</template>
-            <DatePicker v-model="course.published_at" type="datetime"></DatePicker>
+            <DatePicker v-model="course.published_at" v-width="200" type="datetime"></DatePicker>
           </FormItem>
           <FormItem label="是否显示" prop="is_show">
             <template v-slot:label>是否显示</template>

@@ -125,6 +125,26 @@ const Request = {
             return Ajax.delete('/course/' + param.id, param);
         }
     },
+    Video: {
+        List(param) {
+            return Ajax.get('/video', param);
+        },
+        CreateParams() {
+            return Ajax.get('/video/create/params');
+        },
+        Create(param) {
+            return Ajax.postJson('/video', param);
+        },
+        Edit(param) {
+            return Ajax.get('/video/' + param.id);
+        },
+        Update(param) {
+            return Ajax.putJson('/video/' + param.id, param);
+        },
+        Delete(param) {
+            return Ajax.delete('/video/' + param.id, param);
+        }
+    },
     CourseChapter: {
         List(param) {
             return Ajax.get('/course_chapter/' + param.course_id, param);

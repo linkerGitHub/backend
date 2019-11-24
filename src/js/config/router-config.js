@@ -143,12 +143,6 @@ const initRouter = () => {
                     meta: { title: '用户' }
                 },
                 {
-                    path: '*',
-                    name: 'CommonNotfoundError',
-                    component: (resolve) => require(['components/error-pages/404'], resolve),
-                    meta: { title: '页面找不到' }
-                },
-                {
                     path: '/course',
                     name: 'Course',
                     component: (resolve) => require(['components/course/index'], resolve),
@@ -165,6 +159,25 @@ const initRouter = () => {
                     name: 'CourseEdit',
                     component: (resolve) => require(['components/course/edit'], resolve),
                     meta: { title: '编辑课程' },
+                    props: true
+                },
+                {
+                    path: '/video',
+                    name: 'Video',
+                    component: (resolve) => require(['components/video/index'], resolve),
+                    meta: { title: '视频' }
+                },
+                {
+                    path: '/video/create',
+                    name: 'VideoCreate',
+                    component: (resolve) => require(['components/video/create'], resolve),
+                    meta: { title: '添加视频' },
+                },
+                {
+                    path: '/video/:id/edit',
+                    name: 'VideoEdit',
+                    component: (resolve) => require(['components/video/edit'], resolve),
+                    meta: { title: '编辑视频' },
                     props: true
                 },
                 {
@@ -185,6 +198,12 @@ const initRouter = () => {
                     component: (resolve) => require(['components/course_chapter/edit'], resolve),
                     meta: { title: '编辑课程章节' },
                     props: true
+                },
+                {
+                    path: '*',
+                    name: 'CommonNotfoundError',
+                    component: (resolve) => require(['components/error-pages/404'], resolve),
+                    meta: { title: '页面找不到' }
                 },
             ]
         }]

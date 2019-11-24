@@ -54,9 +54,9 @@ export default {
   },
   methods: {
     init() {
-        R.CourseChapter.Edit({course_id: this.course.id, id: this.chapter.id}).then(resp => {
-            this.chapter = resp.data;
-        });
+      R.CourseChapter.Edit({ course_id: this.course.id, id: this.chapter.id }).then(resp => {
+        this.chapter = resp.data;
+      });
     },
     back() {
       this.$router.push({ name: 'CourseChapter', params: { cid: this.course.id } });

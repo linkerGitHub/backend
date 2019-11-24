@@ -57,10 +57,10 @@ const fullMenus = [{
         icon: 'icon-video',
         children: [{
             title: '课程',
-            key: 'course'
+            key: 'Course'
         }, {
             title: '视频',
-            key: 'video'
+            key: 'Video'
         }]
     },
     {
@@ -69,19 +69,19 @@ const fullMenus = [{
         icon: 'icon-cog',
         children: [{
             title: '配置',
-            key: 'setting'
+            key: 'Setting'
         }, {
             title: '管理员',
-            key: 'administrator'
+            key: 'Administrator'
         }, {
             title: '角色',
-            key: 'administrator_roles'
+            key: 'AdministratorRole'
         }, {
             title: '权限',
-            key: 'administrator_permission'
+            key: 'AdministratorPermission'
         }, {
             title: '首页导航',
-            key: 'nav'
+            key: 'Nav'
         }]
     }
 ];

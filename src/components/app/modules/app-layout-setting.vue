@@ -48,10 +48,7 @@
           <FormItem label="开启多Tab">
             <h-switch small v-model="layoutConfig.showSystab"></h-switch>
           </FormItem>
-          <p class="dark-color font13" style="padding: 10px 15px;">开启多Tab后，在 app-frame 中打开 keep-alive 才能开启页面缓存</p>
         </Form>
-        <Button block @click="copySetting">复制配置</Button>
-        <p class="alert-warning">所有的配置都在 app-frame.vue 文件内，通过 layoutConfig 参数设置排版方式。</p>
       </div>
     </div>
   </div>

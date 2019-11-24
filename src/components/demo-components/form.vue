@@ -123,13 +123,12 @@
   </div>
 </template>
 <script>
-import FormModel from 'model/Form';
 import categoryList from './components/datas/data5';
 export default {
   data() {
     return {
       mode: 'single',
-      data: FormModel.parse({}),
+      data: {},
       dataParam: {
         1: '男',
         2: '女',
@@ -219,7 +218,7 @@ export default {
     resetData() {
       this.isLoading = false;
       this.$refs.form.resetValid();
-      this.data = FormModel.parse({});
+      this.data = {};
     },
     add() {
       this.data.inputs.push({ value: '' });

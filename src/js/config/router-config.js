@@ -147,7 +147,26 @@ const initRouter = () => {
                     name: 'CommonNotfoundError',
                     component: (resolve) => require(['components/error-pages/404'], resolve),
                     meta: { title: '页面找不到' }
-                }
+                },
+                {
+                    path: '/course',
+                    name: 'Course',
+                    component: (resolve) => require(['components/course/index'], resolve),
+                    meta: { title: '课程' }
+                },
+                {
+                    path: '/course/create',
+                    name: 'CourseCreate',
+                    component: (resolve) => require(['components/course/create'], resolve),
+                    meta: { title: '添加课程' },
+                },
+                {
+                    path: '/course/:id/edit',
+                    name: 'CourseEdit',
+                    component: (resolve) => require(['components/course/edit'], resolve),
+                    meta: { title: '编辑课程' },
+                    props: true
+                },
             ]
         }]
     };

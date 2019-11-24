@@ -108,6 +108,23 @@ const Request = {
             return Ajax.postJson('/member', param);
         },
     },
+    Course: {
+        List(param) {
+            return Ajax.get('/course', param);
+        },
+        Create(param) {
+            return Ajax.postJson('/course', param);
+        },
+        Edit(param) {
+            return Ajax.get('/course/' + param.id);
+        },
+        Update(param) {
+            return Ajax.putJson('/course/' + param.id, param);
+        },
+        Delete(param) {
+            return Ajax.delete('/course/' + param.id, param);
+        }
+    },
 };
 
 export default Request;

@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import demoComponents from './demo-components';
 import { isAuthPage } from 'js/config/menu-config';
 
 Vue.use(VueRouter);
@@ -198,6 +197,12 @@ const initRouter = () => {
                     component: (resolve) => require(['components/course_chapter/edit'], resolve),
                     meta: { title: '编辑课程章节' },
                     props: true
+                },
+                {
+                    path: '/setting',
+                    name: 'Setting',
+                    component: (resolve) => require(['components/setting/index'], resolve),
+                    meta: { title: '系统配置' }
                 },
                 {
                     path: '*',

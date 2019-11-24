@@ -162,6 +162,14 @@ const Request = {
             return Ajax.delete('/course_chapter/' + param.course_id + '/' + param.id);
         }
     },
+    Setting: {
+        Get() {
+            return Ajax.get('/setting');
+        },
+        Save(param) {
+            return Ajax.postJson('/setting', param);
+        }
+    }
 };
 
 export default Request;

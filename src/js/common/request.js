@@ -169,7 +169,24 @@ const Request = {
         Save(param) {
             return Ajax.postJson('/setting', param);
         }
-    }
+    },
+    Administrator: {
+        List(param) {
+            return Ajax.get('/administrator', param);
+        },
+        Create(param) {
+            return Ajax.postJson('/administrator', param);
+        },
+        Edit(param) {
+            return Ajax.get('/administrator/' + param.id);
+        },
+        Update(param) {
+            return Ajax.putJson('/administrator/' + param.id, param);
+        },
+        Delete(param) {
+            return Ajax.delete('/administrator/' + param.id, param);
+        }
+    },
 };
 
 export default Request;

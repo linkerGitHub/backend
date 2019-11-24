@@ -205,6 +205,25 @@ const initRouter = () => {
                     meta: { title: '系统配置' }
                 },
                 {
+                    path: '/administrator',
+                    name: 'Administrator',
+                    component: (resolve) => require(['components/administrator/index'], resolve),
+                    meta: { title: '管理员' }
+                },
+                {
+                    path: '/administrator/create',
+                    name: 'AdministratorCreate',
+                    component: (resolve) => require(['components/administrator/create'], resolve),
+                    meta: { title: '添加管理员' },
+                },
+                {
+                    path: '/administrator/:id/edit',
+                    name: 'AdministratorEdit',
+                    component: (resolve) => require(['components/administrator/edit'], resolve),
+                    meta: { title: '编辑管理员' },
+                    props: true
+                },
+                {
                     path: '*',
                     name: 'CommonNotfoundError',
                     component: (resolve) => require(['components/error-pages/404'], resolve),

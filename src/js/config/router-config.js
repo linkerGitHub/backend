@@ -224,6 +224,25 @@ const initRouter = () => {
                     props: true
                 },
                 {
+                    path: '/nav',
+                    name: 'Nav',
+                    component: (resolve) => require(['components/nav/index'], resolve),
+                    meta: { title: '首页导航' }
+                },
+                {
+                    path: '/nav/create',
+                    name: 'NavCreate',
+                    component: (resolve) => require(['components/nav/create'], resolve),
+                    meta: { title: '添加首页导航' },
+                },
+                {
+                    path: '/nav/:id/edit',
+                    name: 'NavEdit',
+                    component: (resolve) => require(['components/nav/edit'], resolve),
+                    meta: { title: '编辑首页导航' },
+                    props: true
+                },
+                {
                     path: '*',
                     name: 'CommonNotfoundError',
                     component: (resolve) => require(['components/error-pages/404'], resolve),

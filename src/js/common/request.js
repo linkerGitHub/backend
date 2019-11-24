@@ -187,6 +187,23 @@ const Request = {
             return Ajax.delete('/administrator/' + param.id, param);
         }
     },
+    Nav: {
+        List(param) {
+            return Ajax.get('/nav', param);
+        },
+        Create(param) {
+            return Ajax.postJson('/nav', param);
+        },
+        Edit(param) {
+            return Ajax.get('/nav/' + param.id);
+        },
+        Update(param) {
+            return Ajax.putJson('/nav/' + param.id, param);
+        },
+        Delete(param) {
+            return Ajax.delete('/nav/' + param.id, param);
+        }
+    },
 };
 
 export default Request;

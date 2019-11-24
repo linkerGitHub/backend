@@ -85,7 +85,7 @@ export default {
       this.$router.push({ name: 'CourseEdit', params: { id: item.id } });
     },
     goChapter(item) {
-      this.$router.push({ name: 'Chapter', params: { id: item.id } });
+      this.$router.push({ name: 'CourseChapter', params: { cid: item.id } });
     }
   }
 };

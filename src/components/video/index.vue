@@ -1,6 +1,16 @@
 <template>
   <div class="table-basic-vue frame-page h-panel">
     <div class="h-panel-bar"><span class="h-panel-title">全部视频</span></div>
+    <div class="h-panel-bar">
+      <Form :labelWidth="110">
+        <FormItem label="关键字搜索" prop="avatar">
+          <input type="text" v-model="pagination.keywords" placeholder="视频标题" />
+        </FormItem>
+        <FormItem>
+          <Button color="primary" @click="getData(true)">搜索</Button>
+        </FormItem>
+      </Form>
+    </div>
     <div class="h-panel-body">
       <p>
         <Button color="blue" icon="h-icon-plus" @click="create()">添加</Button>
@@ -38,7 +48,8 @@ export default {
       pagination: {
         page: 1,
         size: 20,
-        total: 0
+        total: 0,
+        keywords: '',
       },
       datas: [],
       loading: false

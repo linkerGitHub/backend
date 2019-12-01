@@ -243,6 +243,25 @@ const initRouter = () => {
                     props: true
                 },
                 {
+                    path: '/administrator_role',
+                    name: 'AdministratorRole',
+                    component: (resolve) => require(['components/administrator_role/index'], resolve),
+                    meta: { title: '角色' }
+                },
+                {
+                    path: '/administrator_role/create',
+                    name: 'AdministratorRoleCreate',
+                    component: (resolve) => require(['components/administrator_role/create'], resolve),
+                    meta: { title: '添加角色' },
+                },
+                {
+                    path: '/administrator_role/:id/edit',
+                    name: 'AdministratorRoleEdit',
+                    component: (resolve) => require(['components/administrator_role/edit'], resolve),
+                    meta: { title: '编辑角色' },
+                    props: true
+                },
+                {
                     path: '*',
                     name: 'CommonNotfoundError',
                     component: (resolve) => require(['components/error-pages/404'], resolve),

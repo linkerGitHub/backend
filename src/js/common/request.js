@@ -187,6 +187,23 @@ const Request = {
             return Ajax.delete('/administrator/' + param.id, param);
         }
     },
+    AdministratorRole: {
+        List(param) {
+            return Ajax.get('/administrator_role', param);
+        },
+        Create(param) {
+            return Ajax.postJson('/administrator_role', param);
+        },
+        Edit(param) {
+            return Ajax.get('/administrator_role/' + param.id);
+        },
+        Update(param) {
+            return Ajax.putJson('/administrator_role/' + param.id, param);
+        },
+        Delete(param) {
+            return Ajax.delete('/administrator_role/' + param.id, param);
+        }
+    },
     Nav: {
         List(param) {
             return Ajax.get('/nav', param);

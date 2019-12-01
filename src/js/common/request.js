@@ -1,6 +1,11 @@
 import Ajax from './ajax';
 
 const Request = {
+    Dashboard: {
+        index() {
+            return Ajax.get('/dashboard');
+        }
+    },
     User: {
         info() {
             return Ajax.get('/user');

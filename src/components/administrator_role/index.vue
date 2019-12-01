@@ -46,7 +46,7 @@ export default {
       this.getData(true);
     },
     changePage() {
-      this.getData(true);
+      this.getData();
     },
     getData(reload = false) {
       if (reload) {

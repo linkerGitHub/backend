@@ -15,6 +15,7 @@
               <button class="h-btn h-btn-s h-btn-red">删除</button>
             </Poptip>
             <button class="h-btn h-btn-s h-btn-primary" @click="edit(data)">编辑</button>
+            <button class="h-btn h-btn-s" @click="goNumber(data)">数据</button>
           </template>
         </TableItem>
       </Table>
@@ -70,6 +71,9 @@ export default {
     },
     edit(item) {
       this.$router.push({ name: 'AdFromEdit', params: { id: item.id } });
+    },
+    goNumber(item) {
+      this.$router.push({ name: 'AdFromNumber', params: { id: item.id } });
     }
   }
 };

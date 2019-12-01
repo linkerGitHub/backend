@@ -113,6 +113,13 @@ const initRouter = () => {
                     props: true
                 },
                 {
+                    path: '/ad_from/:id/number',
+                    name: 'AdFromNumber',
+                    component: (resolve) => require(['components/ad_from/statistics'], resolve),
+                    meta: { title: '推广链接数据' },
+                    props: true
+                },
+                {
                     path: '/course_comment',
                     name: 'CourseComment',
                     component: (resolve) => require(['components/course_comment/index'], resolve),

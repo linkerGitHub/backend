@@ -77,6 +77,9 @@ const Request = {
         Edit(param) {
             return Ajax.get('/ad_from/' + param.id);
         },
+        Number(param) {
+            return Ajax.get('/ad_from/' + param.id + '/number');
+        },
         Update(param) {
             return Ajax.putJson('/ad_from/' + param.id, param);
         },

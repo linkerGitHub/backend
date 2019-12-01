@@ -204,6 +204,23 @@ const Request = {
             return Ajax.delete('/administrator_role/' + param.id, param);
         }
     },
+    AdministratorPermission: {
+        List(param) {
+            return Ajax.get('/administrator_permission', param);
+        },
+        Create(param) {
+            return Ajax.postJson('/administrator_permission', param);
+        },
+        Edit(param) {
+            return Ajax.get('/administrator_permission/' + param.id);
+        },
+        Update(param) {
+            return Ajax.putJson('/administrator_permission/' + param.id, param);
+        },
+        Delete(param) {
+            return Ajax.delete('/administrator_permission/' + param.id, param);
+        }
+    },
     Nav: {
         List(param) {
             return Ajax.get('/nav', param);

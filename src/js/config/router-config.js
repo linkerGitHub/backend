@@ -262,6 +262,25 @@ const initRouter = () => {
                     props: true
                 },
                 {
+                    path: '/administrator_permission',
+                    name: 'AdministratorPermission',
+                    component: (resolve) => require(['components/administrator_permission/index'], resolve),
+                    meta: { title: '权限' }
+                },
+                {
+                    path: '/administrator_permission/create',
+                    name: 'AdministratorPermissionCreate',
+                    component: (resolve) => require(['components/administrator_permission/create'], resolve),
+                    meta: { title: '添加权限' },
+                },
+                {
+                    path: '/administrator_permission/:id/edit',
+                    name: 'AdministratorPermissionEdit',
+                    component: (resolve) => require(['components/administrator_permission/edit'], resolve),
+                    meta: { title: '编辑权限' },
+                    props: true
+                },
+                {
                     path: '*',
                     name: 'CommonNotfoundError',
                     component: (resolve) => require(['components/error-pages/404'], resolve),

@@ -2,6 +2,6 @@ export default new Model({
     display_name: '',
     slug: '',
     description: '',
-    method: '',
+    method: [],
     url: '',
 });

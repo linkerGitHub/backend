@@ -107,7 +107,7 @@ export default {
     return {
       searchText: '',
       infoMenu: [
-        { key: 'AdministratorPassword', title: '个人信息', icon: 'h-icon-user' },
+        { key: 'AdministratorPassword', title: '修改密码', icon: 'h-icon-user' },
         { key: 'logout', title: '退出登录', icon: 'h-icon-outbox' }
       ]
     };

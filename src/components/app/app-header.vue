@@ -107,7 +107,7 @@ export default {
     return {
       searchText: '',
       infoMenu: [
-        { key: 'info', title: '个人信息', icon: 'h-icon-user' },
+        { key: 'AdministratorPassword', title: '个人信息', icon: 'h-icon-user' },
         { key: 'logout', title: '退出登录', icon: 'h-icon-outbox' }
       ]
     };
@@ -150,7 +150,7 @@ export default {
         Utils.removeLocal('token');
         this.$router.replace({ name: 'Login' });
       } else {
-        this.$router.push({ name: 'AccountBasic' });
+        this.$router.push({ name: 'AdministratorPassword' });
       }
     },
     showSettingModal() {

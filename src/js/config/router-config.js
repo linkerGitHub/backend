@@ -205,6 +205,12 @@ const initRouter = () => {
                     meta: { title: '系统配置' }
                 },
                 {
+                    path: '/administrator/password',
+                    name: 'AdministratorPassword',
+                    component: (resolve) => require(['components/administrator/password'], resolve),
+                    meta: { title: '修改密码' }
+                },
+                {
                     path: '/administrator',
                     name: 'Administrator',
                     component: (resolve) => require(['components/administrator/index'], resolve),

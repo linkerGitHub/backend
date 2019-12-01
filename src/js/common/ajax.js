@@ -1,6 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 import Utils from './utils';
+import { type } from 'os';
 
 const DefaultParam = { repeatable: false };
 
@@ -118,11 +119,16 @@ let ajax = {
                     }
                     HeyUI.$Message.error('请求异常');
                 }
-                status = data.status;
-                if (status != 0) {
-                    HeyUI.$Message.error(data.message);
+                if (typeof data.code != 'undefined') {
+                    HeyUI.$Message.error(data.message || '服务器出错');
+                    return;
                 }
-                data.ok = data.status == 0;
+                status = data.status;
+                if (status !== 0) {
+                    HeyUI.$Message.error(data.message);
+                    return;
+                }
+                data.ok = true;
                 resolve(data);
             }).catch(() => {
                 that.deleteRequest(params.url);

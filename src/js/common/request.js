@@ -190,6 +190,9 @@ const Request = {
         },
         Delete(param) {
             return Ajax.delete('/administrator/' + param.id, param);
+        },
+        ChangePassword(param) {
+            return Ajax.putJson('/administrator/password', param);
         }
     },
     AdministratorRole: {

@@ -62,14 +62,14 @@
             <template v-slot:label>阿里云视频ID</template>
             <div class="h-input-group">
               <input type="text" v-model="video.aliyun_video_id" />
-              <Button color="yellow">点这里上传视频到阿里云获取ID</Button>
+              <Button @click="openAliyunWindow" color="yellow">点这里上传视频到阿里云获取ID</Button>
             </div>
           </FormItem>
           <FormItem label="腾讯云视频ID" prop="tencent_video_id" v-show="tab === '腾讯云'">
             <template v-slot:label>腾讯云视频ID</template>
             <div class="h-input-group">
               <input type="text" v-model="video.tencent_video_id" />
-              <Button color="primary">点这里上传视频到腾讯云获取ID</Button>
+              <Button @click="openTencentWindow" color="primary">点这里上传视频到腾讯云获取ID</Button>
             </div>
           </FormItem>
           <FormItem label="直链URL" prop="url" v-show="tab === '直链'">
@@ -172,6 +172,15 @@ export default {
       R.CourseChapter.List({ course_id: course.id }).then(resp => {
         this.chapters = resp.data.chapters;
       });
+    },
+    openAliyunWindow() {
+      window.open(this.getCurrentDomain() + '/backend/video/upload/aliyun?token=' + Utils.getLocal('token'));
+    },
+    openTencentWindow() {
+      window.open(this.getCurrentDomain() + '/backend/video/upload/tencent?token=' + Utils.getLocal('token'));
+    },
+    getCurrentDomain() {
+      return window.location.protocol + '//' + window.location.host;
     }
   }
 };

@@ -117,7 +117,7 @@
           <span class="placeholder" :class="{fixed: login.password != '' && login.password != null}">密码</span>
         </div>
         <div class="buttonDiv">
-          <Button :loading="loading" block color="primary" size="l" @click="submit">登录</Button>
+          <Button block color="primary" size="l" @click="submit">登录</Button>
         </div>
       </div>
       <p class="copyright"> Copyright © 2019 小滕 - <a href="https://github.com/Qsnh/meedu">MeEdu</a></p>
@@ -143,7 +143,7 @@ export default {
       R.Login.login(Login.dispose(this.login)).then(resp => {
         if (resp.ok) {
           Utils.saveLocal('token', resp.data.token);
-          window.location = '/';
+          this.$router.push({ name: 'Home' });
         }
         this.loading = false;
       });

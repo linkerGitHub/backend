@@ -6,7 +6,7 @@ module.exports = {
     stat: false,
     webpack: {
         console: true,
-        publicPath: '/',
+        publicPath: '/admin/',
         output: {
             './index.html': {
                 entry: './src/app'
@@ -30,7 +30,7 @@ module.exports = {
             proxy: {
                 // 此处应该配置为开发服务器的后台地址
                 '/backend': {
-                    target: 'http://127.0.0.1:8000/'
+                    target: 'http://127.0.0.1:8000'
                 }
             },
             historyApiFallback: true
@@ -38,5 +38,5 @@ module.exports = {
         globalVars: './src/css/var.less',
         externals: {}
     },
-    copy: ['static/images/*', 'call/*', './baidu_verify_7O2vpVMzwg.html']
+    copy: ['static/images/*', 'call/*']
 };

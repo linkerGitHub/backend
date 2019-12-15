@@ -6,7 +6,6 @@ Vue.use(VueRouter);
 
 const initRouter = () => {
     const routerParam = {
-        mode: 'history',
         routes: [{
             path: '/login',
             name: 'Login',
@@ -307,6 +306,10 @@ const initRouter = () => {
     let isFirstRouter = true;
 
     router.beforeEach((to, from, next) => {
+        if (to.name !== 'Login' && !Utils.getLocal('token')) {
+            next({ name: 'Login' });
+            return;
+        }
         if (!isFirstRouter && !isAuthPage(to.name)) {
             next({ name: 'PermissionError' });
             return;

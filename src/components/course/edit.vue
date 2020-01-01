@@ -26,11 +26,11 @@
           </FormItem>
           <FormItem label="简短介绍" prop="short_description">
             <template v-slot:label>简短介绍</template>
-            <tinymce-editor v-model="course.original_desc"></tinymce-editor>
+            <textarea v-model="course.short_description"></textarea>
           </FormItem>
           <FormItem label="详细介绍" prop="description">
             <template v-slot:label>详细介绍</template>
-            <div ref="editor"></div>
+            <tinymce-editor v-model="course.original_desc"></tinymce-editor>
           </FormItem>
           <FormItem label="上架时间" prop="published_at">
             <template v-slot:label>上架时间</template>

@@ -26,7 +26,7 @@
           </FormItem>
           <FormItem label="简短介绍" prop="short_description">
             <template v-slot:label>简短介绍</template>
-            <input type="text" v-model="course.short_description" />
+            <textarea v-model="course.short_description"></textarea>
           </FormItem>
           <FormItem label="详细介绍" prop="description">
             <template v-slot:label>详细介绍</template>

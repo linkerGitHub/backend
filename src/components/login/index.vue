@@ -120,7 +120,7 @@
           <Button block color="primary" size="l" @click="submit">登录</Button>
         </div>
       </div>
-      <p class="copyright"> Copyright © 2019 小滕 - <a href="https://github.com/Qsnh/meedu">MeEdu</a></p>
+      <p class="copyright"> Copyright © 2019 - <a href="https://github.com/Qsnh/meedu">MeEdu</a></p>
     </div>
   </div>
 </template>

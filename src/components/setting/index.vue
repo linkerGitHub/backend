@@ -2,11 +2,9 @@
 .body {
   border: 1px solid rgb(238, 238, 238);
 }
+.mt-2 {margin-top: 2px;}
 .left-menu-item {
   border-bottom: 1px solid rgb(238, 238, 238);
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 10px;
   cursor: pointer;
   font-size: 1rem;
   &.active {
@@ -16,6 +14,12 @@
   }
   &:hover {
     background-color: rgb(245, 245, 245);
+  }
+  span {
+    display: inline-block;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 10px;
   }
 }
 .pt-15 {
@@ -103,9 +107,33 @@
               </FormItem>
             </Form>
           </div>
+
+          <div class="pt-15" v-show="tabSeleted.socialLogin === 'weixin'">
+            <Form ref="form" :labelWidth="150">
+              <FormItem>
+                <template v-slot:label>开启</template>
+                <h-switch v-model="setting.meedu.member.socialite.weixinweb.enabled" :trueValue="1" :falseValue="-1"></h-switch>
+              </FormItem>
+              <FormItem>
+                <template v-slot:label>微信 ClientId</template>
+                <input type="text" v-model="setting.services.weixinweb.client_id" />
+              </FormItem>
+              <FormItem>
+                <template v-slot:label>微信 ClientSecret</template>
+                <input type="text" v-model="setting.services.weixinweb.client_secret" />
+              </FormItem>
+              <FormItem>
+                <template v-slot:label>微信 Redirect</template>
+                <input type="text" v-model="setting.services.weixinweb.redirect" />
+              </FormItem>
+            </Form>
+          </div>
         </Cell>
 
         <Cell width="19" class="pt-15" v-if="activeItem === 'mail'">
+          <p>
+            <span class="h-tag h-tag-yellow" style="margin-left: 50px">邮箱配置用的是阿里云的邮件服务。</span>
+          </p>
           <Form ref="form" :labelWidth="150">
             <FormItem>
               <template v-slot:label>AccessKeyId</template>
@@ -168,6 +196,10 @@
                 <template v-slot:label>手机号绑定ID</template>
                 <input type="text" v-model="setting.sms.gateways.aliyun.template.mobile_bind" />
               </FormItem>
+              <FormItem>
+                <template v-slot:label>手机号登陆ID</template>
+                <input type="text" v-model="setting.sms.gateways.aliyun.template.login" />
+              </FormItem>
             </Form>
           </div>
           <div class="pt-15" v-show="tabSeleted.sms === 'yunpian'">
@@ -188,6 +220,10 @@
                 <template v-slot:label>手机号绑定ID</template>
                 <input type="text" v-model="setting.sms.gateways.yunpian.template.mobile_bind" />
               </FormItem>
+              <FormItem>
+                <template v-slot:label>手机号登陆ID</template>
+                <input type="text" v-model="setting.sms.gateways.yunpian.template.login" />
+              </FormItem>
             </Form>
           </div>
         </Cell>
@@ -196,7 +232,7 @@
           <Form ref="form" :labelWidth="150">
             <FormItem>
               <template v-slot:label>图片存储驱动</template>
-              <input type="text" v-model="setting.meedu.upload.image.disk" />
+              <Select v-model="setting.meedu.upload.image.disk" :datas="disks"></Select>
             </FormItem>
             <FormItem>
               <template v-slot:label>图片存储路径</template>
@@ -205,7 +241,52 @@
             <FormItem>
               <template v-slot:label>图片参数（用于第三方存储）</template>
               <input type="text" v-model="setting.meedu.upload.image.params" />
+              <span class="h-tag h-tag-yellow mt-2">不清楚具体功能请勿填写。</span>
             </FormItem>
+
+            <template v-if="setting.meedu.upload.image.disk == 'qiniu'">
+              <FormItem>
+                <template v-slot:label>七牛访问域名</template>
+                <input type="text" v-model="setting.filesystems.disks.qiniu.domains.default" />
+              </FormItem>
+              <FormItem>
+                <template v-slot:label>七牛访问域名(https)</template>
+                <input type="text" v-model="setting.filesystems.disks.qiniu.domains.https" />
+              </FormItem>
+              <FormItem>
+                <template v-slot:label>七牛AccessKey</template>
+                <input type="text" v-model="setting.filesystems.disks.qiniu.access_key" />
+              </FormItem>
+              <FormItem>
+                <template v-slot:label>七牛SecretKey</template>
+                <input type="text" v-model="setting.filesystems.disks.qiniu.secret_key" />
+              </FormItem>
+              <FormItem>
+                <template v-slot:label>七牛Bucket</template>
+                <input type="text" v-model="setting.filesystems.disks.qiniu.bucket" />
+              </FormItem>
+            </template>
+
+            <template v-if="setting.meedu.upload.image.disk == 'oss'">
+              <FormItem>
+                <template v-slot:label>阿里云OSS AccessKeyId</template>
+                <input type="text" v-model="setting.filesystems.disks.oss.access_id" />
+              </FormItem>
+              <FormItem>
+                <template v-slot:label>阿里云OSS AccessKeySecret</template>
+                <input type="text" v-model="setting.filesystems.disks.oss.access_key" />
+              </FormItem>
+               <FormItem>
+                <template v-slot:label>阿里云OSS Bucket</template>
+                <input type="text" v-model="setting.filesystems.disks.oss.bucket" />
+              </FormItem>
+               <FormItem>
+                <template v-slot:label>阿里云OSS Endpoint</template>
+                <input type="text" v-model="setting.filesystems.disks.oss.endpoint" />
+              </FormItem>
+            </template>
+        
+
           </Form>
         </Cell>
 
@@ -269,28 +350,15 @@
             </Form>
           </div>
 
-          <div class="pt-15" v-show="tabSeleted.pay === 'eshanghu'">
+          <div class="pt-15" v-show="tabSeleted.pay === 'handPay'">
             <Form ref="form" :labelWidth="150">
               <FormItem>
                 <template v-slot:label>开启</template>
-                <h-switch v-model="setting.meedu.payment.eshanghu.enabled" :trueValue="1" :falseValue="-1"></h-switch>
+                <h-switch v-model="setting.meedu.payment.handPay.enabled" :trueValue="1" :falseValue="-1"></h-switch>
               </FormItem>
               <FormItem>
-                <template v-slot:label>AppKey</template>
-                <input type="text" v-model="setting.eshanghu.app_key" />
-              </FormItem>
-              <FormItem>
-                <template v-slot:label>AppSecret</template>
-                <input type="text" v-model="setting.eshanghu.app_secret" />
-              </FormItem>
-              <FormItem>
-                <template v-slot:label>商户Id</template>
-                <input type="text" v-model="setting.eshanghu.sub_mch_id" />
-              </FormItem>
-              <FormItem>
-                <template v-slot:label>回调地址</template>
-                <input type="text" v-model="setting.eshanghu.notify" />
-                <p>Note:修改域名就可以了</p>
+                <template v-slot:label>手动打款说明</template>
+                <tinymce-editor v-model="setting.meedu.payment.handPay.introduction"></tinymce-editor>
               </FormItem>
             </Form>
           </div>
@@ -427,8 +495,9 @@
 </template>
 <script>
 import AvatarCropper from 'vue-avatar-cropper';
+import TinymceEditor from '../common/tinymce';
 export default {
-  components: { AvatarCropper },
+  components: { AvatarCropper,TinymceEditor },
   data() {
     return {
       loading: false,
@@ -482,7 +551,8 @@ export default {
       tab: {
         socialLogin: {
           github: 'Github',
-          qq: 'QQ'
+          qq: 'QQ',
+          weixin: '微信'
         },
         sms: {
           service: '服务商',
@@ -492,7 +562,7 @@ export default {
         pay: {
           alipay: '支付宝',
           wechat: '微信支付',
-          eshanghu: '易商户'
+          handPay: '手动打款'
         },
         video: {
           aliyun: '阿里云视频',
@@ -520,6 +590,20 @@ export default {
           title: '云片短信',
           key: 'yunpian'
         }
+      ],
+      disks:[
+        {
+          title: '本地',
+          key: 'public'
+        },
+        {
+          title: '七牛云',
+          key: 'qiniu'
+        },
+        {
+          title: '阿里云OSS',
+          key: 'oss'
+        },
       ]
     };
   },

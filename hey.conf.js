@@ -1,4 +1,5 @@
 const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     port: 9012,
@@ -36,7 +37,12 @@ module.exports = {
             historyApiFallback: true
         },
         globalVars: './src/css/var.less',
-        externals: {}
+        externals: {},
+        plugins: [
+            new CopyPlugin([
+                { from: './tinymce/zh_CN.js', to: './dist/tinymce/zh_CN.js' },
+            ]),
+        ]
     },
     copy: ['static/images/*', 'call/*']
 };

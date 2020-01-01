@@ -37,7 +37,7 @@
           </FormItem>
           <FormItem label="详细介绍" prop="description">
             <template v-slot:label>详细介绍</template>
-            <div ref="editor"></div>
+            <tinymce-editor v-model="course.original_desc"></tinymce-editor>
           </FormItem>
           <FormItem label="上架时间" prop="published_at">
             <template v-slot:label>上架时间</template>
@@ -65,14 +65,13 @@
   </div>
 </template>
 <script>
-import WangEditor from 'wangeditor';
-import '../../css/richtext-editor.less';
 import AvatarCropper from 'vue-avatar-cropper';
+import TinymceEditor from '../common/tinymce';
 
 import Course from 'model/Course';
 
 export default {
-  components: { AvatarCropper },
+  components: { AvatarCropper, TinymceEditor },
   data() {
     return {
       course: Course.parse({}),
@@ -90,18 +89,6 @@ export default {
   methods: {
     init() {
       this.course.is_show = 0;
-
-      var editor = new WangEditor(this.$refs.editor);
-      editor.customConfig.onchange = html => {
-        this.course.description = html;
-      };
-      editor.customConfig.uploadImgServer = '/backend/api/v1/upload/image';
-      editor.customConfig.uploadImgMaxLength = 1;
-      editor.customConfig.uploadFileName = 'file';
-      editor.customConfig.uploadImgHeaders = {
-        Authorization: 'Bearer ' + Utils.getLocal('token')
-      };
-      editor.create();
     },
     back() {
       this.$router.push({ name: 'Course' });
@@ -109,6 +96,7 @@ export default {
     create() {
       let validResult = this.$refs.form.valid();
       if (validResult.result) {
+        this.course.render_desc = this.course.original_desc;
         R.Course.Create(this.course).then(resp => {
           HeyUI.$Message.success('添加成功');
           this.$router.push({ name: 'Course' });

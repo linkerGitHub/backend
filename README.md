@@ -5,7 +5,7 @@
 下载到本地：
 
 ```
-https://github.com/Meedu/backend.git
+git clone https://github.com/Meedu/backend.git
 ```
 
 安装依赖：

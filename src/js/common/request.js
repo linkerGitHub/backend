@@ -107,6 +107,9 @@ const Request = {
         List(param) {
             return Ajax.get('/order', param);
         },
+        Finish(param) {
+            return Ajax.get('/order/' + param.id + '/finish', param);
+        },
     },
     Member: {
         List(param) {

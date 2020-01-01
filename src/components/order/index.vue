@@ -35,6 +35,13 @@
             </ul>
           </template>
         </TableItem>
+        <TableItem title="操作" align="center" :width="80">
+          <template slot-scope="{ data }">
+            <Poptip content="确认完成该订单？" @confirm="finishOrder(datas, data)" v-if="data.status === 1 || data.status === 5">
+              <button class="h-btn h-btn-s h-btn-primary">完成该订单</button>
+            </Poptip>
+          </template>
+        </TableItem>
       </Table>
       <p></p>
       <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
@@ -95,6 +102,12 @@ export default {
         this.pagination.page = resp.data.current_page;
         this.pagination.size = resp.data.per_page;
         this.loading = false;
+      });
+    },
+    finishOrder(orders, order) {
+      R.Order.Finish(order).then(resp => {
+        HeyUI.$Message.success('成功');
+        this.getData(false);
       });
     }
   }

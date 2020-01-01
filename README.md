@@ -5,12 +5,13 @@
 下载到本地：
 
 ```
-git clone https://github.com/Meedu/backend.git
+git clone https://github.com/Meedu/backend.git meedu-backend
 ```
 
 安装依赖：
 
 ```
+cd meedu-backend
 npm install
 ```
 

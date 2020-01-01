@@ -28,15 +28,10 @@
   </div>
 </template>
 <script>
-import WangEditor from 'wangeditor';
-import '../../css/richtext-editor.less';
-import AvatarCropper from 'vue-avatar-cropper';
-
 import Course from 'model/Course';
 import Chapter from 'model/CourseChapter';
 
 export default {
-  components: { AvatarCropper },
   data() {
     return {
       course: Course.parse({}),

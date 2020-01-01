@@ -410,14 +410,7 @@
             </FormItem>
             <FormItem>
               <template v-slot:label>默认头像</template>
-              <Avatar :src="setting.meedu.member.default_avatar" noInfo></Avatar>
-              <button id="pick-avatar">选择头像</button>
-              <avatar-cropper
-                @uploaded="handleUploaded"
-                trigger="#pick-avatar"
-                :upload-headers="uploadHeaders"
-                upload-url="/backend/api/v1/upload/image"
-              />
+              <avatar-upload v-model="setting.meedu.member.default_avatar" name="选择头像"></avatar-upload>
             </FormItem>
           </Form>
         </Cell>
@@ -494,17 +487,15 @@
   </div>
 </template>
 <script>
-import AvatarCropper from 'vue-avatar-cropper';
 import TinymceEditor from '../common/tinymce';
+import AvatarUpload from '../common/avatar';
+
 export default {
-  components: { AvatarCropper,TinymceEditor },
+  components: { AvatarUpload,TinymceEditor },
   data() {
     return {
       loading: false,
       activeItem: 'system',
-      uploadHeaders: {
-        Authorization: 'Bearer ' + Utils.getLocal('token')
-      },
       items: [
         {
           name: '系统配置',
@@ -620,9 +611,6 @@ export default {
     },
     switchItem(item) {
       this.activeItem = item.key;
-    },
-    handleUploaded(resp) {
-      this.setting.meedu.member.default_avatar = resp.data[0];
     },
     save() {
         R.Setting.Save(this.setting).then(resp => {

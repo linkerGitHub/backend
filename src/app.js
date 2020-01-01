@@ -9,6 +9,7 @@ import routerConfig from 'js/config/router-config';
 import store from 'js/vuex/store';
 import 'js/vue/components';
 import 'js/vue/filters';
+import ImageUpload from './components/common/image';
 
 require('./css/app.less');
 
@@ -20,6 +21,8 @@ require('./css/app.less');
 
 heyuiConfig();
 Vue.use(HeyUI);
+
+Vue.component('ImageUpload', ImageUpload)
 
 const router = routerConfig();
 

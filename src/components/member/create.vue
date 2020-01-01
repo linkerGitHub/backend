@@ -11,14 +11,7 @@
         <Form v-width="400" ref="form" :validOnChange="true" :showErrorTip="true" :labelWidth="110" :rules="rules" :model="user">
           <FormItem label="头像" prop="avatar">
             <template v-slot:label>头像</template>
-            <Avatar type="male" :src="user.avatar" v-if="user.avatar" noInfo></Avatar>
-            <button id="pick-avatar">选择头像</button>
-            <avatar-cropper
-              @uploaded="handleUploaded"
-              trigger="#pick-avatar"
-              :upload-headers="uploadHeaders"
-              upload-url="/backend/api/v1/upload/image"
-            />
+            <avatar-upload v-model="user.avatar" name="选择头像"></avatar-upload>
           </FormItem>
           <FormItem label="昵称" prop="nick_name">
             <template v-slot:label>昵称</template>
@@ -42,18 +35,15 @@
 </template>
 <script>
 import User from 'model/User';
-import AvatarCropper from 'vue-avatar-cropper';
+import AvatarUpload from '../common/avatar';
 
 export default {
-  components: { AvatarCropper },
+  components: { AvatarUpload },
   data() {
     return {
       user: User.parse({}),
       rules: {
         required: ['avatar', 'password', 'mobile', 'nick_name']
-      },
-      uploadHeaders: {
-        Authorization: 'Bearer ' + Utils.getLocal('token')
       }
     };
   },
@@ -73,9 +63,6 @@ export default {
           this.$router.push({ name: 'Member' });
         });
       }
-    },
-    handleUploaded(resp) {
-      this.user.avatar = resp.data[0];
     }
   }
 };

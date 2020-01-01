@@ -11,14 +11,7 @@
         <Form ref="form" :validOnChange="true" :showErrorTip="true" :labelWidth="110" :rules="rules" :model="course">
           <FormItem label="课程封面" prop="thumb">
             <template v-slot:label>课程封面</template>
-            <Avatar type="male" :src="course.thumb" v-if="course.thumb" noInfo></Avatar>
-            <button id="pick-avatar">课程封面</button>
-            <avatar-cropper
-              @uploaded="handleUploaded"
-              trigger="#pick-avatar"
-              :upload-headers="uploadHeaders"
-              upload-url="/backend/api/v1/upload/image"
-            />
+            <image-upload v-model="course.thumb" name="课程封面"></image-upload>
           </FormItem>
           <FormItem label="课程名" prop="title">
             <template v-slot:label>课程名</template>
@@ -65,20 +58,16 @@
   </div>
 </template>
 <script>
-import AvatarCropper from 'vue-avatar-cropper';
 import TinymceEditor from '../common/tinymce';
 
 import Course from 'model/Course';
 
 export default {
   props: ['id'],
-  components: { AvatarCropper,TinymceEditor },
+  components: { TinymceEditor },
   data() {
     return {
       course: Course.parse({}),
-      uploadHeaders: {
-        Authorization: 'Bearer ' + Utils.getLocal('token')
-      },
       rules: {
         required: ['thumb', 'title', 'charge', 'short_description', 'published_at', 'is_show', 'seo_description', 'seo_keywords']
       }
@@ -105,9 +94,6 @@ export default {
           this.$router.push({ name: 'Course' });
         });
       }
-    },
-    handleUploaded(resp) {
-      this.course.thumb = resp.data[0];
     }
   }
 };

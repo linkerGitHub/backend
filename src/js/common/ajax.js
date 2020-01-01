@@ -108,23 +108,18 @@ let ajax = {
                 that.deleteRequest(params.url);
                 let data = response.data;
                 let status = response.status;
-                // 如果后端统一封装返回，即所有的请求都是200, 错误码由返回结果提供，则使用以下代码获取状态
-                // if (status == 200) {
-                //     status = data.status;
-                // }
                 if (status != 200) {
-                    if (status == 401) {
-                        window.top.location = '/login';
-                        return;
-                    }
+                    // http请求错误
                     HeyUI.$Message.error('请求异常');
-                }
-                if (typeof data.code != 'undefined') {
-                    HeyUI.$Message.error(data.message || '服务器出错');
                     return;
                 }
                 status = data.status;
                 if (status !== 0) {
+                    if (status === 401) {
+                        HeyUI.$Message.warn('请重新登录');
+                        window.top.location = window.location.protocol + '//' + window.location.host + '#/login';
+                        return;
+                    }
                     HeyUI.$Message.error(data.message);
                     return;
                 }

@@ -4,7 +4,11 @@
     <div class="h-panel-body">
       <Table :loading="loading" :datas="datas">
         <TableItem prop="id" title="ID"></TableItem>
-        <TableItem prop="content" title="内容"></TableItem>
+        <TableItem title="内容">
+          <template slot-scope="{ data }">
+            <p v-html="data.render_content"></p>
+          </template>
+        </TableItem>
         <TableItem prop="created_at" title="时间"></TableItem>
         <TableItem title="操作" align="center" :width="80">
           <template slot-scope="{ data }">

@@ -21,6 +21,7 @@ export default {
       config: {
         height: '400px',
         language: 'zh_CN',
+        convert_urls: false,
         language_url: window.location.protocol + '//' + window.location.host + window.location.pathname + '/dist/tinymce/zh_CN.js',
         automatic_uploads: true,
         images_upload_handler: (blobInfo, success, failure) => {

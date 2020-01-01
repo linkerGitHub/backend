@@ -21,7 +21,7 @@ export default {
       config: {
         height: '400px',
         language: 'zh_CN',
-        language_url: '/tinymce/zh_CN.js',
+        language_url: './dist/tinymce/zh_CN.js',
         automatic_uploads: true,
         images_upload_handler: (blobInfo, success, failure) => {
           // 图片异步上传处理函数

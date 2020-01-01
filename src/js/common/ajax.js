@@ -117,7 +117,7 @@ let ajax = {
                 if (status !== 0) {
                     if (status === 401) {
                         HeyUI.$Message.warn('请重新登录');
-                        window.top.location = window.location.protocol + '//' + window.location.host + '#/login';
+                        window.top.location = window.location.protocol + '//' + window.location.host + window.location.pathname + '#/login';
                         return;
                     }
                     HeyUI.$Message.error(data.message);

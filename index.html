@@ -17,10 +17,19 @@
       <strong>We're sorry but admin doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     </div>
-
-    <script src="aliyun-upload-sdk-1.4.0/lib/es6-promise.min.js"></script>
-    <script src="aliyun-upload-sdk-1.4.0/lib/aliyun-oss-sdk-5.2.0.min.js"></script>
-    <script src="aliyun-upload-sdk-1.4.0/aliyun-upload-sdk-1.4.0.min.js"></script>
+    <script>
+        var domain = window.location.protocol + '//' + window.location.host + window.location.pathname;
+        var urls = [
+            '/dist/aliyun-upload-sdk-1.4.0/lib/es6-promise.min.js',
+            '/dist/aliyun-upload-sdk-1.4.0/lib/aliyun-oss-sdk-5.2.0.min.js',
+            '/dist/aliyun-upload-sdk-1.4.0/aliyun-upload-sdk-1.4.0.min.js',
+        ];
+        for (var i = 0; i < urls.length; i++) {
+            var e = document.createElement('script');
+            e.setAttribute('src', domain + urls[i])
+            document.body.appendChild(e);
+        }
+    </script>
 </body>
 
 </html>

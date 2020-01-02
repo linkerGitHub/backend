@@ -1,13 +1,15 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 
+const pp = '/admin/';
+
 module.exports = {
     port: 9012,
     root: 'dist',
     stat: false,
     webpack: {
         console: true,
-        publicPath: '/admin/',
+        publicPath: pp,
         output: {
             './index.html': {
                 entry: './src/app'
@@ -43,8 +45,8 @@ module.exports = {
                 { from: './tinymce/zh_CN.js', to: './dist/tinymce/zh_CN.js' },
             ]),
             new CopyPlugin([
-                { from: './aliyun-upload-sdk-1.4.0', to: './dist/aliyun-upload-sdk-1.4.0' },
-            ]),
+                { from: './aliyun-upload-sdk-1.4.0/', to: './dist/aliyun-upload-sdk-1.4.0/' },
+            ])
         ]
     },
     copy: ['static/images/*', 'call/*']

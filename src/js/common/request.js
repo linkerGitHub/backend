@@ -252,6 +252,17 @@ const Request = {
             return Ajax.delete('/nav/' + param.id, param);
         }
     },
+    VideoUpload: {
+        AliyunAuthTokenRefresh(param) {
+            return Ajax.postJson('/video/token/aliyun/refresh', param);
+        },
+        AliyunAuthTokenCreate(param) {
+            return Ajax.postJson('/video/token/aliyun/create', param);
+        },
+        TencentAuthToken(param) {
+            return Ajax.postJson('/video/token/tencent', param);
+        }
+    }
 };
 
 export default Request;

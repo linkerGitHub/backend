@@ -387,6 +387,10 @@
           <div class="pt-15" v-show="tabSeleted.video === 'tencent'">
             <Form ref="form" :labelWidth="150">
               <FormItem>
+                <template v-slot:label>AppId</template>
+                <input type="text" v-model="setting.tencent.vod.app_id" />
+              </FormItem>
+              <FormItem>
                 <template v-slot:label>SecretId</template>
                 <input type="text" v-model="setting.tencent.vod.secret_id" />
               </FormItem>

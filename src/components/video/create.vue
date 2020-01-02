@@ -60,17 +60,11 @@
 
           <FormItem label="阿里云视频ID" prop="aliyun_video_id" v-show="tab === '阿里云'">
             <template v-slot:label>阿里云视频ID</template>
-            <div class="h-input-group">
-              <input type="text" v-model="video.aliyun_video_id" />
-              <Button @click="openAliyunWindow" color="yellow">点这里上传视频到阿里云获取ID</Button>
-            </div>
+            <aliyun-video v-model="video.aliyun_video_id"></aliyun-video>
           </FormItem>
           <FormItem label="腾讯云视频ID" prop="tencent_video_id" v-show="tab === '腾讯云'">
             <template v-slot:label>腾讯云视频ID</template>
-            <div class="h-input-group">
-              <input type="text" v-model="video.tencent_video_id" />
-              <Button @click="openTencentWindow" color="primary">点这里上传视频到腾讯云获取ID</Button>
-            </div>
+            <tencent-video v-model="video.tencent_video_id"></tencent-video>
           </FormItem>
           <FormItem label="直链URL" prop="url" v-show="tab === '直链'">
             <template v-slot:label>直链URL</template>
@@ -95,12 +89,16 @@
 </template>
 <script>
 import TinymceEditor from '../common/tinymce';
+import AliyunVideo from '../common/video/aliyun/aliyun';
+import TencentVideo from '../common/video/tencent/tencent';
 
 import Video from 'model/Video';
 
 export default {
   components: {
-    TinymceEditor
+    TinymceEditor,
+    AliyunVideo,
+    TencentVideo
   },
   data() {
     return {
@@ -143,15 +141,6 @@ export default {
       R.CourseChapter.List({ course_id: course.id }).then(resp => {
         this.chapters = resp.data.chapters;
       });
-    },
-    openAliyunWindow() {
-      window.open(this.getCurrentDomain() + '/backend/video/upload/aliyun?token=' + Utils.getLocal('token'));
-    },
-    openTencentWindow() {
-      window.open(this.getCurrentDomain() + '/backend/video/upload/tencent?token=' + Utils.getLocal('token'));
-    },
-    getCurrentDomain() {
-      return window.location.protocol + '//' + window.location.host;
     }
   }
 };

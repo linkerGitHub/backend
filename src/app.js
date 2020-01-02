@@ -23,6 +23,15 @@ heyuiConfig();
 Vue.use(HeyUI);
 
 Vue.component('ImageUpload', ImageUpload)
+Vue.component('RemoteJs', {
+    render(createElement) {
+        return createElement('script', { attrs: { type: 'text/javascript', src: this.src } });
+    },
+    props: {
+        src: { type: String, required: true }
+    }
+})
+
 
 const router = routerConfig();
 

@@ -68,21 +68,23 @@ const fullMenus = [{
         key: 'system',
         icon: 'icon-cog',
         children: [{
-            title: '配置',
-            key: 'Setting'
-        }, {
-            title: '管理员',
-            key: 'Administrator'
-        }, {
-            title: '角色',
-            key: 'AdministratorRole'
-        }, {
-            title: '权限',
-            key: 'AdministratorPermission'
-        }, {
-            title: '首页导航',
-            key: 'Nav'
-        }]
+                title: '配置',
+                key: 'Setting'
+            }, {
+                title: '管理员',
+                key: 'Administrator'
+            },
+            // {
+            //     title: '角色',
+            //     key: 'AdministratorRole'
+            // }, {
+            //     title: '权限',
+            //     key: 'AdministratorPermission'
+            // }, {
+            //     title: '首页导航',
+            //     key: 'Nav'
+            // }
+        ]
     }
 ];
 

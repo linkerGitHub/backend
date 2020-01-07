@@ -43,6 +43,22 @@
         <Cell width="19" class="pt-15" v-if="activeItem === 'system'">
           <Form ref="form" :labelWidth="150">
             <FormItem>
+              <template v-slot:label>DEBUG模式</template>
+              <h-switch v-model="setting.app.debug"></h-switch>
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>网站地址</template>
+              <input type="text" v-model="setting.app.url" />
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>网站Logo</template>
+              <image-upload v-model="setting.meedu.system.logo" name="网站Logo"></image-upload>
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>网站备案信息</template>
+              <input type="text" v-model="setting.meedu.system.icp" />
+            </FormItem>
+            <FormItem>
               <template v-slot:label>开启缓存</template>
               <h-switch v-model="setting.meedu.system.cache.status" :trueValue="1" :falseValue="-1"></h-switch>
             </FormItem>

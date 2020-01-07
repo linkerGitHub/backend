@@ -11,6 +11,7 @@ git clone https://github.com/Meedu/backend.git meedu-backend
 安装依赖：
 
 ```
+npm install -g hey-cli
 cd meedu-backend
 npm install
 ```
@@ -18,7 +19,7 @@ npm install
 打包：
 
 ```
-npm run build 
+hey build
 ```
 
 打包完成之后将会在目录下面看到 `dist` 文件夹，接下来将该文件夹复制到 `meedu` 项目的 `public` 目录下面，重命名为：`admin`。然后就可以在浏览器输入：

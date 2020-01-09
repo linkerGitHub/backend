@@ -255,6 +255,18 @@ const initRouter = () => {
                     props: true
                 },
                 {
+                    path: '/promoCode',
+                    name: 'PromoCode',
+                    component: (resolve) => require(['components/promoCode/index'], resolve),
+                    meta: { title: '优惠码' }
+                },
+                {
+                    path: '/promoCode/create',
+                    name: 'PromoCodeCreate',
+                    component: (resolve) => require(['components/promoCode/create'], resolve),
+                    meta: { title: '添加优惠码' },
+                },
+                {
                     path: '/administrator_role',
                     name: 'AdministratorRole',
                     component: (resolve) => require(['components/administrator_role/index'], resolve),

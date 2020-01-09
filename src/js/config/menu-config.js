@@ -40,6 +40,9 @@ const fullMenus = [{
         children: [{
             title: '订单列表',
             key: 'Order'
+        }, {
+            title: '优惠码',
+            key: 'PromoCode'
         }]
     },
     {

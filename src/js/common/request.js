@@ -252,6 +252,23 @@ const Request = {
             return Ajax.delete('/nav/' + param.id, param);
         }
     },
+    PromoCode: {
+        List(param) {
+            return Ajax.get('/promoCode', param);
+        },
+        Create(param) {
+            return Ajax.postJson('/promoCode', param);
+        },
+        Edit(param) {
+            return Ajax.get('/promoCode/' + param.id);
+        },
+        Update(param) {
+            return Ajax.putJson('/promoCode/' + param.id, param);
+        },
+        Delete(param) {
+            return Ajax.delete('/promoCode/' + param.id, param);
+        }
+    },
     VideoUpload: {
         AliyunAuthTokenRefresh(param) {
             return Ajax.postJson('/video/token/aliyun/refresh', param);

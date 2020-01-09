@@ -74,16 +74,17 @@ const fullMenus = [{
                 title: '管理员',
                 key: 'Administrator'
             },
+            {
+                title: '首页导航',
+                key: 'Nav'
+            },
             // {
             //     title: '角色',
             //     key: 'AdministratorRole'
             // }, {
             //     title: '权限',
             //     key: 'AdministratorPermission'
-            // }, {
-            //     title: '首页导航',
-            //     key: 'Nav'
-            // }
+            // }, 
         ]
     }
 ];

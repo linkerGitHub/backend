@@ -2,7 +2,9 @@
 .body {
   border: 1px solid rgb(238, 238, 238);
 }
-.mt-2 {margin-top: 2px;}
+.mt-2 {
+  margin-top: 2px;
+}
 .left-menu-item {
   border-bottom: 1px solid rgb(238, 238, 238);
   cursor: pointer;
@@ -292,17 +294,15 @@
                 <template v-slot:label>阿里云OSS AccessKeySecret</template>
                 <input type="text" v-model="setting.filesystems.disks.oss.access_key" />
               </FormItem>
-               <FormItem>
+              <FormItem>
                 <template v-slot:label>阿里云OSS Bucket</template>
                 <input type="text" v-model="setting.filesystems.disks.oss.bucket" />
               </FormItem>
-               <FormItem>
+              <FormItem>
                 <template v-slot:label>阿里云OSS Endpoint</template>
                 <input type="text" v-model="setting.filesystems.disks.oss.endpoint" />
               </FormItem>
             </template>
-        
-
           </Form>
         </Cell>
 
@@ -502,6 +502,48 @@
             </FormItem>
           </Form>
         </Cell>
+
+        <Cell width="19" class="pt-15" v-if="activeItem === 'invite'">
+          <Form :labelWidth="150">
+            <FormItem>
+              <template v-slot:label>免费会员是否可以生成邀请码</template>
+              <h-switch v-model="setting.meedu.member.invite.free_user_enabled" :trueValue="1" :falseValue="-1"></h-switch>
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>邀请人奖励</template>
+              <div class="h-input-group" v-width="200">
+                <input type="text" v-model="setting.meedu.member.invite.invite_user_reward" />
+                <span class="h-input-addon">元</span>
+              </div>
+            </FormItem>
+
+            <FormItem>
+              <template v-slot:label>被邀请人奖励</template>
+              <div class="h-input-group" v-width="200">
+                <input type="text" v-model="setting.meedu.member.invite.invited_user_reward" />
+                <span class="h-input-addon">元</span>
+              </div>
+            </FormItem>
+
+            <FormItem>
+              <template v-slot:label>邀请关系维系时间</template>
+              <div class="h-input-group" v-width="200">
+                <input type="text" v-model="setting.meedu.member.invite.effective_days" />
+                <span class="h-input-addon">天</span>
+              </div>
+            </FormItem>
+
+            <FormItem>
+              <template v-slot:label>邀请余额是否可以支付</template>
+              <h-switch v-model="setting.meedu.member.invite.invite_balance_can_pay" :trueValue="1" :falseValue="-1"></h-switch>
+            </FormItem>
+
+            <FormItem>
+              <template v-slot:label>订单抽成</template>
+              <input type="text" v-model="setting.meedu.member.invite.per_order_draw" />
+            </FormItem>
+          </Form>
+        </Cell>
       </Row>
     </div>
   </div>
@@ -511,7 +553,7 @@ import TinymceEditor from '../common/tinymce';
 import AvatarUpload from '../common/avatar';
 
 export default {
-  components: { AvatarUpload,TinymceEditor },
+  components: { AvatarUpload, TinymceEditor },
   data() {
     return {
       loading: false,
@@ -556,6 +598,10 @@ export default {
         {
           name: '其它配置',
           key: 'other'
+        },
+        {
+          name: '邀请配置',
+          key: 'invite'
         }
       ],
       setting: {},
@@ -602,7 +648,7 @@ export default {
           key: 'yunpian'
         }
       ],
-      disks:[
+      disks: [
         {
           title: '本地',
           key: 'public'
@@ -614,7 +660,7 @@ export default {
         {
           title: '阿里云OSS',
           key: 'oss'
-        },
+        }
       ]
     };
   },
@@ -633,10 +679,10 @@ export default {
       this.activeItem = item.key;
     },
     save() {
-        R.Setting.Save(this.setting).then(resp => {
-            HeyUI.$Message.success('成功');
-            this.init();
-        })
+      R.Setting.Save(this.setting).then(resp => {
+        HeyUI.$Message.success('成功');
+        this.init();
+      });
     }
   }
 };

@@ -4,6 +4,9 @@ const Request = {
     Dashboard: {
         index() {
             return Ajax.get('/dashboard');
+        },
+        systemInfo() {
+            return Ajax.get('/dashboard/system/info');
         }
     },
     User: {

@@ -305,6 +305,13 @@ const initRouter = () => {
                     props: true
                 },
                 {
+                    path: '/addons',
+                    name: 'Addons',
+                    component: (resolve) => require(['components/addons/index'], resolve),
+                    meta: { title: '插件' },
+                    props: true
+                },
+                {
                     path: '*',
                     name: 'CommonNotfoundError',
                     component: (resolve) => require(['components/error-pages/404'], resolve),

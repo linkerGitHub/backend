@@ -81,6 +81,10 @@ const fullMenus = [{
                 title: '首页导航',
                 key: 'Nav'
             },
+            {
+                title: '插件',
+                key: 'Addons'
+            },
             // {
             //     title: '角色',
             //     key: 'AdministratorRole'

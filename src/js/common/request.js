@@ -9,6 +9,11 @@ const Request = {
             return Ajax.get('/dashboard/system/info');
         }
     },
+    Addons: {
+        index() {
+            return Ajax.get('/addons');
+        }
+    },
     User: {
         info() {
             return Ajax.get('/user');

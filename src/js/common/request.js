@@ -41,6 +41,23 @@ const Request = {
             return Ajax.delete('/announcement/' + param.id, param);
         }
     },
+    CourseCategory: {
+        List(param) {
+            return Ajax.get('/courseCategory', param);
+        },
+        Create(param) {
+            return Ajax.postJson('/courseCategory', param);
+        },
+        Edit(param) {
+            return Ajax.get('/courseCategory/' + param.id);
+        },
+        Update(param) {
+            return Ajax.putJson('/courseCategory/' + param.id, param);
+        },
+        Delete(param) {
+            return Ajax.delete('/courseCategory/' + param.id, param);
+        }
+    },
     Role: {
         List(param) {
             return Ajax.get('/role', param);

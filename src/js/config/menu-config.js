@@ -59,6 +59,9 @@ const fullMenus = [{
         key: 'videomanage',
         icon: 'icon-video',
         children: [{
+            title: '分类',
+            key: 'CourseCategory'
+        }, {
             title: '课程',
             key: 'Course'
         }, {

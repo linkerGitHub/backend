@@ -9,6 +9,10 @@
         </p>
 
         <Form ref="form" :validOnChange="true" :showErrorTip="true" :labelWidth="110" :rules="rules" :model="course">
+          <FormItem label="分类" prop="category_id">
+            <template v-slot:label>分类</template>
+            <Select v-model="course.category_id" :datas="courseCategories" keyName="id" titleName="name"></Select>
+          </FormItem>
           <FormItem label="课程封面" prop="thumb">
             <template v-slot:label>课程封面</template>
             <image-upload v-model="course.thumb" name="课程封面"></image-upload>
@@ -68,14 +72,21 @@ export default {
     return {
       course: Course.parse({}),
       rules: {
-        required: ['thumb', 'title', 'charge', 'short_description', 'published_at', 'is_show', 'seo_description', 'seo_keywords']
-      }
+        required: ['category_id', 'thumb', 'title', 'charge', 'short_description', 'published_at', 'is_show', 'seo_description', 'seo_keywords']
+      },
+      courseCategories: []
     };
   },
   mounted() {
     this.init();
+    this.getCourseCategories();
   },
   methods: {
+    getCourseCategories() {
+      R.CourseCategory.List({ page: 1, page_size: 1000 }).then(resp => {
+        this.courseCategories = resp.data.data;
+      });
+    },
     init() {
       this.course.is_show = 0;
     },

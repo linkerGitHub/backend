@@ -1,4 +1,5 @@
 export default new Model({
+    category_id: 0,
     title: '',
     thumb: '',
     charge: 0,

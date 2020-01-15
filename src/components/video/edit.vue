@@ -8,7 +8,7 @@
           <Button color="blue" icon="icon-arrow-left" @click="back()">返回列表</Button>
         </p>
 
-        <Form ref="form" :validOnChange="true" :showErrorTip="true" :labelWidth="110" :rules="rules" :model="video">
+        <Form ref="form" mode="block" :validOnChange="true" :showErrorTip="true" :labelWidth="110" :rules="rules" :model="video">
           <FormItem label="所属课程" prop="course_id">
             <template v-slot:label>所属课程</template>
             <Select v-model="video.course_id" :datas="courses" keyName="id" titleName="title" :filterable="true" @change="selectCourse"></Select>

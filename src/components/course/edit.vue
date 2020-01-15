@@ -8,7 +8,7 @@
           <Button color="blue" icon="icon-arrow-left" @click="back()">返回列表</Button>
         </p>
 
-        <Form ref="form" :validOnChange="true" :showErrorTip="true" :labelWidth="110" :rules="rules" :model="course">
+        <Form ref="form" mode="block" :validOnChange="true" :showErrorTip="true" :labelWidth="110" :rules="rules" :model="course">
           <FormItem label="分类" prop="category_id">
             <template v-slot:label>分类</template>
             <Select v-model="course.category_id" :datas="courseCategories" keyName="id" titleName="name"></Select>

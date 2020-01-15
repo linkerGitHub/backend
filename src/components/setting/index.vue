@@ -45,12 +45,17 @@
         <Cell width="19" class="pt-15" v-if="activeItem === 'system'">
           <Form ref="form" :labelWidth="150">
             <FormItem>
-              <template v-slot:label>DEBUG模式</template>
-              <h-switch v-model="setting.app.debug"></h-switch>
+              <template v-slot:label>网站名</template>
+              <input type="text" v-model="setting.app.name" />
             </FormItem>
             <FormItem>
               <template v-slot:label>网站地址</template>
               <input type="text" v-model="setting.app.url" />
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>DEBUG模式</template>
+              <h-switch v-model="setting.app.debug"></h-switch>
+              <p>请慎重开启</p>
             </FormItem>
             <FormItem>
               <template v-slot:label>网站Logo</template>
@@ -61,6 +66,19 @@
               <input type="text" v-model="setting.meedu.system.icp" />
             </FormItem>
             <FormItem>
+              <template v-slot:label>自动备份</template>
+              <h-switch v-model="setting.meedu.system.backup" :trueValue="1" :falseValue="-1"></h-switch>
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>网站统计js</template>
+              <input type="text" v-model="setting.meedu.system.js" />
+            </FormItem>
+          </Form>
+        </Cell>
+
+        <Cell width="19" class="pt-15" v-if="activeItem === 'cache'">
+          <Form ref="form" :labelWidth="150">
+            <FormItem>
               <template v-slot:label>开启缓存</template>
               <h-switch v-model="setting.meedu.system.cache.status" :trueValue="1" :falseValue="-1"></h-switch>
             </FormItem>
@@ -70,14 +88,6 @@
                 <input type="text" v-model="setting.meedu.system.cache.expire" />
                 <span class="h-input-addon">分钟</span>
               </div>
-            </FormItem>
-            <FormItem>
-              <template v-slot:label>备份</template>
-              <h-switch v-model="setting.meedu.system.backup" :trueValue="1" :falseValue="-1"></h-switch>
-            </FormItem>
-            <FormItem>
-              <template v-slot:label>网站统计js</template>
-              <input type="text" v-model="setting.meedu.system.js" />
             </FormItem>
           </Form>
         </Cell>
@@ -562,6 +572,10 @@ export default {
         {
           name: '系统配置',
           key: 'system'
+        },
+        {
+          name: '缓存配置',
+          key: 'cache'
         },
         {
           name: '社交登录',

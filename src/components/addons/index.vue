@@ -8,7 +8,7 @@
         <TableItem prop="version" title="当前版本"></TableItem>
         <TableItem title="操作" align="center" :width="80">
           <template slot-scope="{ data }">
-              <a v-if="typeof data.index_url !== 'undefined'" :href="data.index_url">配置</a>
+              <a v-if="typeof data.index_url !== 'undefined'" :href="data.index_url + '?token=' + token">配置</a>
           </template>
         </TableItem>
       </Table>
@@ -20,7 +20,8 @@ export default {
   data() {
     return {
       datas: [],
-      loading: false
+      loading: false,
+      token: ''
     };
   },
   mounted() {
@@ -28,6 +29,7 @@ export default {
   },
   methods: {
     init() {
+      this.token = Utils.getLocal('token');
       this.getData();
     },
     getData() {

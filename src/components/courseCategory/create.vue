@@ -8,7 +8,7 @@
           <Button color="blue" icon="icon-arrow-left" @click="back()">返回列表</Button>
         </p>
 
-        <Form v-width="400" ref="form" :validOnChange="true" :showErrorTip="true" :labelWidth="110" :rules="rules" :model="category">
+        <Form v-width="400" mode="block" ref="form" :validOnChange="true" :showErrorTip="true" :labelWidth="110" :rules="rules" :model="category">
           <FormItem label="升序" prop="sort">
             <template v-slot:label>升序</template>
             <Slider v-model="category.sort" :range="{ start: 1, end: 2000 }"></Slider>

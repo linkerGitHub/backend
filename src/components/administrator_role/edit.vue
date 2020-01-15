@@ -8,7 +8,7 @@
           <Button color="blue" icon="icon-arrow-left" @click="back()">返回列表</Button>
         </p>
 
-        <Form v-width="400" ref="form" :validOnChange="true" :showErrorTip="true" :labelWidth="110" :rules="rules" :model="role">
+        <Form v-width="400" mode="block" ref="form" :validOnChange="true" :showErrorTip="true" :labelWidth="110" :rules="rules" :model="role">
           <FormItem label="角色名" prop="display_name">
             <template v-slot:label>角色名</template>
             <input type="text" v-model="role.display_name" />

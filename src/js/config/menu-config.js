@@ -43,6 +43,9 @@ const fullMenus = [{
         }, {
             title: '优惠码',
             key: 'PromoCode'
+        }, {
+            title: "邀请余额提现",
+            key: 'InviteBalanceWithdrawOrders'
         }]
     },
     {

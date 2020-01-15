@@ -148,6 +148,12 @@ const initRouter = () => {
                     meta: { title: '用户' }
                 },
                 {
+                    path: '/member/InviteBalanceWithdrawOrders',
+                    name: 'InviteBalanceWithdrawOrders',
+                    component: (resolve) => require(['components/member/inviteBalanceWithdrawOrders'], resolve),
+                    meta: { title: '邀请余额提现' }
+                },
+                {
                     path: '/course',
                     name: 'Course',
                     component: (resolve) => require(['components/course/index'], resolve),

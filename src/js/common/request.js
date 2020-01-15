@@ -143,6 +143,12 @@ const Request = {
         Create(param) {
             return Ajax.postJson('/member', param);
         },
+        InviteBalanceWithdrawOrders(param) {
+            return Ajax.get('/member/inviteBalance/withdrawOrders', param);
+        },
+        CreateInviteBalanceWithdrawOrder(param) {
+            return Ajax.postJson('/member/inviteBalance/withdrawOrders', param);
+        }
     },
     Course: {
         List(param) {

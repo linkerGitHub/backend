@@ -43,7 +43,7 @@
           </Row>
         </Cell>
         <Cell width="19" class="pt-15" v-if="activeItem === 'system'">
-          <Form ref="form" :labelWidth="150">
+          <Form :labelWidth="150">
             <FormItem>
               <template v-slot:label>网站名</template>
               <input type="text" v-model="setting.app.name" />
@@ -64,10 +64,6 @@
             <FormItem>
               <template v-slot:label>网站备案信息</template>
               <input type="text" v-model="setting.meedu.system.icp" />
-            </FormItem>
-            <FormItem>
-              <template v-slot:label>自动备份</template>
-              <h-switch v-model="setting.meedu.system.backup" :trueValue="1" :falseValue="-1"></h-switch>
             </FormItem>
             <FormItem>
               <template v-slot:label>网站统计js</template>
@@ -503,12 +499,16 @@
         <Cell width="19" class="pt-15" v-if="activeItem === 'other'">
           <Form ref="form" :labelWidth="150">
             <FormItem>
-              <template v-slot:label>课程列表页展示课程条数</template>
+              <template v-slot:label>课程列表页每页数</template>
               <input type="text" v-model="setting.meedu.other.course_list_page_size" />
             </FormItem>
             <FormItem>
-              <template v-slot:label>视频列表页面展示视频条数</template>
+              <template v-slot:label>视频列表页每页数</template>
               <input type="text" v-model="setting.meedu.other.video_list_page_size" />
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>自动备份</template>
+              <h-switch v-model="setting.meedu.system.backup" :trueValue="1" :falseValue="-1"></h-switch>
             </FormItem>
           </Form>
         </Cell>
@@ -570,7 +570,7 @@ export default {
       activeItem: 'system',
       items: [
         {
-          name: '系统配置',
+          name: '网站配置',
           key: 'system'
         },
         {
@@ -610,15 +610,28 @@ export default {
           key: 'seo'
         },
         {
+          name: '邀请配置',
+          key: 'invite'
+        },
+        {
           name: '其它配置',
           key: 'other'
         },
-        {
-          name: '邀请配置',
-          key: 'invite'
-        }
       ],
-      setting: {},
+      setting: {
+        app: {
+          name: '',
+          url: '',
+          debug: false
+        },
+        meedu: {
+          system: {
+            logo: '',
+            js: '',
+            icp: ''
+          }
+        }
+      },
       tab: {
         socialLogin: {
           github: 'Github',

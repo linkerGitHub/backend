@@ -28,6 +28,12 @@
   padding-top: 15px;
   padding-right: 15px;
 }
+.ml-20 {margin-left: 20px;}
+.mr-20 {margin-right: 20px;}
+.my-20 {margin-left: 20px; margin-right: 20px;}
+.mx-20 {margin-top: 20px; margin-bottom: 20px;}
+.m-20 {margin: 20px;}
+.p-20 {padding: 20px;}
 </style>
 <template>
   <div class="table-basic-vue frame-page h-panel">
@@ -42,8 +48,8 @@
             </Cell>
           </Row>
         </Cell>
-        <Cell width="20" class="pt-15" v-if="activeItem === 'system'">
-          <Form :labelWidth="150">
+        <Cell width="20" v-show="activeItem === 'system'">
+          <Form mode="block" class="p-20">
             <FormItem label="网站名">
               <input type="text" v-model="setting.app.name" />
             </FormItem>
@@ -71,8 +77,8 @@
           </Form>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-if="activeItem === 'cache'">
-          <Form ref="form" :labelWidth="150">
+        <Cell width="19" class="pt-15" v-show="activeItem === 'cache'">
+          <Form mode="block" class="p-20">
             <FormItem>
               <template v-slot:label>开启缓存</template>
               <h-switch v-model="setting.meedu.system.cache.status" :trueValue="1" :falseValue="-1"></h-switch>
@@ -87,11 +93,11 @@
           </Form>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-if="activeItem === 'sociallogin'">
+        <Cell width="19" class="pt-15" v-show="activeItem === 'sociallogin'">
           <Tabs :datas="tab.socialLogin" v-model="tabSeleted.socialLogin"></Tabs>
 
           <div class="pt-15" v-show="tabSeleted.socialLogin === 'github'">
-            <Form ref="form" :labelWidth="150">
+            <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>开启</template>
                 <h-switch v-model="setting.meedu.member.socialite.github.enabled" :trueValue="1" :falseValue="-1"></h-switch>
@@ -111,7 +117,7 @@
             </Form>
           </div>
           <div class="pt-15" v-show="tabSeleted.socialLogin === 'qq'">
-            <Form ref="form" :labelWidth="150">
+            <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>开启</template>
                 <h-switch v-model="setting.meedu.member.socialite.qq.enabled" :trueValue="1" :falseValue="-1"></h-switch>
@@ -132,7 +138,7 @@
           </div>
 
           <div class="pt-15" v-show="tabSeleted.socialLogin === 'weixin'">
-            <Form ref="form" :labelWidth="150">
+            <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>开启</template>
                 <h-switch v-model="setting.meedu.member.socialite.weixinweb.enabled" :trueValue="1" :falseValue="-1"></h-switch>
@@ -153,11 +159,8 @@
           </div>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-if="activeItem === 'mail'">
-          <p>
-            <span class="h-tag h-tag-yellow" style="margin-left: 50px">邮箱配置用的是阿里云的邮件服务。</span>
-          </p>
-          <Form ref="form" :labelWidth="150">
+        <Cell width="19" class="pt-15" v-show="activeItem === 'mail'">
+          <Form mode="block" class="p-20">
             <FormItem>
               <template v-slot:label>AccessKeyId</template>
               <input type="text" v-model="setting.services.directmail.app_key" />
@@ -181,11 +184,11 @@
           </Form>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-if="activeItem === 'sms'">
+        <Cell width="19" class="pt-15" v-show="activeItem === 'sms'">
           <Tabs :datas="tab.sms" v-model="tabSeleted.sms"></Tabs>
 
           <div class="pt-15" v-show="tabSeleted.sms === 'service'">
-            <Form ref="form" :labelWidth="150">
+            <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>选择短信服务商</template>
                 <Select v-model="setting.meedu.system.sms" :datas="smsServices"></Select>
@@ -194,7 +197,7 @@
           </div>
 
           <div class="pt-15" v-show="tabSeleted.sms === 'aliyun'">
-            <Form ref="form" :labelWidth="150">
+            <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>AccessKeyId</template>
                 <input type="text" v-model="setting.sms.gateways.aliyun.access_key_id" />
@@ -226,7 +229,7 @@
             </Form>
           </div>
           <div class="pt-15" v-show="tabSeleted.sms === 'yunpian'">
-            <Form ref="form" :labelWidth="150">
+            <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>ApiKey</template>
                 <input type="text" v-model="setting.sms.gateways.yunpian.api_key" />
@@ -251,8 +254,8 @@
           </div>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-if="activeItem === 'image'">
-          <Form ref="form" :labelWidth="150">
+        <Cell width="19" class="pt-15" v-show="activeItem === 'image'">
+          <Form mode="block" class="p-20">
             <FormItem>
               <template v-slot:label>图片存储驱动</template>
               <Select v-model="setting.meedu.upload.image.disk" :datas="disks"></Select>
@@ -307,11 +310,11 @@
           </Form>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-if="activeItem === 'pay'">
+        <Cell width="19" class="pt-15" v-show="activeItem === 'pay'">
           <Tabs :datas="tab.pay" v-model="tabSeleted.pay"></Tabs>
 
           <div class="pt-15" v-show="tabSeleted.pay === 'alipay'">
-            <Form ref="form" :labelWidth="150">
+            <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>开启</template>
                 <h-switch v-model="setting.meedu.payment.alipay.enabled" :trueValue="1" :falseValue="-1"></h-switch>
@@ -342,7 +345,7 @@
           </div>
 
           <div class="pt-15" v-show="tabSeleted.pay === 'wechat'">
-            <Form ref="form" :labelWidth="150">
+            <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>开启</template>
                 <h-switch v-model="setting.meedu.payment.wechat.enabled" :trueValue="1" :falseValue="-1"></h-switch>
@@ -368,7 +371,7 @@
           </div>
 
           <div class="pt-15" v-show="tabSeleted.pay === 'handPay'">
-            <Form ref="form" :labelWidth="150">
+            <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>开启</template>
                 <h-switch v-model="setting.meedu.payment.handPay.enabled" :trueValue="1" :falseValue="-1"></h-switch>
@@ -381,11 +384,11 @@
           </div>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-if="activeItem === 'video'">
+        <Cell width="19" class="pt-15" v-show="activeItem === 'video'">
           <Tabs :datas="tab.video" v-model="tabSeleted.video"></Tabs>
 
           <div class="pt-15" v-show="tabSeleted.video === 'aliyun'">
-            <Form ref="form" :labelWidth="150">
+            <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>Region</template>
                 <input type="text" v-model="setting.meedu.upload.video.aliyun.region" />
@@ -402,7 +405,7 @@
           </div>
 
           <div class="pt-15" v-show="tabSeleted.video === 'tencent'">
-            <Form ref="form" :labelWidth="150">
+            <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>AppId</template>
                 <input type="text" v-model="setting.tencent.vod.app_id" />
@@ -419,8 +422,8 @@
           </div>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-if="activeItem === 'member'">
-          <Form ref="form" :labelWidth="150">
+        <Cell width="19" class="pt-15" v-show="activeItem === 'member'">
+          <Form mode="block" class="p-20">
             <FormItem>
               <template v-slot:label>会员注册默认激活</template>
               <h-switch v-model="setting.meedu.member.is_active_default" :trueValue="1" :falseValue="-1"></h-switch>
@@ -436,11 +439,11 @@
           </Form>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-if="activeItem === 'seo'">
+        <Cell width="19" class="pt-15" v-show="activeItem === 'seo'">
           <Tabs :datas="tab.seo" v-model="tabSeleted.seo"></Tabs>
 
           <div class="pt-15" v-show="tabSeleted.seo === 'indexPage'">
-            <Form ref="form" :labelWidth="150">
+            <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>首页标题</template>
                 <textarea v-model="setting.meedu.seo.index.title"></textarea>
@@ -457,7 +460,7 @@
           </div>
 
           <div class="pt-15" v-show="tabSeleted.seo === 'coursePage'">
-            <Form ref="form" :labelWidth="150">
+            <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>课程列表页标题</template>
                 <textarea v-model="setting.meedu.seo.course_list.title"></textarea>
@@ -474,7 +477,7 @@
           </div>
 
           <div class="pt-15" v-show="tabSeleted.seo === 'rolePage'">
-            <Form ref="form" :labelWidth="150">
+            <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>订阅页标题</template>
                 <textarea v-model="setting.meedu.seo.role_list.title"></textarea>
@@ -491,8 +494,8 @@
           </div>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-if="activeItem === 'other'">
-          <Form ref="form" :labelWidth="150">
+        <Cell width="19" class="pt-15" v-show="activeItem === 'other'">
+          <Form mode="block" class="p-20">
             <FormItem>
               <template v-slot:label>课程列表页每页数</template>
               <input type="text" v-model="setting.meedu.other.course_list_page_size" />
@@ -508,8 +511,8 @@
           </Form>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-if="activeItem === 'invite'">
-          <Form :labelWidth="150">
+        <Cell width="19" class="pt-15" v-show="activeItem === 'invite'">
+          <Form mode="block" class="p-20">
             <FormItem>
               <template v-slot:label>免费会员是否可以生成邀请码</template>
               <h-switch v-model="setting.meedu.member.invite.free_user_enabled" :trueValue="1" :falseValue="-1"></h-switch>

@@ -24,16 +24,6 @@
     padding-left: 10px;
   }
 }
-.pt-15 {
-  padding-top: 15px;
-  padding-right: 15px;
-}
-.ml-20 {margin-left: 20px;}
-.mr-20 {margin-right: 20px;}
-.my-20 {margin-left: 20px; margin-right: 20px;}
-.mx-20 {margin-top: 20px; margin-bottom: 20px;}
-.m-20 {margin: 20px;}
-.p-20 {padding: 20px;}
 </style>
 <template>
   <div class="table-basic-vue frame-page h-panel">
@@ -82,6 +72,7 @@
             <FormItem>
               <template v-slot:label>开启缓存</template>
               <h-switch v-model="setting.meedu.system.cache.status" :trueValue="1" :falseValue="-1"></h-switch>
+              <warn text="开启可以明显加快网站速度"></warn>
             </FormItem>
             <FormItem>
               <template v-slot:label>缓存时间</template>

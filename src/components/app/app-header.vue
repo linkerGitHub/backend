@@ -8,13 +8,15 @@
     margin-top: 15px;
     margin-right: 20px;
     width: 120px;
-    &-show,&-show:hover, &-show.focusing {
+    &-show,
+    &-show:hover,
+    &-show.focusing {
       outline: none;
       box-shadow: none;
       border-color: transparent;
       border-radius: 0;
     }
-    &-show.focusing{
+    &-show.focusing {
       border-bottom: 1px solid #eee;
     }
   }
@@ -44,7 +46,7 @@
     float: left;
   }
 
-  &-dropdown{
+  &-dropdown {
     float: right;
     margin-left: 10px;
     padding: 0 20px 0 15px;
@@ -52,7 +54,8 @@
       right: 20px;
     }
     cursor: pointer;
-    &:hover, &.h-pop-trigger {
+    &:hover,
+    &.h-pop-trigger {
       background: @hover-background-color;
     }
     &-dropdown {
@@ -63,21 +66,21 @@
     }
   }
 
-  &-menus{
+  &-menus {
     display: inline-block;
     vertical-align: top;
-    >div {
+    > div {
       display: inline-block;
       font-size: 15px;
       padding: 0 25px;
       color: @dark-color;
-      &:hover{
+      &:hover {
         color: @primary-color;
       }
-      +div {
+      + div {
         margin-left: 5px;
       }
-      &.h-tab-selected{
+      &.h-tab-selected {
         color: @white-color;
         background-color: @primary-color;
       }
@@ -90,11 +93,19 @@
   <div class="app-header">
     <!-- <div style="width:50px;float:left;"><Button :icon="siderCollapsed ? 'icon-align-right':'icon-align-left'" size="l" noBorder class="font20" @click="siderCollapsed=!siderCollapsed"></Button></div> -->
     <div class="float-right app-header-info">
-      <div class="app-header-icon-item" v-tooltip content="系统布局配置" theme="white" @click="showSettingModal">
+      <!-- <div class="app-header-icon-item" v-tooltip content="系统布局配置" theme="white" @click="showSettingModal">
         <i class="icon-content-left"></i>
-      </div>
-      <DropdownMenu className="app-header-dropdown" trigger="hover" offset="0,5" :width="150" placement="bottom-end" :datas="infoMenu" @onclick="trigger">
-        <Avatar :src="User.avatar" :width="30"><span>{{User.name}}</span></Avatar>
+      </div> -->
+      <DropdownMenu
+        className="app-header-dropdown"
+        trigger="hover"
+        offset="0,5"
+        :width="150"
+        placement="bottom-end"
+        :datas="infoMenu"
+        @onclick="trigger"
+      >
+        <span>{{ User.name }}</span>
       </DropdownMenu>
     </div>
   </div>

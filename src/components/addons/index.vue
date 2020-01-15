@@ -2,7 +2,7 @@
   <div class="table-basic-vue frame-page h-panel">
     <div class="h-panel-bar"><span class="h-panel-title">插件</span></div>
     <div class="h-panel-body">
-      <p><a href="https://meedu.vip/addons" target="_blank">插件商城</a></p>
+      <p><a href="https://meedu.vip/addons" class="h-btn" target="_blank">插件商城</a></p>
       <Table :loading="loading" :datas="datas">
         <TableItem prop="name" title="插件名"></TableItem>
         <TableItem prop="version" title="当前版本"></TableItem>

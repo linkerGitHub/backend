@@ -11,7 +11,7 @@
         <Form v-width="400" ref="form" :validOnChange="true" :showErrorTip="true" :labelWidth="110" :rules="rules" :model="user">
           <FormItem label="头像" prop="avatar">
             <template v-slot:label>头像</template>
-            <avatar-upload v-model="user.avatar" name="选择头像"></avatar-upload>
+            <image-upload v-model="user.avatar" name="选择头像"></image-upload>
           </FormItem>
           <FormItem label="昵称" prop="nick_name">
             <template v-slot:label>昵称</template>
@@ -35,10 +35,8 @@
 </template>
 <script>
 import User from 'model/User';
-import AvatarUpload from '../common/avatar';
 
 export default {
-  components: { AvatarUpload },
   data() {
     return {
       user: User.parse({}),

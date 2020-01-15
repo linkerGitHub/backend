@@ -33,19 +33,18 @@
   <div class="table-basic-vue frame-page h-panel">
     <div class="h-panel-bar"><span class="h-panel-title">系统配置</span></div>
     <div class="h-panel-body">
-      <p><Button color="primary" @click="save">保存配置</Button></p>
+      <p><Button color="primary" @click="save">保存</Button></p>
       <Row class="body">
-        <Cell width="5" style="border-right: 1px solid rgb(238, 238, 238);">
+        <Cell width="4" style="border-right: 1px solid rgb(238, 238, 238);">
           <Row>
             <Cell v-for="item in items" width="24" class="left-menu-item" :class="{ active: item.key === activeItem }">
               <span style="display: inline-block; width: 100%" @click="switchItem(item)">{{ item.name }}</span>
             </Cell>
           </Row>
         </Cell>
-        <Cell width="19" class="pt-15" v-if="activeItem === 'system'">
+        <Cell width="20" class="pt-15" v-if="activeItem === 'system'">
           <Form :labelWidth="150">
-            <FormItem>
-              <template v-slot:label>网站名</template>
+            <FormItem label="网站名">
               <input type="text" v-model="setting.app.name" />
             </FormItem>
             <FormItem>
@@ -55,7 +54,7 @@
             <FormItem>
               <template v-slot:label>DEBUG模式</template>
               <h-switch v-model="setting.app.debug"></h-switch>
-              <p>请慎重开启</p>
+              <warn text="不清楚具体功能请勿开启"></warn>
             </FormItem>
             <FormItem>
               <template v-slot:label>网站Logo</template>
@@ -259,13 +258,9 @@
               <Select v-model="setting.meedu.upload.image.disk" :datas="disks"></Select>
             </FormItem>
             <FormItem>
-              <template v-slot:label>图片存储路径</template>
-              <input type="text" v-model="setting.meedu.upload.image.path" />
-            </FormItem>
-            <FormItem>
-              <template v-slot:label>图片参数（用于第三方存储）</template>
-              <input type="text" v-model="setting.meedu.upload.image.params" />
-              <span class="h-tag h-tag-yellow mt-2">不清楚具体功能请勿填写。</span>
+              <template v-slot:label>图片URL前缀</template>
+              <input type="text" v-model="setting.filesystems.disks.public.url" />
+              <warn text="不清楚具体功能请勿填写。"></warn>
             </FormItem>
 
             <template v-if="setting.meedu.upload.image.disk == 'qiniu'">
@@ -436,7 +431,7 @@
             </FormItem>
             <FormItem>
               <template v-slot:label>默认头像</template>
-              <avatar-upload v-model="setting.meedu.member.default_avatar" name="选择头像"></avatar-upload>
+              <image-upload v-model="setting.meedu.member.default_avatar" name="默认头像"></image-upload>
             </FormItem>
           </Form>
         </Cell>
@@ -560,21 +555,20 @@
 </template>
 <script>
 import TinymceEditor from '../common/tinymce';
-import AvatarUpload from '../common/avatar';
 
 export default {
-  components: { AvatarUpload, TinymceEditor },
+  components: { TinymceEditor },
   data() {
     return {
       loading: false,
       activeItem: 'system',
       items: [
         {
-          name: '网站配置',
+          name: '网站',
           key: 'system'
         },
         {
-          name: '缓存配置',
+          name: '缓存',
           key: 'cache'
         },
         {
@@ -582,7 +576,7 @@ export default {
           key: 'sociallogin'
         },
         {
-          name: '邮箱配置',
+          name: '邮箱',
           key: 'mail'
         },
         {
@@ -590,7 +584,7 @@ export default {
           key: 'sms'
         },
         {
-          name: '图片上传',
+          name: '图片',
           key: 'image'
         },
         {
@@ -598,23 +592,23 @@ export default {
           key: 'pay'
         },
         {
-          name: '视频上传',
+          name: '视频',
           key: 'video'
         },
         {
-          name: '会员配置',
+          name: '会员',
           key: 'member'
         },
         {
-          name: 'SEO配置',
+          name: 'SEO',
           key: 'seo'
         },
         {
-          name: '邀请配置',
+          name: '邀请',
           key: 'invite'
         },
         {
-          name: '其它配置',
+          name: '其它',
           key: 'other'
         },
       ],

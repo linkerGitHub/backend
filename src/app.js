@@ -10,6 +10,7 @@ import store from 'js/vuex/store';
 import 'js/vue/components';
 import 'js/vue/filters';
 import ImageUpload from './components/common/image';
+import Warn from './components/common/warn';
 
 require('./css/app.less');
 
@@ -23,14 +24,7 @@ heyuiConfig();
 Vue.use(HeyUI);
 
 Vue.component('ImageUpload', ImageUpload)
-Vue.component('RemoteJs', {
-    render(createElement) {
-        return createElement('script', { attrs: { type: 'text/javascript', src: this.src } });
-    },
-    props: {
-        src: { type: String, required: true }
-    }
-})
+Vue.component('Warn', Warn)
 
 
 const router = routerConfig();

@@ -5,11 +5,11 @@
       <div class="h-panel-bar"><span class="h-panel-title">添加公告</span></div>
       <div class="h-panel-body">
         <p>
-          <Button color="blue" icon="icon-arrow-left" @click="back()">返回列表</Button>
+          <Button class="h-btn h-btn-primary" icon="icon-arrow-left" @click="back()">返回列表</Button>
         </p>
         <tinymce-editor v-model="content"></tinymce-editor>
         <p class="text-align: right">
-          <Button color="blue" @click="create()">添加</Button>
+          <Button class="h-btn h-btn-primary" @click="create()">添加</Button>
         </p>
       </div>
     </div>

@@ -5,8 +5,8 @@
     </div>
     <div class="h-panel-body">
       <p>
-        <Button color="blue" icon="h-icon-left" @click="backCourse()">返回课程列表</Button>
-        <Button color="blue" icon="h-icon-plus" @click="create()">添加章节</Button>
+        <Button class="h-btn h-btn-primary" icon="h-icon-left" @click="backCourse()">返回课程列表</Button>
+        <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加章节</Button>
       </p>
       <Table :loading="loading" :datas="datas">
         <TableItem :width="70" prop="sort" title="升序"></TableItem>

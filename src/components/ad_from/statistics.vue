@@ -5,22 +5,22 @@
       <div class="h-panel-bar"><span class="h-panel-title">数据统计</span></div>
       <div class="h-panel-body">
         <p>
-          <Button color="blue" icon="icon-arrow-left" @click="back()">返回列表</Button>
+          <Button class="h-btn h-btn-primary" icon="icon-arrow-left" @click="back()">返回列表</Button>
         </p>
         <div>
-          <line-comp :data="data"></line-comp>
+          <chart-line :chart-data="data" :height="80" :options="{}" />
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import LineComp from 'components/common/chartjs/line';
+import ChartLine from 'components/common/chartjs/line';
 import AdFrom from 'model/AdFrom';
 
 export default {
   components: {
-    LineComp
+    ChartLine
   },
   props: ['id'],
   data() {
@@ -31,11 +31,12 @@ export default {
         datasets: [
           {
             label: '点击量',
-            backgroundColor: '#f87979',
+            backgroundColor: '#212529',
             data: []
           }
         ]
-      }
+      },
+      height: 80
     };
   },
   mounted() {

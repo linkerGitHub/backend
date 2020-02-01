@@ -7,7 +7,7 @@
       </div>
       <div class="h-panel-body">
         <p>
-          <Button color="blue" icon="icon-arrow-left" @click="back()">返回列表</Button>
+          <Button class="h-btn h-btn-primary" icon="icon-arrow-left" @click="back()">返回列表</Button>
         </p>
         <Form ref="form" :validOnChange="true" :showErrorTip="true" :labelWidth="110" :rules="rules" :model="chapter">
           <FormItem label="章节名" prop="title">

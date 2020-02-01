@@ -5,7 +5,7 @@
       <div class="h-panel-bar"><span class="h-panel-title">添加用户</span></div>
       <div class="h-panel-body">
         <p>
-          <Button color="blue" icon="icon-arrow-left" @click="back()">返回列表</Button>
+          <Button class="h-btn h-btn-primary" icon="icon-arrow-left" @click="back()">返回列表</Button>
         </p>
 
         <Form v-width="400" mode="block" ref="form" :validOnChange="true" :showErrorTip="true" :labelWidth="110" :rules="rules" :model="user">

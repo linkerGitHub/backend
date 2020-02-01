@@ -3,7 +3,7 @@
     <div class="h-panel-bar"><span class="h-panel-title">优惠码</span></div>
     <div class="h-panel-body">
       <p>
-        <Button color="blue" icon="h-icon-plus" @click="create()">添加</Button>
+        <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
       </p>
       <Table :loading="loading" :datas="datas">
         <TableItem prop="code" title="优惠码"></TableItem>

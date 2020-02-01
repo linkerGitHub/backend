@@ -31,7 +31,7 @@
             <span v-else>否</span>
           </template>
         </TableItem>
-        <TableItem title="操作" align="center" :width="80">
+        <TableItem title="操作" align="center" :width="240">
           <template slot-scope="{ data }">
             <Poptip content="确认删除？" @confirm="remove(datas, data)">
               <button class="h-btn h-btn-s h-btn-red">删除</button>

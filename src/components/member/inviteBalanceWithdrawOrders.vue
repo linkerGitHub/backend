@@ -4,10 +4,9 @@
     <div class="h-panel-body">
       <button class="h-btn mb-10" @click="multiHandle()">批量操作</button>
       <Table ref="table" :loading="loading" :datas="datas" :border="true" :checkbox="true" :selectWhenClickTr="true">
-        <TableItem align="center" title="头像">
+        <TableItem align="center" title="用户">
           <template slot-scope="{ data }">
-            <Avatar :src="users[data.user_id].avatar" noInfo></Avatar> <br />
-            {{ users[data.user_id].nick_name }}
+            {{ users[data.user_id].nick_name }} | {{ users[data.user_id].mobile }}
           </template>
         </TableItem>
         <TableItem align="center" prop="total" title="提现金额" unit="元"></TableItem>

@@ -15,7 +15,7 @@
       </Form>
     </div>
     <div class="h-panel-body">
-      <Table :loading="loading" :datas="datas">
+      <Table :loading="loading" :datas="datas" :stripe="true">
         <TableItem prop="id" title="ID"></TableItem>
         <TableItem prop="order_id" title="订单号"></TableItem>
         <TableItem prop="charge" title="价格" unit="元"></TableItem>
@@ -23,9 +23,7 @@
         <TableItem prop="status_text" title="状态"></TableItem>
         <TableItem title="用户">
           <template slot-scope="{ data }">
-            <Avatar :src="data.user.avatar" noInfo></Avatar>
-            <p>昵称：{{ data.user.nick_name }}</p>
-            <p>手机号：{{ data.user.mobile }}</p>
+            {{ data.user.nick_name }} | {{ data.user.mobile }}
           </template>
         </TableItem>
         <TableItem title="订单信息">
@@ -35,10 +33,10 @@
             </ul>
           </template>
         </TableItem>
-        <TableItem title="操作" align="center" :width="80">
+        <TableItem width="120" title="操作" align="center">
           <template slot-scope="{ data }">
             <Poptip content="确认完成该订单？" @confirm="finishOrder(datas, data)" v-if="data.status === 1 || data.status === 5">
-              <button class="h-btn h-btn-s h-btn-primary">完成该订单</button>
+              <button class="h-btn h-btn-s h-btn-primary">改为已支付</button>
             </Poptip>
           </template>
         </TableItem>

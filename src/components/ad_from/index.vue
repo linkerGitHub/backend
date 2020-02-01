@@ -9,7 +9,7 @@
         <TableItem prop="id" title="ID"></TableItem>
         <TableItem prop="from_name" title="Name"></TableItem>
         <TableItem prop="from_key" title="Key"></TableItem>
-        <TableItem title="操作" align="center" :width="80">
+        <TableItem title="操作" align="center" :width="240">
           <template slot-scope="{ data }">
             <Poptip content="确认删除？" @confirm="remove(datas, data)">
               <button class="h-btn h-btn-s h-btn-red">删除</button>

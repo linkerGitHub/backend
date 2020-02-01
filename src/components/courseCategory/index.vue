@@ -12,7 +12,7 @@
         <TableItem prop="" title="是否显示">
           <template slot-scope="{ data }"> <span v-if="data.is_show === 1">显示</span><span v-else>不显示</span> </template>
         </TableItem>
-        <TableItem title="操作" align="center" :width="80">
+        <TableItem title="操作" align="center" :width="200">
           <template slot-scope="{ data }">
             <Poptip content="确认删除？" @confirm="remove(datas, data)">
               <button class="h-btn h-btn-s h-btn-red">删除</button>

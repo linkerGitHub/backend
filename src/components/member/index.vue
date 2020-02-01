@@ -42,9 +42,7 @@
         <TableItem title="VIP">
           <template slot-scope="{data}">
             <template v-if="data.role">
-              <span>{{data.role.name}}</span>
-              <br />
-              <span>{{data.role_expired_at}}</span>
+              {{data.role.name}}
             </template>
           </template>
         </TableItem>

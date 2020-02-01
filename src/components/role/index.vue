@@ -11,14 +11,14 @@
         <TableItem prop="weight" title="权重"></TableItem>
         <TableItem prop="charge" title="价格" unit="元"></TableItem>
         <TableItem prop="expire_days" title="时长" unit="天"></TableItem>
-        <TableItem title="是否显示">
+        <TableItem title="显示">
           <template slot-scope="{ data }">
             <span v-if="data.is_show === 1">是</span>
             <span v-else>否</span>
           </template>
         </TableItem>
-        <TableItem prop="updated_at" title="最后编辑时间"></TableItem>
-        <TableItem title="操作" align="center" :width="80">
+        <TableItem prop="updated_at" title="时间"></TableItem>
+        <TableItem title="操作" align="center" :width="240">
           <template slot-scope="{ data }">
             <Poptip content="确认删除？" @confirm="remove(datas, data)">
               <button class="h-btn h-btn-s h-btn-red">删除</button>

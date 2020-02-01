@@ -11,7 +11,7 @@
       <Table :loading="loading" :datas="datas">
         <TableItem :width="70" prop="sort" title="升序"></TableItem>
         <TableItem :witdth="400" prop="title" title="章节名"></TableItem>
-        <TableItem title="操作" align="center" :width="80">
+        <TableItem title="操作" align="center" :width="200">
           <template slot-scope="{ data }">
             <Poptip content="确认删除？" @confirm="remove(datas, data)">
               <button class="h-btn h-btn-s h-btn-red">删除</button>

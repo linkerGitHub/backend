@@ -10,7 +10,7 @@
         <TableItem prop="sort" title="升序"></TableItem>
         <TableItem prop="name" title="链接命"></TableItem>
         <TableItem prop="url" title="Url"></TableItem>
-        <TableItem title="操作" align="center" :width="80">
+        <TableItem title="操作" align="center" :width="200">
           <template slot-scope="{ data }">
             <Poptip content="确认删除？" @confirm="remove(datas, data)">
               <button class="h-btn h-btn-s h-btn-red">删除</button>

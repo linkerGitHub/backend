@@ -97,7 +97,21 @@ export default {
       });
     },
     create() {
-      this.$router.push({ name: 'MemberCreate' });
+      this.$Modal({
+        component: {
+          vue: resolve => {
+            require(['./create'], resolve);
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            R.Member.Create(data).then(resp => {
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     },
     edit(item) {
       this.$Modal({

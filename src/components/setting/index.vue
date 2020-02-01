@@ -1,18 +1,18 @@
 <style lang="less">
 .body {
-  border: 1px solid rgb(238, 238, 238);
+  border: 1px solid rgb(240, 246, 255);
 }
 .mt-2 {
   margin-top: 2px;
 }
 .left-menu-item {
-  border-bottom: 1px solid rgb(238, 238, 238);
+  border-bottom: 1px solid rgb(240, 246, 255);
   cursor: pointer;
   font-size: 1rem;
   &.active {
     background-color: rgb(240, 246, 255);
-    color: rgb(55, 136, 238);
-    border-right: 5px solid rgb(55, 136, 238);
+    color: @primary-color;
+    border-right: 5px solid @primary-color;
   }
   &:hover {
     background-color: rgb(245, 245, 245);

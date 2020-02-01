@@ -4,7 +4,7 @@
     <div class="table-basic-vue frame-page h-panel">
       <div class="h-panel-bar"><span class="h-panel-title">修改密码</span></div>
       <div class="h-panel-body">
-        <Form v-width="600" ref="form" :validOnChange="true" :showErrorTip="true" :labelWidth="110" :rules="rules" :model="user">
+        <Form v-width="600" ref="form" mode="block" :validOnChange="true" :showErrorTip="true" :labelWidth="110" :rules="rules" :model="user">
           <FormItem label="原密码" prop="old_password">
             <template v-slot:label>原密码</template>
             <input type="password" v-model="user.old_password" />

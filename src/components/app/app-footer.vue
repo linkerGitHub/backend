@@ -11,7 +11,7 @@
 
 <template>
   <div class="app-footer">
-    <a href="https://github.com/Qsnh/meedu" target="_blank">MeEdu</a>
+    PowerBy <a href="https://github.com/Qsnh/meedu" target="_blank">MeEdu</a>
   </div>
 </template>
 <script>

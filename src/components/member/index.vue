@@ -1,6 +1,8 @@
 <template>
   <div class="table-basic-vue frame-page h-panel">
-    <div class="h-panel-bar"><span class="h-panel-title">用户</span></div>
+    <div class="h-panel-bar">
+      <span class="h-panel-title">用户</span>
+    </div>
     <div class="h-panel-bar">
       <Form :labelWidth="110">
         <FormItem label="关键字搜索" prop="avatar">
@@ -12,38 +14,44 @@
       </Form>
     </div>
     <div class="h-panel-body">
-        <p>
+      <p>
         <Button color="blue" icon="h-icon-plus" @click="create()">添加</Button>
       </p>
       <Table :loading="loading" :datas="datas">
         <TableItem prop="id" title="ID"></TableItem>
         <TableItem title="头像">
-            <template slot-scope="{data}">
-                <Avatar type="female" :src="data.avatar" noInfo></Avatar>
-            </template>
+          <template slot-scope="{data}">
+            <Avatar type="female" :src="data.avatar" noInfo></Avatar>
+          </template>
         </TableItem>
         <TableItem prop="nick_name" title="昵称"></TableItem>
         <TableItem prop="mobile" title="手机号"></TableItem>
         <TableItem prop="created_at" title="注册时间"></TableItem>
         <TableItem title="激活">
-            <template slot-scope="{data}">
-                <span v-if="data.is_active === 1">是</span>
-                <span v-else>否</span>
-            </template>
+          <template slot-scope="{data}">
+            <span v-if="data.is_active === 1">是</span>
+            <span v-else>否</span>
+          </template>
         </TableItem>
         <TableItem title="锁定">
-            <template slot-scope="{data}">
-                <span v-if="data.is_lock === 1">是</span>
-                <span v-else>否</span>
-            </template>
+          <template slot-scope="{data}">
+            <span v-if="data.is_lock === 1">是</span>
+            <span v-else>否</span>
+          </template>
         </TableItem>
         <TableItem title="VIP">
-            <template slot-scope="{data}">
-                <template v-if="data.role">
-                    <span>{{data.role.name}}</span><br>
-                    <span>{{data.role_expired_at}}</span>
-                </template>
+          <template slot-scope="{data}">
+            <template v-if="data.role">
+              <span>{{data.role.name}}</span>
+              <br />
+              <span>{{data.role_expired_at}}</span>
             </template>
+          </template>
+        </TableItem>
+        <TableItem title="操作" align="center" :width="80">
+          <template slot-scope="{ data }">
+            <button class="h-btn h-btn-s h-btn-primary" @click="edit(data)">编辑</button>
+          </template>
         </TableItem>
       </Table>
       <p></p>
@@ -59,7 +67,7 @@ export default {
         page: 1,
         size: 20,
         total: 0,
-        keywords: '',
+        keywords: ''
       },
       datas: [],
       loading: false
@@ -91,6 +99,26 @@ export default {
     create() {
       this.$router.push({ name: 'MemberCreate' });
     },
+    edit(item) {
+      this.$Modal({
+        component: {
+          vue: resolve => {
+            require(['./edit'], resolve);
+          },
+          datas: {
+            id: item.id
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            R.Member.Update(data).then(resp => {
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
+    }
   }
 };
 </script>

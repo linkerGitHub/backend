@@ -84,6 +84,19 @@
           </Form>
         </Cell>
 
+        <Cell width="19" class="pt-15" v-show="activeItem === 'wechatMini'">
+          <Form mode="block" class="p-20">
+            <FormItem>
+              <template v-slot:label>AppId</template>
+              <input type="text" v-model="setting.tencent.wechat.mini.app_id" />
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>AppSecret</template>
+              <input type="text" v-model="setting.tencent.wechat.mini.secret" />
+            </FormItem>
+          </Form>
+        </Cell>
+
         <Cell width="19" class="pt-15" v-show="activeItem === 'sociallogin'">
           <Tabs :datas="tab.socialLogin" v-model="tabSeleted.socialLogin"></Tabs>
 
@@ -226,19 +239,20 @@
                 <input type="text" v-model="setting.sms.gateways.yunpian.api_key" />
               </FormItem>
               <FormItem>
-                <template v-slot:label>密码重置模板ID</template>
+                <template v-slot:label>密码重置模板</template>
                 <input type="text" v-model="setting.sms.gateways.yunpian.template.password_reset" />
+                <warn text="注意：云片短信不是填写模板ID，而是填写模板内容"></warn>
               </FormItem>
               <FormItem>
-                <template v-slot:label>注册模板ID</template>
+                <template v-slot:label>注册模板</template>
                 <input type="text" v-model="setting.sms.gateways.yunpian.template.register" />
               </FormItem>
               <FormItem>
-                <template v-slot:label>手机号绑定ID</template>
+                <template v-slot:label>手机号绑定</template>
                 <input type="text" v-model="setting.sms.gateways.yunpian.template.mobile_bind" />
               </FormItem>
               <FormItem>
-                <template v-slot:label>手机号登陆ID</template>
+                <template v-slot:label>手机号登陆</template>
                 <input type="text" v-model="setting.sms.gateways.yunpian.template.login" />
               </FormItem>
             </Form>
@@ -342,8 +356,13 @@
                 <h-switch v-model="setting.meedu.payment.wechat.enabled" :trueValue="1" :falseValue="-1"></h-switch>
               </FormItem>
               <FormItem>
-                <template v-slot:label>公众号Id</template>
+                <template v-slot:label>公众号AppId</template>
                 <input type="text" v-model="setting.pay.wechat.app_id" />
+              </FormItem>
+              <FormItem>
+                <template v-slot:label>小程序AppId</template>
+                <input type="text" v-model="setting.pay.wechat.miniapp_id" />
+                <warn text="小程序支付必须填写"></warn>
               </FormItem>
               <FormItem>
                 <template v-slot:label>MchId</template>
@@ -415,6 +434,11 @@
 
         <Cell width="19" class="pt-15" v-show="activeItem === 'member'">
           <Form mode="block" class="p-20">
+            <FormItem>
+              <template v-slot:label>手机号绑定提醒</template>
+              <h-switch v-model="setting.meedu.member.enabled_mobile_bind_alert" :trueValue="1" :falseValue="0"></h-switch>
+              <br><warn text="开启此选项，为绑定手机号的用户将在会员中心提心"></warn>
+            </FormItem>
             <FormItem>
               <template v-slot:label>会员注册默认激活</template>
               <h-switch v-model="setting.meedu.member.is_active_default" :trueValue="1" :falseValue="-1"></h-switch>
@@ -600,6 +624,10 @@ export default {
         {
           name: '邀请',
           key: 'invite'
+        },
+        {
+          name: '微信小程序',
+          key: 'wechatMini'
         },
         {
           name: '其它',

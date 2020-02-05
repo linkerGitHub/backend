@@ -40,9 +40,13 @@
             <template v-slot:label>上架时间</template>
             <DatePicker v-model="course.published_at" v-width="200" type="datetime"></DatePicker>
           </FormItem>
-          <FormItem label="是否显示" prop="is_show">
-            <template v-slot:label>是否显示</template>
+          <FormItem label="显示" prop="is_show">
+            <template v-slot:label>显示</template>
             <h-switch v-model="course.is_show" :trueValue="1" :falseValue="-1"></h-switch>
+          </FormItem>
+          <FormItem label="推荐" prop="is_rec">
+            <template v-slot:label>推荐</template>
+            <h-switch v-model="course.is_rec" :trueValue="1" :falseValue="0"></h-switch>
           </FormItem>
           <FormItem label="SEO描述" prop="seo_description">
             <template v-slot:label>SEO描述</template>
@@ -72,7 +76,7 @@ export default {
     return {
       course: Course.parse({}),
       rules: {
-        required: ['category_id', 'thumb', 'title', 'charge', 'short_description', 'published_at', 'is_show', 'seo_description', 'seo_keywords']
+        required: ['category_id', 'thumb', 'title', 'charge', 'short_description', 'published_at', 'is_show', 'is_rec', 'seo_description', 'seo_keywords']
       },
       courseCategories: []
     };

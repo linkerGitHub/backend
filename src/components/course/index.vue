@@ -31,6 +31,12 @@
             <span v-else>否</span>
           </template>
         </TableItem>
+        <TableItem title="推荐">
+          <template slot-scope="{ data }">
+            <span v-if="data.is_rec === 1">是</span>
+            <span v-else>否</span>
+          </template>
+        </TableItem>
         <TableItem title="操作" align="center" :width="240">
           <template slot-scope="{ data }">
             <Poptip content="确认删除？" @confirm="remove(datas, data)">

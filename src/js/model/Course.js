@@ -9,4 +9,5 @@ export default new Model({
     seo_description: '',
     published_at: '',
     is_show: 0,
+    is_rec: 0
 });

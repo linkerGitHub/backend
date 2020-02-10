@@ -451,6 +451,10 @@
               <template v-slot:label>默认头像</template>
               <image-upload v-model="setting.meedu.member.default_avatar" name="默认头像"></image-upload>
             </FormItem>
+            <FormItem>
+                <template v-slot:label>会员协议</template>
+                <tinymce-editor v-model="setting.meedu.member.protocol"></tinymce-editor>
+              </FormItem>
           </Form>
         </Cell>
 

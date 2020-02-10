@@ -1,5 +1,5 @@
 <template>
-  <tinymce id="d1" v-model="data" :other_options="config"></tinymce>
+  <tinymce :id="id" v-model="data" :other_options="config"></tinymce>
 </template>
 
 <script>
@@ -18,6 +18,7 @@ export default {
   data() {
     return {
       data: this.value,
+      id: 'tinymce' + Math.ceil(Math.random() * 100),
       config: {
         height: '400px',
         language: 'zh_CN',

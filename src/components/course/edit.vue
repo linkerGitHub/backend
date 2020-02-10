@@ -88,8 +88,8 @@ export default {
   },
   methods: {
     getCourseCategories() {
-      R.CourseCategory.List({ page: 1, page_size: 1000 }).then(resp => {
-        this.courseCategories = resp.data.data;
+      R.Course.CreateParams().then(resp => {
+        this.courseCategories = resp.data.categories;
       });
     },
     init() {

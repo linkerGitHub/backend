@@ -160,6 +160,9 @@ const Request = {
         List(param) {
             return Ajax.get('/course', param);
         },
+        CreateParams (param) {
+            return Ajax.get('/course/create', param);
+        },
         Create(param) {
             return Ajax.postJson('/course', param);
         },

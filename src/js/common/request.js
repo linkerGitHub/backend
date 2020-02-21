@@ -92,6 +92,23 @@ const Request = {
             return Ajax.delete('/link/' + param.id, param);
         }
     },
+    Slider: {
+        List (param) {
+            return Ajax.get('/slider', param);
+        },
+        Store (param) {
+            return Ajax.postJson('/slider', param);
+        },
+        Edit (param) {
+            return Ajax.get('/slider/' + param.id);
+        },
+        Update (param) {
+            return Ajax.putJson('/slider/' + param.id, param);
+        },
+        Delete (param) {
+            return Ajax.delete('/slider/' + param.id, param);
+        }
+    },
     AdFrom: {
         List(param) {
             return Ajax.get('/ad_from', param);

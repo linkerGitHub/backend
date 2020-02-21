@@ -62,7 +62,7 @@ const Request = {
         List(param) {
             return Ajax.get('/role', param);
         },
-        Create(param) {
+        Store(param) {
             return Ajax.postJson('/role', param);
         },
         Edit(param) {

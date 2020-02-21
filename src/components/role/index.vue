@@ -1,6 +1,8 @@
 <template>
   <div class="table-basic-vue frame-page h-panel">
-    <div class="h-panel-bar"><span class="h-panel-title">VIP角色</span></div>
+    <div class="h-panel-bar">
+      <span class="h-panel-title">VIP角色</span>
+    </div>
     <div class="h-panel-body">
       <p>
         <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
@@ -24,7 +26,6 @@
               <button class="h-btn h-btn-s h-btn-red">删除</button>
             </Poptip>
             <button class="h-btn h-btn-s h-btn-primary" @click="edit(data)">编辑</button>
-            <button class="h-btn h-btn-s" @click="showContent(data)">查看权限</button>
           </template>
         </TableItem>
       </Table>
@@ -70,7 +71,22 @@ export default {
       });
     },
     create() {
-      this.$router.push({ name: 'RoleCreate' });
+      this.$Modal({
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['./create'], resolve);
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            R.Role.Store(data).then(resp => {
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     },
     remove(data, item) {
       R.Role.Delete({ id: item.id }).then(resp => {
@@ -79,12 +95,24 @@ export default {
       });
     },
     edit(item) {
-      this.$router.push({ name: 'RoleEdit', params: { id: item.id } });
-    },
-    showContent(data) {
       this.$Modal({
-        title: '权限',
-        content: data.description
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['./edit'], resolve);
+          },
+          datas: {
+            id: item.id
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            R.Role.Update(data).then(resp => {
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
       });
     }
   }

@@ -46,19 +46,6 @@ const initRouter = () => {
                 name: 'Role',
                 component: (resolve) => require(['components/role/index'], resolve),
                 meta: { title: 'VIP角色' }
-            },
-            {
-                path: '/role/create',
-                name: 'RoleCreate',
-                component: (resolve) => require(['components/role/create'], resolve),
-                meta: { title: '添加VIP角色' },
-            },
-            {
-                path: '/role/:id/edit',
-                name: 'RoleEdit',
-                component: (resolve) => require(['components/role/edit'], resolve),
-                meta: { title: '编辑VIP角色' },
-                props: true
             }, {
                 path: '/slider',
                 name: 'Slider',

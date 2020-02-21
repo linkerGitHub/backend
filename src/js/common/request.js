@@ -28,7 +28,7 @@ const Request = {
         List(param) {
             return Ajax.get('/announcement', param);
         },
-        Create(param) {
+        Store(param) {
             return Ajax.postJson('/announcement', param);
         },
         Edit(param) {

@@ -1,18 +1,19 @@
-<style lang="less"></style>
 <template>
-  <div class="">
-    <div class="table-basic-vue frame-page h-panel">
-      <div class="h-panel-bar"><span class="h-panel-title">添加公告</span></div>
-      <div class="h-panel-body">
-        <p>
-          <Button class="h-btn h-btn-primary" icon="icon-arrow-left" @click="back()">返回列表</Button>
-        </p>
-        <tinymce-editor v-model="content"></tinymce-editor>
-        <p class="text-align: right">
-          <Button class="h-btn h-btn-primary" @click="create()">添加</Button>
-        </p>
-      </div>
-    </div>
+  <div style="padding: 15px;">
+    <Form v-width="600" mode="block" ref="form" :validOnChange="true" :showErrorTip="true" :rules="rules" :model="announcement">
+      <FormItem label="标题" prop="title">
+        <template v-slot:label>标题</template>
+        <input type="text" v-model="announcement.title" />
+      </FormItem>
+      <FormItem label="内容" prop="content">
+        <template v-slot:label>内容</template>
+        <tinymce-editor v-model="announcement.announcement"></tinymce-editor>
+      </FormItem>
+      <FormItem>
+        <Button color="primary" @click="create">添加</Button>
+        <Button @click="cancel">取消</Button>
+      </FormItem>
+    </Form>
   </div>
 </template>
 <script>
@@ -24,23 +25,31 @@ export default {
   components: { TinymceEditor },
   data() {
     return {
-      content: ''
+      announcement: {
+        title: '',
+        announcement: ''
+      },
+      rules: {
+        required: ['title', 'announcement']
+      }
     };
   },
   mounted() {
     this.init();
   },
   methods: {
-    back() {
-      this.$router.push({ name: 'Announcement' });
-    },
     create() {
-      R.Announcement.Create({
-        announcement: this.content
-      }).then(resp => {
-        HeyUI.$Message.success('添加成功');
-        this.$router.push({ name: 'Announcement' });
-      });
+      let validResult = this.$refs.form.valid();
+      if (validResult.result) {
+        this.$emit('success', this.announcement);
+        this.close();
+      }
+    },
+    cancel() {
+      this.close();
+    },
+    close() {
+      this.$emit('close');
     }
   }
 };

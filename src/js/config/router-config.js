@@ -42,19 +42,6 @@ const initRouter = () => {
                 meta: { title: '公告' }
             },
             {
-                path: '/announcement/create',
-                name: 'AnnouncementCreate',
-                component: (resolve) => require(['components/announcement/create'], resolve),
-                meta: { title: '添加公告' },
-            },
-            {
-                path: '/announcement/:id/edit',
-                name: 'AnnouncementEdit',
-                component: (resolve) => require(['components/announcement/edit'], resolve),
-                meta: { title: '编辑公告' },
-                props: true
-            },
-            {
                 path: '/role',
                 name: 'Role',
                 component: (resolve) => require(['components/role/index'], resolve),

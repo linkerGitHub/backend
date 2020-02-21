@@ -1,15 +1,18 @@
 
 <template>
   <div class="table-basic-vue frame-page h-panel">
-    <div class="h-panel-bar"><span class="h-panel-title">公告</span></div>
+    <div class="h-panel-bar">
+      <span class="h-panel-title">公告</span>
+    </div>
     <div class="h-panel-body">
       <p>
         <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
       </p>
       <Table :loading="loading" :datas="datas">
-        <TableItem :width="200" :render="administratorRender" title="添加人"></TableItem>
-        <TableItem :width="200" prop="updated_at" title="最后编辑时间"></TableItem>
-        <TableItem title="操作" align="center" :width="80">
+        <TableItem prop="title" title="标题"></TableItem>
+        <TableItem prop="view_times" title="浏览次数"></TableItem>
+        <TableItem prop="updated_at" title="最后编辑时间"></TableItem>
+        <TableItem title="操作" align="center" :width="200">
           <template slot-scope="{data}">
             <Poptip content="确认删除？" @confirm="remove(datas, data)">
               <button class="h-btn h-btn-s h-btn-red">删除</button>
@@ -20,7 +23,7 @@
         </TableItem>
       </Table>
       <p></p>
-      <Pagination v-if="pagination.total>0"  align="right" v-model="pagination" @change="changePage" />
+      <Pagination v-if="pagination.total>0" align="right" v-model="pagination" @change="changePage" />
     </div>
   </div>
 </template>
@@ -61,27 +64,54 @@ export default {
       });
     },
     create() {
-      this.$router.push({name: 'AnnouncementCreate'});
-    },
-    administratorRender(item) {
-      if (!item.administrator) {
-        return '';
-      }
-      return item.administrator.name;
+      this.$Modal({
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['./create'], resolve);
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            R.Announcement.Store(data).then(resp => {
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     },
     remove(data, item) {
-      R.Announcement.Delete({id: item.id}).then(resp => {
+      R.Announcement.Delete({ id: item.id }).then(resp => {
         HeyUI.$Message.success('成功');
         this.getData(true);
-      })
+      });
     },
     edit(item) {
-      this.$router.push({name: 'AnnouncementEdit', params: {id: item.id}});
+      this.$Modal({
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['./edit'], resolve);
+          },
+          datas: {
+            id: item.id
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            R.Announcement.Update(data).then(resp => {
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     },
     showContent(data) {
       this.$Modal({
         title: '公告内容',
-        content: data.announcement,
+        content: data.announcement
       });
     }
   }

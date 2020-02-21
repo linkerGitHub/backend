@@ -1,6 +1,8 @@
 <template>
   <div class="table-basic-vue frame-page h-panel">
-    <div class="h-panel-bar"><span class="h-panel-title">友情链接</span></div>
+    <div class="h-panel-bar">
+      <span class="h-panel-title">友情链接</span>
+    </div>
     <div class="h-panel-body">
       <p>
         <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
@@ -61,7 +63,22 @@ export default {
       });
     },
     create() {
-      this.$router.push({ name: 'LinkCreate' });
+      this.$Modal({
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['./create'], resolve);
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            R.Link.Store(data).then(resp => {
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     },
     remove(data, item) {
       R.Link.Delete({ id: item.id }).then(resp => {
@@ -70,7 +87,25 @@ export default {
       });
     },
     edit(item) {
-      this.$router.push({ name: 'LinkEdit', params: { id: item.id } });
+      this.$Modal({
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['./edit'], resolve);
+          },
+          datas: {
+            id: item.id
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            R.Link.Update(data).then(resp => {
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     }
   }
 };

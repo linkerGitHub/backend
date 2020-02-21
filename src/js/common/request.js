@@ -79,7 +79,7 @@ const Request = {
         List(param) {
             return Ajax.get('/link', param);
         },
-        Create(param) {
+        Store(param) {
             return Ajax.postJson('/link', param);
         },
         Edit(param) {

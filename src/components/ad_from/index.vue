@@ -1,6 +1,8 @@
 <template>
   <div class="table-basic-vue frame-page h-panel">
-    <div class="h-panel-bar"><span class="h-panel-title">推广链接</span></div>
+    <div class="h-panel-bar">
+      <span class="h-panel-title">推广链接</span>
+    </div>
     <div class="h-panel-body">
       <p>
         <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
@@ -61,7 +63,22 @@ export default {
       });
     },
     create() {
-      this.$router.push({ name: 'AdFromCreate' });
+      this.$Modal({
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['./create'], resolve);
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            R.AdFrom.Store(data).then(resp => {
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     },
     remove(data, item) {
       R.AdFrom.Delete({ id: item.id }).then(resp => {
@@ -70,10 +87,38 @@ export default {
       });
     },
     edit(item) {
-      this.$router.push({ name: 'AdFromEdit', params: { id: item.id } });
+      this.$Modal({
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['./edit'], resolve);
+          },
+          datas: {
+            id: item.id
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            R.AdFrom.Update(data).then(resp => {
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     },
     goNumber(item) {
-      this.$router.push({ name: 'AdFromNumber', params: { id: item.id } });
+      this.$Modal({
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['./statistics'], resolve);
+          },
+          datas: {
+            id: item.id
+          }
+        }
+      });
     }
   }
 };

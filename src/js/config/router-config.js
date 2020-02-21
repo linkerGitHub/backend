@@ -59,19 +59,6 @@ const initRouter = () => {
                 meta: { title: '友情链接' }
             },
             {
-                path: '/link/create',
-                name: 'LinkCreate',
-                component: (resolve) => require(['components/link/create'], resolve),
-                meta: { title: '添加友情链接' },
-            },
-            {
-                path: '/link/:id/edit',
-                name: 'LinkEdit',
-                component: (resolve) => require(['components/link/edit'], resolve),
-                meta: { title: '编辑友情链接' },
-                props: true
-            },
-            {
                 path: '/ad_from',
                 name: 'AdFrom',
                 component: (resolve) => require(['components/ad_from/index'], resolve),
@@ -256,19 +243,6 @@ const initRouter = () => {
                 name: 'AdministratorRole',
                 component: (resolve) => require(['components/administrator_role/index'], resolve),
                 meta: { title: '角色' }
-            },
-            {
-                path: '/administrator_role/create',
-                name: 'AdministratorRoleCreate',
-                component: (resolve) => require(['components/administrator_role/create'], resolve),
-                meta: { title: '添加角色' },
-            },
-            {
-                path: '/administrator_role/:id/edit',
-                name: 'AdministratorRoleEdit',
-                component: (resolve) => require(['components/administrator_role/edit'], resolve),
-                meta: { title: '编辑角色' },
-                props: true
             },
             {
                 path: '/administrator_permission',

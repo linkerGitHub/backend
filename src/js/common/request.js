@@ -113,7 +113,7 @@ const Request = {
         List(param) {
             return Ajax.get('/ad_from', param);
         },
-        Create(param) {
+        Store(param) {
             return Ajax.postJson('/ad_from', param);
         },
         Edit(param) {

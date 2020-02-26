@@ -163,31 +163,6 @@
           </div>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-show="activeItem === 'mail'">
-          <Form mode="block" class="p-20">
-            <FormItem>
-              <template v-slot:label>AccessKeyId</template>
-              <input type="text" v-model="setting.services.directmail.app_key" />
-            </FormItem>
-            <FormItem>
-              <template v-slot:label>AccessKeySecret</template>
-              <input type="text" v-model="setting.services.directmail.app_secret" />
-            </FormItem>
-            <FormItem>
-              <template v-slot:label>发送用户名</template>
-              <input type="text" v-model="setting.services.directmail.account.alias" />
-            </FormItem>
-            <FormItem>
-              <template v-slot:label>发送地址</template>
-              <input type="text" v-model="setting.services.directmail.account.name" />
-            </FormItem>
-            <FormItem>
-              <template v-slot:label>区域</template>
-              <input type="text" v-model="setting.services.directmail.region" />
-            </FormItem>
-          </Form>
-        </Cell>
-
         <Cell width="19" class="pt-15" v-show="activeItem === 'sms'">
           <Tabs :datas="tab.sms" v-model="tabSeleted.sms"></Tabs>
 
@@ -523,10 +498,6 @@
               <template v-slot:label>视频列表页每页数</template>
               <input type="text" v-model="setting.meedu.other.video_list_page_size" />
             </FormItem>
-            <FormItem>
-              <template v-slot:label>自动备份</template>
-              <h-switch v-model="setting.meedu.system.backup" :trueValue="1" :falseValue="-1"></h-switch>
-            </FormItem>
           </Form>
         </Cell>
 
@@ -597,10 +568,7 @@ export default {
           name: '社交登录',
           key: 'sociallogin'
         },
-        {
-          name: '邮箱',
-          key: 'mail'
-        },
+
         {
           name: '短信',
           key: 'sms'

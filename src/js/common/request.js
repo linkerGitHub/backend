@@ -12,6 +12,9 @@ const Request = {
     Addons: {
         index() {
             return Ajax.get('/addons');
+        },
+        switchHandler (param) {
+            return Ajax.postJson('/addons/switch', param);
         }
     },
     User: {

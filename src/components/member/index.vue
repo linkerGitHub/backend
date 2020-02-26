@@ -5,11 +5,16 @@
     </div>
     <div class="h-panel-bar">
       <Form :labelWidth="110">
-        <FormItem label="关键字搜索" prop="avatar">
+        <FormItem label="关键字搜索">
           <input type="text" v-model="pagination.keywords" placeholder="用户昵称/手机号" />
+        </FormItem>
+         <FormItem label="会员">
+          <template v-slot:label>会员</template>
+          <Select v-model="pagination.role_id" :filterable="true" :datas="roles" keyName="id" titleName="name"></Select>
         </FormItem>
         <FormItem>
           <Button color="primary" @click="getData(true)">搜索</Button>
+          <Button @click="reset">重置</Button>
         </FormItem>
       </Form>
     </div>
@@ -17,16 +22,16 @@
       <p>
         <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
       </p>
-      <Table :loading="loading" :datas="datas">
+      <Table :loading="loading" :datas="datas" @sort="sortEvt">
         <TableItem prop="id" title="ID"></TableItem>
         <TableItem title="头像">
           <template slot-scope="{data}">
-            <Avatar type="female" :src="data.avatar" noInfo></Avatar>
+            <Avatar type="female" :src="data.avatar"></Avatar>
           </template>
         </TableItem>
         <TableItem prop="nick_name" title="昵称"></TableItem>
         <TableItem prop="mobile" title="手机号"></TableItem>
-        <TableItem prop="created_at" title="注册时间"></TableItem>
+        <TableItem prop="created_at" title="注册时间" :sort="true"></TableItem>
         <TableItem title="激活">
           <template slot-scope="{data}">
             <span v-if="data.is_active === 1">是</span>
@@ -65,10 +70,12 @@ export default {
         page: 1,
         size: 20,
         total: 0,
-        keywords: ''
+        keywords: '',
+        role_id: null
       },
       datas: [],
-      loading: false
+      loading: false,
+      roles: []
     };
   },
   mounted() {
@@ -81,17 +88,28 @@ export default {
     changePage() {
       this.getData();
     },
+    reset() {
+      this.pagination.keywords = '';
+      this.pagination.role_id = null;
+      this.getData(true);
+    },
+    sortEvt(sort) {
+      this.pagination.sort = sort.prop;
+      this.pagination.order = sort.type;
+      this.getData();
+    },
     getData(reload = false) {
       if (reload) {
         this.pagination.page = 1;
       }
       this.loading = true;
       R.Member.List(this.pagination).then(resp => {
-        this.datas = resp.data.data;
-        this.pagination.total = resp.data.total;
-        this.pagination.page = resp.data.current_page;
-        this.pagination.size = resp.data.per_page;
+        this.datas = resp.data.members.data;
+        this.pagination.total = resp.data.members.total;
+        this.pagination.page = resp.data.members.current_page;
+        this.pagination.size = resp.data.members.per_page;
         this.loading = false;
+        this.roles = resp.data.roles;
       });
     },
     create() {

@@ -435,9 +435,9 @@
         <Cell width="19" class="pt-15" v-show="activeItem === 'member'">
           <Form mode="block" class="p-20">
             <FormItem>
-              <template v-slot:label>手机号绑定提醒</template>
+              <template v-slot:label>手机号强制绑定</template>
               <h-switch v-model="setting.meedu.member.enabled_mobile_bind_alert" :trueValue="1" :falseValue="0"></h-switch>
-              <br><warn text="开启此选项，为绑定手机号的用户将在会员中心提心"></warn>
+              <br><warn text="开启此选项，用户通过第三方登录进入站点会强制提醒提醒绑定手机号"></warn>
             </FormItem>
             <FormItem>
               <template v-slot:label>会员注册默认激活</template>

@@ -10,7 +10,7 @@
         </FormItem>
         <FormItem label="分类">
           <template v-slot:label>分类</template>
-          <Select v-model="pagination.cid" :datas="categories" keyName="id" titleName="name"></Select>
+          <Select v-model="pagination.cid" :filterable="true" :datas="categories" keyName="id" titleName="name"></Select>
         </FormItem>
         <FormItem>
           <Button class="h-btn h-btn-primary" @click="getData(true)">搜索</Button>

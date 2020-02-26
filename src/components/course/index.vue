@@ -25,6 +25,7 @@
         <TableItem prop="title" title="课程"></TableItem>
         <TableItem prop="charge" title="价格" unit="元"></TableItem>
         <TableItem prop="published_at" title="上线时间"></TableItem>
+        <TableItem prop="user_count" title="订阅人数"></TableItem>
         <TableItem title="显示">
           <template slot-scope="{ data }">
             <span v-if="data.is_show === 1">是</span>

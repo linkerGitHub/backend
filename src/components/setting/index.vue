@@ -57,6 +57,14 @@
               <image-upload v-model="setting.meedu.system.logo" name="网站Logo"></image-upload>
             </FormItem>
             <FormItem>
+              <template v-slot:label>会员中心logo</template>
+              <image-upload v-model="setting.meedu.system.member_logo" name="会员中心logo"></image-upload>
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>播放器封面</template>
+              <image-upload v-model="setting.meedu.system.player_thumb" name="播放器封面"></image-upload>
+            </FormItem>
+            <FormItem>
               <template v-slot:label>网站备案信息</template>
               <input type="text" v-model="setting.meedu.system.icp" />
             </FormItem>
@@ -615,6 +623,8 @@ export default {
         meedu: {
           system: {
             logo: '',
+            member_logo: '',
+            player_thumb: '',
             js: '',
             icp: ''
           }

@@ -27,6 +27,14 @@
         <template v-slot:label>锁定</template>
         <h-switch v-model="user.is_lock" :trueValue="1" :falseValue="-1"></h-switch>
       </FormItem>
+      <FormItem label="VIP" prop="role_id">
+        <template v-slot:label>VIP</template>
+        <Select v-model="user.role_id" :datas="roles" keyName="id" titleName="name" :filterable="true" @change="selectCourse"></Select>
+      </FormItem>
+      <FormItem label="会员到期时间" prop="role_expired_at">
+        <template v-slot:label>会员到期时间</template>
+        <DatePicker v-model="user.role_expired_at" v-width="200" type="datetime"></DatePicker>
+      </FormItem>
       <FormItem>
         <Button color="primary" @click="create">创建</Button>
         <Button @click="cancel">取消</Button>
@@ -43,10 +51,15 @@ export default {
       user: User.parse({}),
       rules: {
         required: ['avatar', 'password', 'mobile', 'nick_name']
-      }
+      },
+      roles: []
     };
   },
-  mounted() {},
+  mounted() {
+    R.Member.Create().then(res => {
+      this.roles = res.data.roles;
+    });
+  },
   methods: {
     create() {
       let validResult = this.$refs.form.valid();

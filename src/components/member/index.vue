@@ -121,7 +121,7 @@ export default {
         },
         events: {
           success: (modal, data) => {
-            R.Member.Create(data).then(resp => {
+            R.Member.Store(data).then(resp => {
               HeyUI.$Message.success('成功');
               this.getData(true);
             });

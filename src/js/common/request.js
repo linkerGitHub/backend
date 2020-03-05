@@ -160,7 +160,10 @@ const Request = {
         List(param) {
             return Ajax.get('/member', param);
         },
-        Create(param) {
+        Create() {
+            return Ajax.get('/member');
+        },
+        Store (param) {
             return Ajax.postJson('/member', param);
         },
         Edit(param) {

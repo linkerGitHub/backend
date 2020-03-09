@@ -57,8 +57,8 @@
               <image-upload v-model="setting.meedu.system.logo" name="网站Logo"></image-upload>
             </FormItem>
             <FormItem>
-              <template v-slot:label>会员中心logo</template>
-              <image-upload v-model="setting.meedu.system.member_logo" name="会员中心logo"></image-upload>
+              <template v-slot:label>白色logo</template>
+              <image-upload v-model="setting.meedu.system.white_logo" name="会员中心logo"></image-upload>
             </FormItem>
             <FormItem>
               <template v-slot:label>播放器封面</template>
@@ -623,7 +623,7 @@ export default {
         meedu: {
           system: {
             logo: '',
-            member_logo: '',
+            white_logo: '',
             player_thumb: '',
             js: '',
             icp: ''

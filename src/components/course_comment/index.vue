@@ -4,6 +4,11 @@
     <div class="h-panel-body">
       <Table :loading="loading" :datas="datas">
         <TableItem prop="id" title="ID"></TableItem>
+        <TableItem title="课程">
+          <template slot-scope="{ data }">
+            <a :href="'/course/' + data.course.id + '/' + data.course.slug" target="_blank">{{data.course.title}}</a>
+          </template>
+        </TableItem>
         <TableItem title="内容">
           <template slot-scope="{ data }">
             <p v-html="data.render_content"></p>

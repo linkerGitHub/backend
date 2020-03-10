@@ -8,13 +8,8 @@
         <Button class="h-btn h-btn-s h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
       </p>
       <Table :loading="loading" :datas="datas">
-        <TableItem title="封面">
-          <template slot-scope="{data}">
-            <img :src="data.thumb" width="120" height="60" />
-          </template>
-        </TableItem>
         <TableItem prop="sort" title="排序"></TableItem>
-        <TableItem prop="url" title="URL"></TableItem>
+        <TableItem prop="name" title="Banner名"></TableItem>
         <TableItem title="操作" align="center" :width="200">
           <template slot-scope="{ data }">
             <Poptip content="确认删除？" @confirm="remove(datas, data)">
@@ -42,12 +37,9 @@ export default {
     init() {
       this.getData(true);
     },
-    changePage() {
-      this.getData();
-    },
     getData(reload = false) {
       this.loading = true;
-      R.Slider.List(this.pagination).then(resp => {
+      R.IndexBanner.List(this.pagination).then(resp => {
         this.datas = resp.data;
         this.loading = false;
       });
@@ -62,7 +54,7 @@ export default {
         },
         events: {
           success: (modal, data) => {
-            R.Slider.Store(data).then(resp => {
+            R.IndexBanner.Store(data).then(resp => {
               HeyUI.$Message.success('成功');
               this.getData(true);
             });
@@ -71,7 +63,7 @@ export default {
       });
     },
     remove(data, item) {
-      R.Slider.Delete({ id: item.id }).then(resp => {
+      R.IndexBanner.Delete({ id: item.id }).then(resp => {
         HeyUI.$Message.success('成功');
         this.getData(true);
       });
@@ -89,7 +81,7 @@ export default {
         },
         events: {
           success: (modal, data) => {
-            R.Slider.Update(data).then(resp => {
+            R.IndexBanner.Update(data).then(resp => {
               HeyUI.$Message.success('成功');
               this.getData(true);
             });

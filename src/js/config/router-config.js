@@ -51,6 +51,11 @@ const initRouter = () => {
                 name: 'Slider',
                 component: (resolve) => require(['components/slider/index'], resolve),
                 meta: { title: '幻灯片' }
+            }, {
+                path: '/indexBanner',
+                name: 'IndexBanner',
+                component: (resolve) => require(['components/index_banner/index'], resolve),
+                meta: { title: '首页Banner' }
             },
             {
                 path: '/link',

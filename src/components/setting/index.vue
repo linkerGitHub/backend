@@ -57,6 +57,14 @@
               <image-upload v-model="setting.meedu.system.logo" name="网站Logo"></image-upload>
             </FormItem>
             <FormItem>
+              <template v-slot:label>白色logo</template>
+              <image-upload v-model="setting.meedu.system.white_logo" name="会员中心logo"></image-upload>
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>播放器封面</template>
+              <image-upload v-model="setting.meedu.system.player_thumb" name="播放器封面"></image-upload>
+            </FormItem>
+            <FormItem>
               <template v-slot:label>网站备案信息</template>
               <input type="text" v-model="setting.meedu.system.icp" />
             </FormItem>
@@ -161,31 +169,6 @@
               </FormItem>
             </Form>
           </div>
-        </Cell>
-
-        <Cell width="19" class="pt-15" v-show="activeItem === 'mail'">
-          <Form mode="block" class="p-20">
-            <FormItem>
-              <template v-slot:label>AccessKeyId</template>
-              <input type="text" v-model="setting.services.directmail.app_key" />
-            </FormItem>
-            <FormItem>
-              <template v-slot:label>AccessKeySecret</template>
-              <input type="text" v-model="setting.services.directmail.app_secret" />
-            </FormItem>
-            <FormItem>
-              <template v-slot:label>发送用户名</template>
-              <input type="text" v-model="setting.services.directmail.account.alias" />
-            </FormItem>
-            <FormItem>
-              <template v-slot:label>发送地址</template>
-              <input type="text" v-model="setting.services.directmail.account.name" />
-            </FormItem>
-            <FormItem>
-              <template v-slot:label>区域</template>
-              <input type="text" v-model="setting.services.directmail.region" />
-            </FormItem>
-          </Form>
         </Cell>
 
         <Cell width="19" class="pt-15" v-show="activeItem === 'sms'">
@@ -435,9 +418,9 @@
         <Cell width="19" class="pt-15" v-show="activeItem === 'member'">
           <Form mode="block" class="p-20">
             <FormItem>
-              <template v-slot:label>手机号绑定提醒</template>
+              <template v-slot:label>手机号强制绑定</template>
               <h-switch v-model="setting.meedu.member.enabled_mobile_bind_alert" :trueValue="1" :falseValue="0"></h-switch>
-              <br><warn text="开启此选项，为绑定手机号的用户将在会员中心提心"></warn>
+              <br><warn text="开启此选项，用户通过第三方登录进入站点会强制提醒提醒绑定手机号"></warn>
             </FormItem>
             <FormItem>
               <template v-slot:label>会员注册默认激活</template>
@@ -523,10 +506,6 @@
               <template v-slot:label>视频列表页每页数</template>
               <input type="text" v-model="setting.meedu.other.video_list_page_size" />
             </FormItem>
-            <FormItem>
-              <template v-slot:label>自动备份</template>
-              <h-switch v-model="setting.meedu.system.backup" :trueValue="1" :falseValue="-1"></h-switch>
-            </FormItem>
           </Form>
         </Cell>
 
@@ -597,10 +576,7 @@ export default {
           name: '社交登录',
           key: 'sociallogin'
         },
-        {
-          name: '邮箱',
-          key: 'mail'
-        },
+
         {
           name: '短信',
           key: 'sms'
@@ -647,6 +623,8 @@ export default {
         meedu: {
           system: {
             logo: '',
+            white_logo: '',
+            player_thumb: '',
             js: '',
             icp: ''
           }

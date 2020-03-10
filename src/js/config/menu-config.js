@@ -24,6 +24,10 @@ const fullMenus = [{
         key: 'Slider'
     },
     {
+        title: '首页Banner',
+        key: 'IndexBanner'
+    },
+    {
         title: '推广链接',
         key: 'AdFrom'
     },

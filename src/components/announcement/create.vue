@@ -34,9 +34,6 @@ export default {
       }
     };
   },
-  mounted() {
-    this.init();
-  },
   methods: {
     create() {
       let validResult = this.$refs.form.valid();

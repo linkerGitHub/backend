@@ -1,13 +1,20 @@
 <template>
   <div class="table-basic-vue frame-page h-panel">
-    <div class="h-panel-bar"><span class="h-panel-title">课程</span></div>
+    <div class="h-panel-bar">
+      <span class="h-panel-title">课程</span>
+    </div>
     <div class="h-panel-bar">
       <Form :labelWidth="110">
-        <FormItem label="关键字搜索" prop="avatar">
+        <FormItem label="关键字搜索">
           <input type="text" v-model="pagination.keywords" placeholder="课程标题" />
         </FormItem>
+        <FormItem label="分类">
+          <template v-slot:label>分类</template>
+          <Select v-model="pagination.cid" :filterable="true" :datas="categories" keyName="id" titleName="name"></Select>
+        </FormItem>
         <FormItem>
-          <Button color="primary" @click="getData(true)">搜索</Button>
+          <Button class="h-btn h-btn-primary" @click="getData(true)">搜索</Button>
+          <Button class="h-btn" @click="reset()">重置</Button>
         </FormItem>
       </Form>
     </div>
@@ -15,16 +22,16 @@
       <p>
         <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
       </p>
-      <Table :loading="loading" :datas="datas">
-        <TableItem :width="70" prop="id" title="ID"></TableItem>
+      <Table :loading="loading" :datas="datas" @sort="sortEvt">
         <TableItem title="封面">
           <template slot-scope="{ data }">
-            <Avatar type="female" :src="data.thumb" noInfo></Avatar>
+            <img :src="data.thumb" width="120" height="80">
           </template>
         </TableItem>
         <TableItem prop="title" title="课程"></TableItem>
-        <TableItem prop="charge" title="价格" unit="元"></TableItem>
-        <TableItem prop="published_at" title="上线时间"></TableItem>
+        <TableItem prop="charge" title="价格" unit="元" :sort="true"></TableItem>
+        <TableItem prop="published_at" title="上线时间" :sort="true"></TableItem>
+        <TableItem prop="user_count" title="订阅人数" :sort="true"></TableItem>
         <TableItem title="显示">
           <template slot-scope="{ data }">
             <span v-if="data.is_show === 1">是</span>
@@ -61,9 +68,13 @@ export default {
         size: 20,
         total: 0,
         keywords: '',
+        cid: null,
+        sort: 'created_at',
+        order: 'desc'
       },
       datas: [],
-      loading: false
+      loading: false,
+      categories: []
     };
   },
   mounted() {
@@ -76,17 +87,28 @@ export default {
     changePage() {
       this.getData();
     },
+    sortEvt(sort) {
+      this.pagination.sort = sort.prop;
+      this.pagination.order = sort.type;
+      this.getData();
+    },
+    reset() {
+      this.pagination.keywords = '';
+      this.pagination.cid = null;
+      this.getData(true);
+    },
     getData(reload = false) {
       if (reload) {
         this.pagination.page = 1;
       }
       this.loading = true;
       R.Course.List(this.pagination).then(resp => {
-        this.datas = resp.data.data;
-        this.pagination.total = resp.data.total;
-        this.pagination.page = resp.data.current_page;
-        this.pagination.size = resp.data.per_page;
+        this.datas = resp.data.courses.data;
+        this.pagination.total = resp.data.courses.total;
+        this.pagination.page = resp.data.courses.current_page;
+        this.pagination.size = resp.data.courses.per_page;
         this.loading = false;
+        this.categories = resp.data.categories;
       });
     },
     create() {

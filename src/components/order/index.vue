@@ -4,10 +4,10 @@
     <div class="h-panel-bar">
       <Form :labelWidth="110">
         <FormItem label="关键字搜索" prop="avatar">
-          <input type="text" v-model="pagination.keywords" placeholder="用户昵称/手机号" />
+          <input type="text" v-model="cond.keywords" placeholder="用户昵称/手机号" />
         </FormItem>
         <FormItem label="状态" prop="avatar">
-          <Select v-model="pagination.status" :datas="statusArr"></Select>
+          <Select v-model="cond.status" :datas="statusArr"></Select>
         </FormItem>
         <FormItem>
           <Button color="primary" @click="getData(true)">搜索</Button>
@@ -33,7 +33,7 @@
             </ul>
           </template>
         </TableItem>
-        <TableItem width="120" title="操作" align="center">
+        <TableItem :width=200 title="操作" align="center">
           <template slot-scope="{ data }">
             <Poptip content="确认完成该订单？" @confirm="finishOrder(datas, data)" v-if="data.status === 1 || data.status === 5">
               <button class="h-btn h-btn-s h-btn-primary">改为已支付</button>
@@ -54,8 +54,10 @@ export default {
         page: 1,
         size: 20,
         total: 0,
-        keywords: '',
-        status: ''
+      },
+      cond: {
+        keywords: null,
+        status: null
       },
       statusArr: [
         {
@@ -94,11 +96,10 @@ export default {
         this.pagination.page = 1;
       }
       this.loading = true;
-      R.Order.List(this.pagination).then(resp => {
+      let cond = Object.assign(this.cond, this.pagination);
+      R.Order.List(cond).then(resp => {
         this.datas = resp.data.data;
         this.pagination.total = resp.data.total;
-        this.pagination.page = resp.data.current_page;
-        this.pagination.size = resp.data.per_page;
         this.loading = false;
       });
     },

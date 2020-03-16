@@ -6,11 +6,11 @@
     <div class="h-panel-bar">
       <Form :labelWidth="110">
         <FormItem label="关键字搜索">
-          <input type="text" v-model="pagination.keywords" placeholder="课程标题" />
+          <input type="text" v-model="cond.keywords" placeholder="课程标题" />
         </FormItem>
         <FormItem label="分类">
           <template v-slot:label>分类</template>
-          <Select v-model="pagination.cid" :filterable="true" :datas="categories" keyName="id" titleName="name"></Select>
+          <Select v-model="cond.cid" :filterable="true" :datas="categories" keyName="id" titleName="name"></Select>
         </FormItem>
         <FormItem>
           <Button class="h-btn h-btn-primary" @click="getData(true)">搜索</Button>
@@ -67,6 +67,8 @@ export default {
         page: 1,
         size: 20,
         total: 0,
+      },
+      cond: {
         keywords: '',
         cid: null,
         sort: 'created_at',
@@ -88,13 +90,13 @@ export default {
       this.getData();
     },
     sortEvt(sort) {
-      this.pagination.sort = sort.prop;
-      this.pagination.order = sort.type;
+      this.cond.sort = sort.prop;
+      this.cond.order = sort.type;
       this.getData();
     },
     reset() {
-      this.pagination.keywords = '';
-      this.pagination.cid = null;
+      this.cond.keywords = '';
+      this.cond.cid = null;
       this.getData(true);
     },
     getData(reload = false) {
@@ -102,11 +104,10 @@ export default {
         this.pagination.page = 1;
       }
       this.loading = true;
-      R.Course.List(this.pagination).then(resp => {
+      let cond = Object.assign(this.cond, this.pagination);
+      R.Course.List(cond).then(resp => {
         this.datas = resp.data.courses.data;
         this.pagination.total = resp.data.courses.total;
-        this.pagination.page = resp.data.courses.current_page;
-        this.pagination.size = resp.data.courses.per_page;
         this.loading = false;
         this.categories = resp.data.categories;
       });

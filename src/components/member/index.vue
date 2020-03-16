@@ -6,11 +6,11 @@
     <div class="h-panel-bar">
       <Form :labelWidth="110">
         <FormItem label="关键字搜索">
-          <input type="text" v-model="pagination.keywords" placeholder="用户昵称/手机号" />
+          <input type="text" v-model="cond.keywords" placeholder="用户昵称/手机号" />
         </FormItem>
          <FormItem label="会员">
           <template v-slot:label>会员</template>
-          <Select v-model="pagination.role_id" :filterable="true" :datas="roles" keyName="id" titleName="name"></Select>
+          <Select v-model="cond.role_id" :filterable="true" :datas="roles" keyName="id" titleName="name"></Select>
         </FormItem>
         <FormItem>
           <Button color="primary" @click="getData(true)">搜索</Button>
@@ -70,8 +70,12 @@ export default {
         page: 1,
         size: 20,
         total: 0,
+      },
+      cond: {
         keywords: '',
-        role_id: null
+        role_id: null,
+        sort: 'created_at',
+        order: 'desc',
       },
       datas: [],
       loading: false,
@@ -89,13 +93,13 @@ export default {
       this.getData();
     },
     reset() {
-      this.pagination.keywords = '';
-      this.pagination.role_id = null;
+      this.cond.keywords = '';
+      this.cond.role_id = null;
       this.getData(true);
     },
     sortEvt(sort) {
-      this.pagination.sort = sort.prop;
-      this.pagination.order = sort.type;
+      this.cond.sort = sort.prop;
+      this.cond.order = sort.type;
       this.getData();
     },
     getData(reload = false) {
@@ -103,11 +107,10 @@ export default {
         this.pagination.page = 1;
       }
       this.loading = true;
-      R.Member.List(this.pagination).then(resp => {
+      let cond = Object.assign(this.cond, this.pagination);
+      R.Member.List(cond).then(resp => {
         this.datas = resp.data.members.data;
         this.pagination.total = resp.data.members.total;
-        this.pagination.page = resp.data.members.current_page;
-        this.pagination.size = resp.data.members.per_page;
         this.loading = false;
         this.roles = resp.data.roles;
       });

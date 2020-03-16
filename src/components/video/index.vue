@@ -6,11 +6,11 @@
     <div class="h-panel-bar">
       <Form :labelWidth="110">
         <FormItem label="关键字搜索">
-          <input type="text" v-model="pagination.keywords" placeholder="视频标题" />
+          <input type="text" v-model="cond.keywords" placeholder="视频标题" />
         </FormItem>
         <FormItem label="课程">
           <template v-slot:label>课程</template>
-          <Select v-model="pagination.course_id" :filterable="true" :datas="courses" keyName="id" titleName="title"></Select>
+          <Select v-model="cond.course_id" :filterable="true" :datas="courses" keyName="id" titleName="title"></Select>
         </FormItem>
         <FormItem>
           <Button color="primary" @click="getData(true)">搜索</Button>
@@ -59,6 +59,8 @@ export default {
         page: 1,
         size: 20,
         total: 0,
+      },
+      cond: {
         keywords: '',
         sort: 'created_at',
         order: 'desc',
@@ -80,13 +82,13 @@ export default {
       this.getData();
     },
     reset() {
-      this.pagination.keywords = '';
-      this.pagination.course_id = null;
+      this.cond.keywords = '';
+      this.cond.course_id = null;
       this.getData(true);
     },
     sortEvt(sort) {
-      this.pagination.sort = sort.prop;
-      this.pagination.order = sort.type;
+      this.cond.sort = sort.prop;
+      this.cond.order = sort.type;
       this.getData();
     },
     getData(reload = false) {
@@ -94,11 +96,10 @@ export default {
         this.pagination.page = 1;
       }
       this.loading = true;
-      R.Video.List(this.pagination).then(resp => {
+      let cond = Object.assign(this.cond, this.pagination);
+      R.Video.List(cond).then(resp => {
         this.datas = resp.data.videos.data;
         this.pagination.total = resp.data.videos.total;
-        this.pagination.page = resp.data.videos.current_page;
-        this.pagination.size = resp.data.videos.per_page;
         this.loading = false;
         this.courses = resp.data.courses;
       });

@@ -10,7 +10,7 @@
       <Table :loading="loading" :datas="datas">
         <TableItem prop="id" title="ID"></TableItem>
         <TableItem prop="from_name" title="Name"></TableItem>
-        <TableItem prop="from_key" title="Key"></TableItem>
+        <TableItem prop="url" title="推广地址"></TableItem>
         <TableItem title="操作" align="center" :width="240">
           <template slot-scope="{ data }">
             <Poptip content="确认删除？" @confirm="remove(datas, data)">

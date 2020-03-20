@@ -27,9 +27,13 @@
 </style>
 <template>
   <div class="table-basic-vue frame-page h-panel">
-    <div class="h-panel-bar"><span class="h-panel-title">系统配置</span></div>
+    <div class="h-panel-bar">
+      <span class="h-panel-title">系统配置</span>
+    </div>
     <div class="h-panel-body">
-      <p><Button color="primary" @click="save">保存</Button></p>
+      <p>
+        <Button color="primary" @click="save">保存</Button>
+      </p>
       <Row class="body">
         <Cell width="4" style="border-right: 1px solid rgb(238, 238, 238);">
           <Row>
@@ -248,11 +252,14 @@
               <template v-slot:label>图片存储驱动</template>
               <Select v-model="setting.meedu.upload.image.disk" :datas="disks"></Select>
             </FormItem>
-            <FormItem>
-              <template v-slot:label>图片URL前缀</template>
-              <input type="text" v-model="setting.filesystems.disks.public.url" />
-              <warn text="不清楚具体功能请勿填写。"></warn>
-            </FormItem>
+
+            <template v-if="setting.meedu.upload.image.disk == 'public'">
+              <FormItem>
+                <template v-slot:label>图片URL前缀</template>
+                <input type="text" v-model="setting.filesystems.disks.public.url" />
+                <warn text="不清楚具体功能请勿变动"></warn>
+              </FormItem>
+            </template>
 
             <template v-if="setting.meedu.upload.image.disk == 'qiniu'">
               <FormItem>
@@ -293,6 +300,10 @@
               <FormItem>
                 <template v-slot:label>阿里云OSS Endpoint</template>
                 <input type="text" v-model="setting.filesystems.disks.oss.endpoint" />
+              </FormItem>
+              <FormItem>
+                <template v-slot:label>阿里云OSS CDN加速域名</template>
+                <input type="text" v-model="setting.filesystems.disks.oss.cdnDomain" />
               </FormItem>
             </template>
           </Form>
@@ -420,7 +431,8 @@
             <FormItem>
               <template v-slot:label>手机号强制绑定</template>
               <h-switch v-model="setting.meedu.member.enabled_mobile_bind_alert" :trueValue="1" :falseValue="0"></h-switch>
-              <br><warn text="开启此选项，用户通过第三方登录进入站点会强制提醒提醒绑定手机号"></warn>
+              <br />
+              <warn text="开启此选项，用户通过第三方登录进入站点会强制提醒提醒绑定手机号"></warn>
             </FormItem>
             <FormItem>
               <template v-slot:label>会员注册默认激活</template>
@@ -435,9 +447,9 @@
               <image-upload v-model="setting.meedu.member.default_avatar" name="默认头像"></image-upload>
             </FormItem>
             <FormItem>
-                <template v-slot:label>会员协议</template>
-                <tinymce-editor v-model="setting.meedu.member.protocol"></tinymce-editor>
-              </FormItem>
+              <template v-slot:label>会员协议</template>
+              <tinymce-editor v-model="setting.meedu.member.protocol"></tinymce-editor>
+            </FormItem>
           </Form>
         </Cell>
 
@@ -612,7 +624,7 @@ export default {
         {
           name: '其它',
           key: 'other'
-        },
+        }
       ],
       setting: {
         app: {

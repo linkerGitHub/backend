@@ -23,6 +23,7 @@
         <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
       </p>
       <Table :loading="loading" :datas="datas" @sort="sortEvt">
+        <TableItem prop="id" title="ID"></TableItem>
         <TableItem title="课程">
           <template slot-scope="{ data }">
             {{data.course.title}}

@@ -1,3 +1,8 @@
+<style lang="less">
+.avatar {
+  border-radius: 9px;
+}
+</style>
 <template>
   <div class="table-basic-vue frame-page h-panel">
     <div class="h-panel-bar">
@@ -27,12 +32,26 @@
         <TableItem prop="created_at" title="时间"></TableItem>
         <TableItem prop="status_text" title="状态"></TableItem>
         <TableItem title="用户">
-          <template slot-scope="{ data }">{{ data.user.nick_name }} | {{ data.user.mobile }}</template>
+          <template slot-scope="{ data }">
+            <p>
+              <img :src="users[data.user_id].avatar" width="18" height="18" class="avatar" />
+            </p>
+            <p>{{users[data.user_id].nick_name}}</p>
+          </template>
         </TableItem>
-        <TableItem title="订单信息">
+        <TableItem title="商品">
           <template slot-scope="{ data }">
             <ul>
-              <li v-for="goods in data.goods">{{ goods.goods_name }} | {{ goods.num }}</li>
+              <li v-for="goods in data.goods">{{ goods.goods_text }}({{goods.goods_id}})x{{ goods.num }}</li>
+            </ul>
+          </template>
+        </TableItem>
+        <TableItem title="支付记录">
+          <template slot-scope="{ data }">
+            <ul>
+              <li v-for="record in data.paid_records">
+                {{record.paid_type_text}}:￥{{record.paid_total}}
+              </li>
             </ul>
           </template>
         </TableItem>
@@ -81,7 +100,8 @@ export default {
         }
       ],
       datas: [],
-      loading: false
+      loading: false,
+      users: []
     };
   },
   mounted() {
@@ -101,9 +121,10 @@ export default {
       this.loading = true;
       let cond = Object.assign(this.cond, this.pagination);
       R.Order.List(cond).then(resp => {
-        this.datas = resp.data.data;
-        this.pagination.total = resp.data.total;
+        this.datas = resp.data.orders.data;
+        this.pagination.total = resp.data.orders.total;
         this.loading = false;
+        this.users = resp.data.users;
       });
     },
     finishOrder(orders, order) {

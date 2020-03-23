@@ -23,9 +23,10 @@
         <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
       </p>
       <Table :loading="loading" :datas="datas" @sort="sortEvt">
+        <TableItem prop="id" title="ID"></TableItem>
         <TableItem title="封面">
           <template slot-scope="{ data }">
-            <img :src="data.thumb" width="120" height="80">
+            <img :src="data.thumb" width="120" height="80" />
           </template>
         </TableItem>
         <TableItem prop="title" title="课程"></TableItem>
@@ -66,7 +67,7 @@ export default {
       pagination: {
         page: 1,
         size: 20,
-        total: 0,
+        total: 0
       },
       cond: {
         keywords: '',

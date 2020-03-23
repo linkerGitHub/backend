@@ -55,7 +55,7 @@ const initRouter = () => {
                 path: '/indexBanner',
                 name: 'IndexBanner',
                 component: (resolve) => require(['components/index_banner/index'], resolve),
-                meta: { title: '首页Banner' }
+                meta: { title: '首页推荐' }
             },
             {
                 path: '/link',

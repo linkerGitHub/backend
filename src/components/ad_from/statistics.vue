@@ -7,9 +7,9 @@
       </div>
       <div class="h-panel-body">
         <div>
-          <echart-line :data="data"></echart-line>
+          <line-chart :height="200" :chart-data="data"></line-chart>
         </div>
-        <div>
+        <div class="mt-10">
           <Button @click="close">关闭</Button>
         </div>
       </div>
@@ -17,34 +17,17 @@
   </div>
 </template>
 <script>
-import ChartLine from 'components/common/chartjs/line';
-import EchartLine from 'components/common/echart/line';
-import AdFrom from 'model/AdFrom';
+import LineChart from 'components/common/chartjs/line';
 
 export default {
   components: {
-    ChartLine,
-    EchartLine
+    LineChart
   },
   props: ['id'],
   data() {
     return {
-      adfrom: {},
-      data: {
-        xAxis: {
-          type: 'category',
-          data: []
-        },
-        yAxis: {
-          type: 'value'
-        },
-        series: [
-          {
-            data: [],
-            type: 'line'
-          }
-        ]
-      }
+      adfrom: null,
+      data: null
     };
   },
   mounted() {
@@ -55,22 +38,14 @@ export default {
       R.AdFrom.Number({ id: this.id }).then(resp => {
         this.adfrom = resp.data.ad;
         let data = {
-          xAxis: {
-            type: 'category',
-            data: []
-          },
-          yAxis: {
-            type: 'value'
-          },
-          series: [
+          labels: resp.data.labels,
+          datasets: [
             {
-              data: [],
-              type: 'line'
+              label: '统计',
+              data: resp.data.dataset
             }
           ]
         };
-        data.xAxis.data = resp.data.labels;
-        data.series[0].data = resp.data.dataset;
         this.data = data;
       });
     },

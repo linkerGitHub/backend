@@ -335,6 +335,14 @@ const Request = {
             return Ajax.delete('/nav/' + param.id, param);
         }
     },
+    Statistic: {
+        userRegister (param) {
+            return Ajax.get('/statistic/userRegister', param);
+        },
+        orderCreated (param) {
+            return Ajax.get('/statistic/orderCreated', param);
+        }
+    },
     PromoCode: {
         List (param) {
             return Ajax.get('/promoCode', param);

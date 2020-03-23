@@ -8,7 +8,7 @@
         <FormItem label="关键字搜索">
           <input type="text" v-model="cond.keywords" placeholder="用户昵称/手机号" />
         </FormItem>
-         <FormItem label="会员">
+        <FormItem label="会员">
           <template v-slot:label>会员</template>
           <Select v-model="cond.role_id" :filterable="true" :datas="roles" keyName="id" titleName="name"></Select>
         </FormItem>
@@ -21,6 +21,7 @@
     <div class="h-panel-body">
       <p>
         <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
+        <Button class="h-btn h-btn-primary" @click="showUserRegister()">注册统计</Button>
       </p>
       <Table :loading="loading" :datas="datas" @sort="sortEvt">
         <TableItem prop="id" title="ID"></TableItem>
@@ -46,9 +47,7 @@
         </TableItem>
         <TableItem title="VIP">
           <template slot-scope="{data}">
-            <template v-if="data.role">
-              {{data.role.name}}
-            </template>
+            <template v-if="data.role">{{data.role.name}}</template>
           </template>
         </TableItem>
         <TableItem title="操作" align="center" :width="80">
@@ -69,13 +68,13 @@ export default {
       pagination: {
         page: 1,
         size: 20,
-        total: 0,
+        total: 0
       },
       cond: {
         keywords: '',
         role_id: null,
         sort: 'created_at',
-        order: 'desc',
+        order: 'desc'
       },
       datas: [],
       loading: false,
@@ -150,6 +149,16 @@ export default {
             });
           }
         }
+      });
+    },
+    showUserRegister() {
+      this.$Modal({
+        component: {
+          vue: resolve => {
+            require(['./statistics'], resolve);
+          }
+        },
+        events: {}
       });
     }
   }

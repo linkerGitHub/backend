@@ -13,6 +13,21 @@ const Request = {
         index () {
             return Ajax.get('/addons');
         },
+        repository (param) {
+            return Ajax.get('/addons/repository', param);
+        },
+        user (param) {
+            return Ajax.get('/addons/repository/user', param);
+        },
+        buy (param) {
+            return Ajax.get('/addons/repository/buy', param);
+        },
+        install (param) {
+            return Ajax.get('/addons/repository/install', param);
+        },
+        upgrade (param) {
+            return Ajax.get('/addons/repository/upgrade', param);
+        },
         switchHandler (param) {
             return Ajax.postJson('/addons/switch', param);
         }

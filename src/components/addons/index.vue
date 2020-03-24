@@ -4,23 +4,70 @@
       <span class="h-panel-title">插件</span>
     </div>
     <div class="h-panel-body">
-      <p>
-        <a href="https://meedu.vip/addons" class="h-btn h-btn-primary" target="_blank">插件商城</a>
-      </p>
-      <Table :loading="loading" :datas="datas">
-        <TableItem prop="name" title="插件名"></TableItem>
-        <TableItem prop="version" title="当前版本"></TableItem>
-        <TableItem title="启用" align="center">
-          <template slot-scope="{ data }">
-            <h-switch v-model="data.enabled" :small="true" @change="switchHandler(data)"></h-switch>
-          </template>
-        </TableItem>
-        <TableItem title="操作" align="center" :width="80">
-          <template slot-scope="{ data }">
-            <a v-if="data.enabled && typeof data.index_url !== 'undefined'" :href="data.index_url + '?token=' + token">配置</a>
-          </template>
-        </TableItem>
-      </Table>
+      <div style="margin-bottom: 10px;">
+        <Tabs :datas="tabs" v-model="tab"></Tabs>
+      </div>
+
+      <div v-if="tab === 'local'">
+        <Table :loading="loading" :datas="local">
+          <TableItem prop="name" title="插件名"></TableItem>
+          <TableItem prop="version" title="当前版本"></TableItem>
+          <TableItem title="启用" align="center">
+            <template slot-scope="{ data }">
+              <h-switch v-model="data.enabled" :small="true" @change="switchHandler(data)"></h-switch>
+            </template>
+          </TableItem>
+          <TableItem title="操作" align="center" :width="80">
+            <template slot-scope="{ data }">
+              <a v-if="data.enabled && typeof data.index_url !== 'undefined'" :href="data.index_url + '?token=' + token">配置</a>
+            </template>
+          </TableItem>
+        </Table>
+      </div>
+
+      <div v-if="tab === 'repository'">
+        <div style="margin-bottom: 10px;">
+          <p>MeEduCloud账号：{{user.name || '登录出错'}} | 账户余额：{{user.balance / 100}}元 <a href="https://meedu.vip" target="_blank">点我充值</a></p>
+        </div>
+        <Table :loading="loading" :datas="repository">
+          <TableItem title="插件">
+            <template slot-scope="{ data }">
+              <a :href="'https://meedu.vip/addons/' + data.id + '/' + data.sign" target="_blank">
+                {{data.name}}
+                <span class="h-tag h-tag-red" v-if="data.is_buy">已购买</span>
+              </a>
+            </template>
+          </TableItem>
+          <TableItem prop="version" title="版本"></TableItem>
+          <TableItem title="价格">
+            <template slot-scope="{ data }">
+              <span>￥{{data.charge / 100}}</span>
+            </template>
+          </TableItem>
+          <TableItem title="操作" align="center">
+            <template slot-scope="{ data }">
+              <div v-if="data.is_buy">
+                <Poptip v-if="data.is_install === false" content="确认安装？" @confirm="install(data)">
+                  <button>安装</button>
+                </Poptip>
+                <span v-else>已安装</span>
+                <Poptip v-if="data.is_upgrade" content="确认升级？" @confirm="upgrade(data)">
+                  <button>可升级(当前：{{data.local_version}})</button>
+                </Poptip>
+              </div>
+              <div v-else>
+                <Poptip content="确认购买？" @confirm="buy(data)">
+                  <button>购买</button>
+                </Poptip>
+              </div>
+            </template>
+          </TableItem>
+        </Table>
+
+        <div class="mt-10">
+          <Pagination align="right" v-model="repositoryPaginate" @change="changePage" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -28,9 +75,24 @@
 export default {
   data() {
     return {
-      datas: [],
+      local: [],
+      repository: [],
       loading: false,
-      token: ''
+      token: '',
+      tabs: {
+        repository: '插件市场',
+        local: '本地插件'
+      },
+      tab: 'repository',
+      repositoryPaginate: {
+        page: 1,
+        page_size: 20,
+        total: 0
+      },
+      user: {
+        name: '',
+        balance: ''
+      }
     };
   },
   mounted() {
@@ -39,13 +101,53 @@ export default {
   methods: {
     init() {
       this.token = Utils.getLocal('token');
-      this.getData();
+      this.getRepository();
+      this.getLocal();
+      this.getUser();
     },
-    getData() {
+    getLocal() {
       this.loading = true;
       R.Addons.index().then(resp => {
-        this.datas = resp.data;
+        this.local = resp.data;
         this.loading = false;
+      });
+    },
+    getUser() {
+      R.Addons.user().then(resp => {
+        this.user = resp.data;
+      });
+    },
+    getRepository() {
+      this.loading = true;
+      R.Addons.repository(this.repositoryPaginate).then(resp => {
+        this.repository = resp.data.data;
+        this.repositoryPaginate.total = resp.data.total;
+        this.loading = false;
+      });
+    },
+    changePage() {
+      this.getRepository();
+    },
+    buy(item) {
+      R.Addons.buy({ addons_id: item.id, addons_sign: item.sign }).then(res => {
+        HeyUI.$Message.success('购买成功');
+        this.getRepository();
+        this.getLocal();
+        this.getUser();
+      });
+    },
+    install(item) {
+      R.Addons.install({ addons_id: item.id, addons_sign: item.sign }).then(res => {
+        HeyUI.$Message.success('安装成功');
+        this.getRepository();
+        this.getLocal();
+      });
+    },
+    upgrade(item) {
+      R.Addons.upgrade({ addons_id: item.id, addons_sign: item.sign }).then(res => {
+        HeyUI.$Message.success('升级成功');
+        this.getRepository();
+        this.getLocal();
       });
     },
     switchHandler(item) {
@@ -60,7 +162,7 @@ export default {
         action: action,
         sign: item.sign
       }).then(resp => {
-        this.getData();
+        this.getLocal();
       });
     }
   }

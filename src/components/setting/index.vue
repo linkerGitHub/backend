@@ -42,7 +42,7 @@
             </Cell>
           </Row>
         </Cell>
-        <Cell width="20" v-show="activeItem === 'system'">
+        <Cell width="20" v-if="activeItem === 'system'">
           <Form mode="block" class="p-20">
             <FormItem label="网站名">
               <input type="text" v-model="setting.app.name" />
@@ -65,10 +65,6 @@
               <image-upload v-model="setting.meedu.system.white_logo" name="会员中心logo"></image-upload>
             </FormItem>
             <FormItem>
-              <template v-slot:label>播放器封面</template>
-              <image-upload v-model="setting.meedu.system.player_thumb" name="播放器封面"></image-upload>
-            </FormItem>
-            <FormItem>
               <template v-slot:label>网站备案信息</template>
               <input type="text" v-model="setting.meedu.system.icp" />
             </FormItem>
@@ -79,7 +75,7 @@
           </Form>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-show="activeItem === 'cache'">
+        <Cell width="19" class="pt-15" v-if="activeItem === 'cache'">
           <Form mode="block" class="p-20">
             <FormItem>
               <template v-slot:label>开启缓存</template>
@@ -96,7 +92,7 @@
           </Form>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-show="activeItem === 'wechatMini'">
+        <Cell width="19" class="pt-15" v-if="activeItem === 'wechatMini'">
           <Form mode="block" class="p-20">
             <FormItem>
               <template v-slot:label>AppId</template>
@@ -109,10 +105,10 @@
           </Form>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-show="activeItem === 'sociallogin'">
+        <Cell width="19" class="pt-15" v-if="activeItem === 'sociallogin'">
           <Tabs :datas="tab.socialLogin" v-model="tabSeleted.socialLogin"></Tabs>
 
-          <div class="pt-15" v-show="tabSeleted.socialLogin === 'github'">
+          <div class="pt-15" v-if="tabSeleted.socialLogin === 'github'">
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>开启</template>
@@ -132,7 +128,7 @@
               </FormItem>
             </Form>
           </div>
-          <div class="pt-15" v-show="tabSeleted.socialLogin === 'qq'">
+          <div class="pt-15" v-if="tabSeleted.socialLogin === 'qq'">
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>开启</template>
@@ -153,7 +149,7 @@
             </Form>
           </div>
 
-          <div class="pt-15" v-show="tabSeleted.socialLogin === 'weixin'">
+          <div class="pt-15" v-if="tabSeleted.socialLogin === 'weixin'">
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>开启</template>
@@ -175,10 +171,10 @@
           </div>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-show="activeItem === 'sms'">
+        <Cell width="19" class="pt-15" v-if="activeItem === 'sms'">
           <Tabs :datas="tab.sms" v-model="tabSeleted.sms"></Tabs>
 
-          <div class="pt-15" v-show="tabSeleted.sms === 'service'">
+          <div class="pt-15" v-if="tabSeleted.sms === 'service'">
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>选择短信服务商</template>
@@ -187,7 +183,7 @@
             </Form>
           </div>
 
-          <div class="pt-15" v-show="tabSeleted.sms === 'aliyun'">
+          <div class="pt-15" v-if="tabSeleted.sms === 'aliyun'">
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>AccessKeyId</template>
@@ -219,7 +215,7 @@
               </FormItem>
             </Form>
           </div>
-          <div class="pt-15" v-show="tabSeleted.sms === 'yunpian'">
+          <div class="pt-15" v-if="tabSeleted.sms === 'yunpian'">
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>ApiKey</template>
@@ -246,7 +242,7 @@
           </div>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-show="activeItem === 'image'">
+        <Cell width="19" class="pt-15" v-if="activeItem === 'image'">
           <Form mode="block" class="p-20">
             <FormItem>
               <template v-slot:label>图片存储驱动</template>
@@ -309,10 +305,10 @@
           </Form>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-show="activeItem === 'pay'">
+        <Cell width="19" class="pt-15" v-if="activeItem === 'pay'">
           <Tabs :datas="tab.pay" v-model="tabSeleted.pay"></Tabs>
 
-          <div class="pt-15" v-show="tabSeleted.pay === 'alipay'">
+          <div class="pt-15" v-if="tabSeleted.pay === 'alipay'">
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>开启</template>
@@ -343,7 +339,7 @@
             </Form>
           </div>
 
-          <div class="pt-15" v-show="tabSeleted.pay === 'wechat'">
+          <div class="pt-15" v-if="tabSeleted.pay === 'wechat'">
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>开启</template>
@@ -374,7 +370,7 @@
             </Form>
           </div>
 
-          <div class="pt-15" v-show="tabSeleted.pay === 'handPay'">
+          <div class="pt-15" v-if="tabSeleted.pay === 'handPay'">
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>开启</template>
@@ -388,10 +384,10 @@
           </div>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-show="activeItem === 'video'">
+        <Cell width="19" class="pt-15" v-if="activeItem === 'video'">
           <Tabs :datas="tab.video" v-model="tabSeleted.video"></Tabs>
 
-          <div class="pt-15" v-show="tabSeleted.video === 'aliyun'">
+          <div class="pt-15" v-if="tabSeleted.video === 'aliyun'">
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>Region</template>
@@ -408,7 +404,7 @@
             </Form>
           </div>
 
-          <div class="pt-15" v-show="tabSeleted.video === 'tencent'">
+          <div class="pt-15" v-if="tabSeleted.video === 'tencent'">
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>AppId</template>
@@ -426,7 +422,7 @@
           </div>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-show="activeItem === 'member'">
+        <Cell width="19" class="pt-15" v-if="activeItem === 'member'">
           <Form mode="block" class="p-20">
             <FormItem>
               <template v-slot:label>手机号强制绑定</template>
@@ -453,10 +449,10 @@
           </Form>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-show="activeItem === 'seo'">
+        <Cell width="19" class="pt-15" v-if="activeItem === 'seo'">
           <Tabs :datas="tab.seo" v-model="tabSeleted.seo"></Tabs>
 
-          <div class="pt-15" v-show="tabSeleted.seo === 'indexPage'">
+          <div class="pt-15" v-if="tabSeleted.seo === 'indexPage'">
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>首页标题</template>
@@ -473,7 +469,7 @@
             </Form>
           </div>
 
-          <div class="pt-15" v-show="tabSeleted.seo === 'coursePage'">
+          <div class="pt-15" v-if="tabSeleted.seo === 'coursePage'">
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>课程列表页标题</template>
@@ -490,7 +486,7 @@
             </Form>
           </div>
 
-          <div class="pt-15" v-show="tabSeleted.seo === 'rolePage'">
+          <div class="pt-15" v-if="tabSeleted.seo === 'rolePage'">
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>订阅页标题</template>
@@ -508,7 +504,7 @@
           </div>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-show="activeItem === 'other'">
+        <Cell width="19" class="pt-15" v-if="activeItem === 'other'">
           <Form mode="block" class="p-20">
             <FormItem>
               <template v-slot:label>课程列表页每页数</template>
@@ -521,7 +517,33 @@
           </Form>
         </Cell>
 
-        <Cell width="19" class="pt-15" v-show="activeItem === 'invite'">
+        <Cell width="19" class="pt-15" v-if="activeItem === 'MeEduCloud'">
+          <Form mode="block" class="p-20">
+            <FormItem>
+              <template v-slot:label>服务域名</template>
+              <input type="text" v-model="setting.meedu.meeducloud.domain" />
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>UserID</template>
+              <input type="text" v-model="setting.meedu.meeducloud.user_id" />
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>用户密码</template>
+              <input type="text" v-model="setting.meedu.meeducloud.password" />
+            </FormItem>
+          </Form>
+        </Cell>
+
+        <Cell width="19" class="pt-15" v-if="activeItem === 'player'">
+          <Form mode="block" class="p-20">
+            <FormItem>
+              <template v-slot:label>播放器封面</template>
+              <image-upload v-model="setting.meedu.system.player_thumb" name="播放器封面"></image-upload>
+            </FormItem>
+          </Form>
+        </Cell>
+
+        <Cell width="19" class="pt-15" v-if="activeItem === 'invite'">
           <Form mode="block" class="p-20">
             <FormItem>
               <template v-slot:label>免费会员是否可以生成邀请码</template>
@@ -594,15 +616,15 @@ export default {
           key: 'sms'
         },
         {
-          name: '图片',
+          name: '图片存储',
           key: 'image'
         },
         {
-          name: '支付',
+          name: '支付网关',
           key: 'pay'
         },
         {
-          name: '视频',
+          name: '视频存储',
           key: 'video'
         },
         {
@@ -610,11 +632,11 @@ export default {
           key: 'member'
         },
         {
-          name: 'SEO',
+          name: '全站SEO',
           key: 'seo'
         },
         {
-          name: '邀请',
+          name: '用户邀请',
           key: 'invite'
         },
         {
@@ -624,6 +646,14 @@ export default {
         {
           name: '其它',
           key: 'other'
+        },
+        {
+          name: 'MeEduCloud',
+          key: 'MeEduCloud'
+        },
+        {
+          name: '播放器配置',
+          key: 'player'
         }
       ],
       setting: {

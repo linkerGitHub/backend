@@ -27,7 +27,13 @@
 
       <div v-if="tab === 'repository'">
         <div style="margin-bottom: 10px;">
-          <p>MeEduCloud账号：{{user.name || '登录出错'}} | 账户余额：{{user.balance / 100}}元 <a href="https://meedu.vip" target="_blank">点我充值</a></p>
+          <p>
+            MeEduCloud账号：{{user.name || '登录出错'}} | 账户余额：{{user.balance / 100}}元
+            <a href="https://meedu.vip" target="_blank">点我充值</a>
+          </p>
+          <p>
+            <button @click="refresh()">刷新</button>
+          </p>
         </div>
         <Table :loading="loading" :datas="repository">
           <TableItem title="插件">
@@ -86,7 +92,7 @@ export default {
       tab: 'repository',
       repositoryPaginate: {
         page: 1,
-        page_size: 20,
+        size: 20,
         total: 0
       },
       user: {
@@ -101,6 +107,9 @@ export default {
   methods: {
     init() {
       this.token = Utils.getLocal('token');
+      this.refresh();
+    },
+    refresh() {
       this.getRepository();
       this.getLocal();
       this.getUser();
@@ -131,23 +140,19 @@ export default {
     buy(item) {
       R.Addons.buy({ addons_id: item.id, addons_sign: item.sign }).then(res => {
         HeyUI.$Message.success('购买成功');
-        this.getRepository();
-        this.getLocal();
-        this.getUser();
+        this.refresh();
       });
     },
     install(item) {
       R.Addons.install({ addons_id: item.id, addons_sign: item.sign }).then(res => {
         HeyUI.$Message.success('安装成功');
-        this.getRepository();
-        this.getLocal();
+        this.refresh();
       });
     },
     upgrade(item) {
       R.Addons.upgrade({ addons_id: item.id, addons_sign: item.sign }).then(res => {
         HeyUI.$Message.success('升级成功');
-        this.getRepository();
-        this.getLocal();
+        this.refresh();
       });
     },
     switchHandler(item) {

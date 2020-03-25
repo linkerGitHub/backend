@@ -232,7 +232,10 @@ const Request = {
         },
         Delete (param) {
             return Ajax.delete('/course/' + param.id, param);
-        }
+        },
+        SubscribeUsers (param) {
+            return Ajax.get('/course/' + param.id + '/subscribe/users', param);
+        },
     },
     Video: {
         List (param) {

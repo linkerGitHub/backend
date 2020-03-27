@@ -24,7 +24,7 @@ const fullMenus = [{
         key: 'Slider'
     },
     {
-        title: '首页Banner',
+        title: '首页推荐',
         key: 'IndexBanner'
     },
     {

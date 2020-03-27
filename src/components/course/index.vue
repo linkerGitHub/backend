@@ -23,15 +23,20 @@
         <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
       </p>
       <Table :loading="loading" :datas="datas" @sort="sortEvt">
+        <TableItem prop="id" title="ID"></TableItem>
         <TableItem title="封面">
           <template slot-scope="{ data }">
-            <img :src="data.thumb" width="120" height="80">
+            <img :src="data.thumb" width="120" height="80" />
           </template>
         </TableItem>
         <TableItem prop="title" title="课程"></TableItem>
         <TableItem prop="charge" title="价格" unit="元" :sort="true"></TableItem>
         <TableItem prop="published_at" title="上线时间" :sort="true"></TableItem>
-        <TableItem prop="user_count" title="订阅人数" :sort="true"></TableItem>
+        <TableItem title="订阅人数" :sort="true">
+          <template slot-scope="{ data }">
+            <span @click="showSubscribeUsers(data)">{{data.user_count}}</span>
+          </template>
+        </TableItem>
         <TableItem title="显示">
           <template slot-scope="{ data }">
             <span v-if="data.is_show === 1">是</span>
@@ -66,7 +71,7 @@ export default {
       pagination: {
         page: 1,
         size: 20,
-        total: 0,
+        total: 0
       },
       cond: {
         keywords: '',
@@ -126,6 +131,19 @@ export default {
     },
     goChapter(item) {
       this.$router.push({ name: 'CourseChapter', params: { cid: item.id } });
+    },
+    showSubscribeUsers(item) {
+      this.$Modal({
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['./subscribe_users'], resolve);
+          },
+          datas: {
+            id: item.id
+          }
+        }
+      });
     }
   }
 };

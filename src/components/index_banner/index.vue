@@ -1,7 +1,7 @@
 <template>
   <div class="table-basic-vue frame-page h-panel">
     <div class="h-panel-bar">
-      <span class="h-panel-title">首页banner</span>
+      <span class="h-panel-title">首页推荐</span>
     </div>
     <div class="h-panel-body">
       <p>

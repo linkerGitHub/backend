@@ -3,7 +3,7 @@
   <div style="width: 700px;">
     <div class="table-basic-vue frame-page h-panel">
       <div class="h-panel-bar">
-        <span class="h-panel-title">数据统计</span>
+        <span class="h-panel-title">用户注册统计</span>
       </div>
       <div class="h-panel-body">
         <div>
@@ -26,7 +26,6 @@ export default {
   props: ['id'],
   data() {
     return {
-      adfrom: null,
       data: null
     };
   },
@@ -35,13 +34,12 @@ export default {
   },
   methods: {
     init() {
-      R.AdFrom.Number({ id: this.id }).then(resp => {
-        this.adfrom = resp.data.ad;
+      R.Statistic.userRegister().then(resp => {
         let data = {
           labels: resp.data.labels,
           datasets: [
             {
-              label: '统计',
+              label: '注册数',
               data: resp.data.dataset
             }
           ]

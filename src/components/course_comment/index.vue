@@ -1,9 +1,24 @@
+<style lang="less">
+.avatar {
+  border-radius: 16px;
+}
+</style>
 <template>
   <div class="table-basic-vue frame-page h-panel">
-    <div class="h-panel-bar"><span class="h-panel-title">课程评论</span></div>
+    <div class="h-panel-bar">
+      <span class="h-panel-title">课程评论</span>
+    </div>
     <div class="h-panel-body">
       <Table :loading="loading" :datas="datas">
         <TableItem prop="id" title="ID"></TableItem>
+        <TableItem title="用户">
+          <template slot-scope="{ data }">
+            <p>
+              <img :src="data.user.avatar" width="32" height="32" class="avatar" />
+            </p>
+            <p>{{data.user.nick_name}}</p>
+          </template>
+        </TableItem>
         <TableItem title="课程">
           <template slot-scope="{ data }">
             <a :href="'/course/' + data.course.id + '/' + data.course.slug" target="_blank">{{data.course.title}}</a>
@@ -69,7 +84,7 @@ export default {
         HeyUI.$Message.success('成功');
         this.getData(true);
       });
-    },
+    }
   }
 };
 </script>

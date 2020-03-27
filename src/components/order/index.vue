@@ -1,6 +1,13 @@
+<style lang="less">
+.avatar {
+  border-radius: 9px;
+}
+</style>
 <template>
   <div class="table-basic-vue frame-page h-panel">
-    <div class="h-panel-bar"><span class="h-panel-title">订单</span></div>
+    <div class="h-panel-bar">
+      <span class="h-panel-title">订单</span>
+    </div>
     <div class="h-panel-bar">
       <Form :labelWidth="110">
         <FormItem label="关键字搜索" prop="avatar">
@@ -15,6 +22,9 @@
       </Form>
     </div>
     <div class="h-panel-body">
+      <p>
+        <Button class="h-btn h-btn-primary" @click="showOrderCreated()">订单统计</Button>
+      </p>
       <Table :loading="loading" :datas="datas" :stripe="true">
         <TableItem prop="id" title="ID"></TableItem>
         <TableItem prop="order_id" title="订单号"></TableItem>
@@ -23,17 +33,29 @@
         <TableItem prop="status_text" title="状态"></TableItem>
         <TableItem title="用户">
           <template slot-scope="{ data }">
-            {{ data.user.nick_name }} | {{ data.user.mobile }}
+            <p>
+              <img :src="users[data.user_id].avatar" width="18" height="18" class="avatar" />
+            </p>
+            <p>{{users[data.user_id].nick_name}}</p>
           </template>
         </TableItem>
-        <TableItem title="订单信息">
+        <TableItem title="商品">
           <template slot-scope="{ data }">
             <ul>
-              <li v-for="goods in data.goods">{{ goods.goods_name }} | {{ goods.num }}</li>
+              <li v-for="goods in data.goods">{{ goods.goods_text }}({{goods.goods_id}})x{{ goods.num }}</li>
             </ul>
           </template>
         </TableItem>
-        <TableItem :width=200 title="操作" align="center">
+        <TableItem title="支付记录">
+          <template slot-scope="{ data }">
+            <ul>
+              <li v-for="record in data.paid_records">
+                {{record.paid_type_text}}:￥{{record.paid_total}}
+              </li>
+            </ul>
+          </template>
+        </TableItem>
+        <TableItem :width="200" title="操作" align="center">
           <template slot-scope="{ data }">
             <Poptip content="确认完成该订单？" @confirm="finishOrder(datas, data)" v-if="data.status === 1 || data.status === 5">
               <button class="h-btn h-btn-s h-btn-primary">改为已支付</button>
@@ -53,7 +75,7 @@ export default {
       pagination: {
         page: 1,
         size: 20,
-        total: 0,
+        total: 0
       },
       cond: {
         keywords: null,
@@ -78,7 +100,8 @@ export default {
         }
       ],
       datas: [],
-      loading: false
+      loading: false,
+      users: []
     };
   },
   mounted() {
@@ -98,15 +121,26 @@ export default {
       this.loading = true;
       let cond = Object.assign(this.cond, this.pagination);
       R.Order.List(cond).then(resp => {
-        this.datas = resp.data.data;
-        this.pagination.total = resp.data.total;
+        this.datas = resp.data.orders.data;
+        this.pagination.total = resp.data.orders.total;
         this.loading = false;
+        this.users = resp.data.users;
       });
     },
     finishOrder(orders, order) {
       R.Order.Finish(order).then(resp => {
         HeyUI.$Message.success('成功');
         this.getData(false);
+      });
+    },
+    showOrderCreated() {
+      this.$Modal({
+        component: {
+          vue: resolve => {
+            require(['./statistics'], resolve);
+          }
+        },
+        events: {}
       });
     }
   }

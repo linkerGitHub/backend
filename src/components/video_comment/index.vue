@@ -1,9 +1,22 @@
+<style lang="less">
+.avatar {
+  border-radius: 16px;
+}
+</style>
 <template>
   <div class="table-basic-vue frame-page h-panel">
     <div class="h-panel-bar"><span class="h-panel-title">视频评论</span></div>
     <div class="h-panel-body">
       <Table :loading="loading" :datas="datas">
         <TableItem prop="id" title="ID"></TableItem>
+        <TableItem title="用户">
+          <template slot-scope="{ data }">
+            <p>
+              <img :src="data.user.avatar" width="32" height="32" class="avatar" />
+            </p>
+            <p>{{data.user.nick_name}}</p>
+          </template>
+        </TableItem>
         <TableItem title="视频">
           <template slot-scope="{ data }">
             <a :href="'/course/' + data.video.course_id + '/video/' + data.video.id + '/' + data.video.slug" target="_blank">{{data.video.title}}</a>

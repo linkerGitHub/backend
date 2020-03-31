@@ -86,7 +86,7 @@
               <template v-slot:label>缓存时间</template>
               <div class="h-input-group" v-width="200">
                 <input type="text" v-model="setting.meedu.system.cache.expire" />
-                <span class="h-input-addon">分钟</span>
+                <span class="h-input-addon">秒</span>
               </div>
             </FormItem>
           </Form>

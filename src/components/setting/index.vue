@@ -519,8 +519,9 @@
 
         <Cell width="19" class="pt-15" v-if="activeItem === 'MeEduCloud'">
           <Form mode="block" class="p-20">
+            <p><a href="https://www.yuque.com/meedu/yr7rek/adc5ca" target="_blank">配置教程？</a></p>
             <FormItem>
-              <template v-slot:label>服务域名</template>
+              <template v-slot:label>服务地址</template>
               <input type="text" v-model="setting.meedu.meeducloud.domain" />
             </FormItem>
             <FormItem>
@@ -539,6 +540,11 @@
             <FormItem>
               <template v-slot:label>播放器封面</template>
               <image-upload v-model="setting.meedu.system.player_thumb" name="播放器封面"></image-upload>
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>跑马灯（防止录屏）</template>
+              <h-switch v-model="setting.meedu.system.player.enabled_bullet_secret" :trueValue="1" :falseValue="0"></h-switch>
+              <warn text="目前仅支持阿里云和视频直链"></warn>
             </FormItem>
           </Form>
         </Cell>

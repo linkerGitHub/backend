@@ -29,7 +29,8 @@
         <div style="margin-bottom: 10px;">
           <p>
             MeEduCloud账号：{{user.name || '登录出错'}} | 账户余额：{{user.balance / 100}}元
-            <a href="https://meedu.vip" target="_blank">点我充值</a>
+            <a href="https://meedu.vip" target="_blank" style="color: orange;font-weight: 800">充值</a>
+            <a href="https://www.yuque.com/meedu/yr7rek/adc5ca" target="_blank" style="color: red">无法使用？查看配置教程</a>
           </p>
           <p>
             <button @click="refresh()">刷新</button>

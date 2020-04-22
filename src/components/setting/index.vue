@@ -553,6 +553,11 @@
               <h-switch v-model="setting.meedu.system.player.enabled_aliyun_private" :trueValue="1" :falseValue="0"></h-switch>
               <warn text="如果开启了HLS私密加密，必须开启次选项。"></warn>
             </FormItem>
+            <FormItem>
+              <template v-slot:label>腾讯云播放key(<a href="https://www.yuque.com/meedu/yr7rek/it8g8z" target="_blank">配置教程?</a>)</template>
+              <input type="text" v-model="setting.meedu.system.player.tencent_play_key" />
+              <warn text="不填写表示不开启"></warn>
+            </FormItem>
           </Form>
         </Cell>
 

@@ -11,6 +11,7 @@
         <TableItem prop="invite_user_reward" title="所属用户奖励" unit="元"></TableItem>
         <TableItem prop="use_times" title="次数限制" unit="次"></TableItem>
         <TableItem prop="used_times" title="已使用次数" unit="次"></TableItem>
+        <TableItem prop="expired_at" title="过期时间"></TableItem>
         <TableItem title="操作" align="center" :width="80">
           <template slot-scope="{ data }">
             <Poptip content="确认删除？" @confirm="remove(datas, data)">

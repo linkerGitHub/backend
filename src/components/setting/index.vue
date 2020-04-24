@@ -86,7 +86,7 @@
               <template v-slot:label>缓存时间</template>
               <div class="h-input-group" v-width="200">
                 <input type="text" v-model="setting.meedu.system.cache.expire" />
-                <span class="h-input-addon">分钟</span>
+                <span class="h-input-addon">秒</span>
               </div>
             </FormItem>
           </Form>
@@ -296,10 +296,12 @@
               <FormItem>
                 <template v-slot:label>阿里云OSS Endpoint</template>
                 <input type="text" v-model="setting.filesystems.disks.oss.endpoint" />
+                <warn text="必须配置，否则无法上传图片"></warn>
               </FormItem>
               <FormItem>
                 <template v-slot:label>阿里云OSS CDN加速域名</template>
                 <input type="text" v-model="setting.filesystems.disks.oss.cdnDomain" />
+                <warn text="必须配置，否则无法上传图片"></warn>
               </FormItem>
             </template>
           </Form>
@@ -519,8 +521,9 @@
 
         <Cell width="19" class="pt-15" v-if="activeItem === 'MeEduCloud'">
           <Form mode="block" class="p-20">
+            <p><a href="https://www.yuque.com/meedu/yr7rek/adc5ca" target="_blank">配置教程？</a></p>
             <FormItem>
-              <template v-slot:label>服务域名</template>
+              <template v-slot:label>服务地址</template>
               <input type="text" v-model="setting.meedu.meeducloud.domain" />
             </FormItem>
             <FormItem>
@@ -539,6 +542,21 @@
             <FormItem>
               <template v-slot:label>播放器封面</template>
               <image-upload v-model="setting.meedu.system.player_thumb" name="播放器封面"></image-upload>
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>跑马灯（防止录屏）</template>
+              <h-switch v-model="setting.meedu.system.player.enabled_bullet_secret" :trueValue="1" :falseValue="0"></h-switch>
+              <warn text="目前仅支持阿里云和视频直链"></warn>
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>阿里云播放器私密播放</template>
+              <h-switch v-model="setting.meedu.system.player.enabled_aliyun_private" :trueValue="1" :falseValue="0"></h-switch>
+              <warn text="如果开启了HLS私密加密，必须开启次选项。"></warn>
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>腾讯云播放key(<a href="https://www.yuque.com/meedu/yr7rek/it8g8z" target="_blank">配置教程?</a>)</template>
+              <input type="text" v-model="setting.meedu.system.player.tencent_play_key" />
+              <warn text="不填写表示不开启"></warn>
             </FormItem>
           </Form>
         </Cell>

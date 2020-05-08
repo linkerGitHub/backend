@@ -1,47 +1,32 @@
 <style lang="less">
-.list-box {
-  width: 100%;
-  height: auto;
-  float: left;
-}
-.user-item {
-  float: left;
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-.avatar {
-  border-radius: 16px;
-}
-
-.p {
-  width: 100%;
-  height: auto;
-  float: left;
-  margin-top: 10px;
-}
-.bottom {
-  width: 100%;
-  height: auto;
-  float: left;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
 </style>
 <template>
   <div style="padding: 30px">
-    <div class="list-box">
-      <div class="user-item" v-for="item in list" :key="item.id">
-        <img :src="users[item.user_id].avatar" class="avatar" width="32" height="32" />
-        <br />
-        <span>{{users[item.user_id].nick_name}}</span>
-      </div>
+    <div style="margin-bottom: 15px;">
+      <Button color="primary" @click="close()">关闭</Button>
     </div>
-    <div class="p">
-      <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
+    <div style="margin-bottom: 15px;">
+      <Table :loading="loading" :datas="list">
+        <TableItem title="ID" prop="id"></TableItem>
+      <TableItem title="用户">
+        <template slot-scope="{ data }">
+          {{users[data.user_id].nick_name}}
+        </template>
+      </TableItem>
+      <TableItem title="看完">
+        <template slot-scope="{ data }">
+          {{data.is_watched === 1 ? '是' : '否'}}
+        </template>
+      </TableItem>
+      <TableItem title="看完时间">
+        <template slot-scope="{ data }">
+          {{data.watched_at}}
+        </template>
+      </TableItem>
+    </Table>
     </div>
-    <div class="bottom" style="text-align: right">
-      <Button @click="close()">取消</Button>
-    </div>
+
+    <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
   </div>
 </template>
 
@@ -54,7 +39,7 @@ export default {
       users: [],
       pagination: {
         page: 1,
-        size: 50,
+        size: 20,
         total: 0
       },
       loading: false

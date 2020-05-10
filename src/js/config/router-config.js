@@ -42,6 +42,12 @@ const initRouter = () => {
                 meta: { title: '公告' }
             },
             {
+                path: '/statistic',
+                name: 'Statistic',
+                component: (resolve) => require(['components/statistic/index'], resolve),
+                meta: { title: '公告' }
+            },
+            {
                 path: '/role',
                 name: 'Role',
                 component: (resolve) => require(['components/role/index'], resolve),

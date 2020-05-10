@@ -28,6 +28,10 @@
               <span class="h-input-addon">元</span>
             </div>
           </FormItem>
+          <FormItem label="禁止购买" prop="is_ban_sell">
+            <template v-slot:label>禁止购买</template>
+            <h-switch v-model="video.is_ban_sell" :trueValue="1" :falseValue="0"></h-switch>
+          </FormItem>
           <FormItem label="简短介绍" prop="short_description">
             <template v-slot:label>简短介绍</template>
             <textarea v-model="video.short_description"></textarea>
@@ -108,7 +112,7 @@ export default {
       tabs: ['阿里云', '腾讯云', '直链'],
       tab: '阿里云',
       rules: {
-        required: ['course_id', 'title', 'charge', 'short_description', 'published_at', 'is_show', 'seo_description', 'seo_keywords']
+        required: ['course_id', 'title', 'charge', 'short_description', 'published_at', 'is_show', 'seo_description', 'seo_keywords', 'is_ban_sell']
       }
     };
   },

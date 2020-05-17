@@ -123,8 +123,10 @@ export default {
       });
     },
     getUser() {
+      this.loading = true;
       R.Addons.user().then(resp => {
         this.user = resp.data;
+        this.loading = false;
       });
     },
     getRepository() {
@@ -139,18 +141,21 @@ export default {
       this.getRepository();
     },
     buy(item) {
+      this.loading = true;
       R.Addons.buy({ addons_id: item.id, addons_sign: item.sign }).then(res => {
         HeyUI.$Message.success('购买成功');
         this.refresh();
       });
     },
     install(item) {
+      this.loading = true;
       R.Addons.install({ addons_id: item.id, addons_sign: item.sign }).then(res => {
         HeyUI.$Message.success('安装成功');
         this.refresh();
       });
     },
     upgrade(item) {
+      this.loading = true;
       R.Addons.upgrade({ addons_id: item.id, addons_sign: item.sign }).then(res => {
         HeyUI.$Message.success('升级成功');
         this.refresh();

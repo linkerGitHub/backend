@@ -38,6 +38,10 @@ const fullMenus = [{
     {
         title: '视频评论',
         key: 'VideoComment'
+    },
+    {
+        title: '统计工具',
+        key: 'Statistic'
     }
     ]
 },

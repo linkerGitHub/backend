@@ -21,7 +21,6 @@
     <div class="h-panel-body">
       <p>
         <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
-        <Button class="h-btn h-btn-primary" @click="showUserRegister()">注册统计</Button>
       </p>
       <Table :loading="loading" :datas="datas" @sort="sortEvt">
         <TableItem prop="id" title="ID"></TableItem>
@@ -149,16 +148,6 @@ export default {
             });
           }
         }
-      });
-    },
-    showUserRegister() {
-      this.$Modal({
-        component: {
-          vue: resolve => {
-            require(['./statistics'], resolve);
-          }
-        },
-        events: {}
       });
     }
   }

@@ -22,9 +22,6 @@
       </Form>
     </div>
     <div class="h-panel-body">
-      <p>
-        <Button class="h-btn h-btn-primary" @click="showOrderCreated()">订单统计</Button>
-      </p>
       <Table :loading="loading" :datas="datas" :stripe="true">
         <TableItem prop="id" title="ID"></TableItem>
         <TableItem prop="order_id" title="订单号"></TableItem>
@@ -131,16 +128,6 @@ export default {
       R.Order.Finish(order).then(resp => {
         HeyUI.$Message.success('成功');
         this.getData(false);
-      });
-    },
-    showOrderCreated() {
-      this.$Modal({
-        component: {
-          vue: resolve => {
-            require(['./statistics'], resolve);
-          }
-        },
-        events: {}
       });
     }
   }

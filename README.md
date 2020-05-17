@@ -8,12 +8,16 @@
 git clone https://github.com/Meedu/backend.git meedu-backend
 ```
 
-安装依赖：
+操作之前请先安装：
 
 ```
 npm install -g hey-cli
-cd meedu-backend
-npm install
+```
+
+安装依赖：
+
+```
+cd meedu-backend && yarn install
 ```
 
 打包：

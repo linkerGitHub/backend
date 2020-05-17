@@ -6,9 +6,10 @@ export default new Model({
     seo_keywords: '',
     seo_description: '',
     published_at: '',
-    is_show: 0,
+    is_show: null,
     aliyun_video_id: '',
     tencent_video_id: '',
     url: '',
-    duration: 0,
+    duration: null,
+    is_ban_sell: null
 });

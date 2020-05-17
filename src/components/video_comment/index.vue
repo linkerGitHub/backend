@@ -1,25 +1,51 @@
-<style lang="less">
+<style lang="less" scoped>
 .avatar {
   border-radius: 16px;
+}
+.red {
+  color: red;
 }
 </style>
 <template>
   <div class="table-basic-vue frame-page h-panel">
-    <div class="h-panel-bar"><span class="h-panel-title">视频评论</span></div>
+    <div class="h-panel-bar">
+      <span class="h-panel-title">视频评论</span>
+    </div>
     <div class="h-panel-body">
-      <Table :loading="loading" :datas="datas">
+      <Form :labelWidth="110">
+        <FormItem label="课程">
+          <template v-slot:label>课程</template>
+          <Select v-model="filter.course_id" :filterable="true" :datas="courses" keyName="id" titleName="title"></Select>
+        </FormItem>
+        <FormItem>
+          <template v-slot:label>章节</template>
+          <Select v-model="filter.video_id" :datas="getVideos" keyName="id" titleName="title" :filterable="true"></Select>
+        </FormItem>
+        <FormItem>
+          <Button color="primary" @click="getData(true)">搜索</Button>
+          <Button class="h-btn" @click="reset">重置</Button>
+        </FormItem>
+      </Form>
+
+      <div style="margin-bottom: 15px;">
+        <Button color="primary" @click="deleteSubmit()">批量删除</Button>
+      </div>
+
+      <Table :loading="loading" :datas="datas" :checkbox="true" ref="table">
         <TableItem prop="id" title="ID"></TableItem>
         <TableItem title="用户">
           <template slot-scope="{ data }">
-            <p>
-              <img :src="data.user.avatar" width="32" height="32" class="avatar" />
-            </p>
-            <p>{{data.user.nick_name}}</p>
+            <span>{{data.user.nick_name}}</span>
           </template>
         </TableItem>
         <TableItem title="视频">
           <template slot-scope="{ data }">
-            <a :href="'/course/' + data.video.course_id + '/video/' + data.video.id + '/' + data.video.slug" target="_blank">{{data.video.title}}</a>
+            <a
+              v-if="data.video"
+              :href="'/course/' + data.video.course_id + '/video/' + data.video.id + '/' + data.video.slug"
+              target="_blank"
+            >{{data.video.title}}</a>
+            <span class="red" v-else>已删除</span>
           </template>
         </TableItem>
         <TableItem title="内容">
@@ -28,13 +54,6 @@
           </template>
         </TableItem>
         <TableItem prop="created_at" title="时间"></TableItem>
-        <TableItem title="操作" align="center" :width="80">
-          <template slot-scope="{ data }">
-            <Poptip content="确认删除？" @confirm="remove(datas, data)">
-              <button class="h-btn h-btn-s h-btn-red">删除</button>
-            </Poptip>
-          </template>
-        </TableItem>
       </Table>
       <p></p>
       <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
@@ -51,11 +70,25 @@ export default {
         total: 0
       },
       datas: [],
-      loading: false
+      loading: false,
+      filter: {
+        course_id: null,
+        video_id: null
+      },
+      courses: [],
+      videos: []
     };
   },
   mounted() {
     this.init();
+  },
+  computed: {
+    getVideos() {
+      if (!this.filter.course_id) {
+        return [];
+      }
+      return this.videos[this.filter.course_id];
+    }
   },
   methods: {
     init() {
@@ -64,23 +97,43 @@ export default {
     changePage() {
       this.getData();
     },
+    reset() {
+      this.filter = {
+        course_id: null,
+        video_id: null
+      };
+      this.getData(true);
+    },
     getData(reload = false) {
       if (reload) {
         this.pagination.page = 1;
       }
       this.loading = true;
-      R.VideoComment.List(this.pagination).then(resp => {
-        this.datas = resp.data.data;
-        this.pagination.total = resp.data.total;
-        this.pagination.page = resp.data.current_page;
-        this.pagination.size = resp.data.per_page;
+      let data = this.pagination;
+      data.video_id = this.filter.video_id;
+      data.course_id = this.filter.course_id;
+      R.VideoComment.List(data).then(resp => {
+        this.datas = resp.data.data.data;
+        this.pagination.total = resp.data.data.total;
+        this.videos = resp.data.videos;
+        this.courses = resp.data.courses;
         this.loading = false;
       });
     },
-    remove(data, item) {
-      R.VideoComment.Delete({ id: item.id }).then(resp => {
-        HeyUI.$Message.success('成功');
-        this.getData(true);
+    deleteSubmit() {
+      let items = this.$refs.table.getSelection();
+      if (items.length === 0) {
+        this.$Message.error("请选择需要删除的评论");
+        return;
+      }
+      this.loading = true;
+      let ids = [];
+      for (let i = 0; i < items.length; i++) {
+        ids.push(items[i].id);
+      }
+      R.VideoComment.Delete({ ids: ids }).then(resp => {
+        HeyUI.$Message.success("成功");
+        this.getData();
       });
     },
   }

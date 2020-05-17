@@ -3,10 +3,14 @@
   <div style="width: 700px;">
     <div class="table-basic-vue frame-page h-panel">
       <div class="h-panel-bar">
-        <span class="h-panel-title">用户注册统计</span>
+        <span class="h-panel-title">每日课程观看时长</span>
       </div>
       <div class="h-panel-body">
         <Form :labelWidth="110">
+          <FormItem label="课程" prop="course_id">
+            <template v-slot:label>课程</template>
+            <Select v-model="course_id" :datas="courses" keyName="id" titleName="title" :filterable="true"></Select>
+          </FormItem>
           <FormItem label="时间范围">
             <DateRangePicker v-model="daterange"></DateRangePicker>
           </FormItem>
@@ -36,10 +40,15 @@ export default {
       daterange: {
         start: null,
         end: null
-      }
+      },
+      course_id: null,
+      courses: []
     };
   },
   mounted() {
+    R.Course.All().then(res => {
+      this.courses = res.data.data;
+    });
     this.getData();
   },
   methods: {
@@ -51,12 +60,13 @@ export default {
       if (this.daterange.end) {
         data.end_at = this.daterange.end;
       }
-      R.Statistic.userRegister(data).then(resp => {
+      data.course_id = this.course_id;
+      R.Statistic.courseWatchDuration(data).then(resp => {
         let data = {
           labels: resp.data.labels,
           datasets: [
             {
-              label: '注册数',
+              label: '时长(时)',
               data: resp.data.dataset
             }
           ]

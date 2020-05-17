@@ -3,10 +3,10 @@
   <div style="width: 700px;">
     <div class="table-basic-vue frame-page h-panel">
       <div class="h-panel-bar">
-        <span class="h-panel-title">用户注册统计</span>
+        <span class="h-panel-title">每日订单支付总额</span>
       </div>
       <div class="h-panel-body">
-        <Form :labelWidth="110">
+         <Form :labelWidth="110">
           <FormItem label="时间范围">
             <DateRangePicker v-model="daterange"></DateRangePicker>
           </FormItem>
@@ -51,12 +51,12 @@ export default {
       if (this.daterange.end) {
         data.end_at = this.daterange.end;
       }
-      R.Statistic.userRegister(data).then(resp => {
+      R.Statistic.orderPaidSum(data).then(resp => {
         let data = {
           labels: resp.data.labels,
           datasets: [
             {
-              label: '注册数',
+              label: '支付总额',
               data: resp.data.dataset
             }
           ]

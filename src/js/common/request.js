@@ -80,6 +80,9 @@ const Request = {
         List (param) {
             return Ajax.get('/role', param);
         },
+        All (param) {
+            return Ajax.get('/role/all', param);
+        },
         Store (param) {
             return Ajax.postJson('/role', param);
         },
@@ -172,7 +175,7 @@ const Request = {
             return Ajax.get('/course_comment', param);
         },
         Delete (param) {
-            return Ajax.delete('/course_comment/' + param.id, param);
+            return Ajax.postJson('/course_comment/delete', param);
         }
     },
     VideoComment: {
@@ -180,7 +183,7 @@ const Request = {
             return Ajax.get('/video_comment', param);
         },
         Delete (param) {
-            return Ajax.delete('/video_comment/' + param.id, param);
+            return Ajax.postJson('/video_comment/delete', param);
         }
     },
     Order: {
@@ -217,6 +220,9 @@ const Request = {
     Course: {
         List (param) {
             return Ajax.get('/course', param);
+        },
+        All (param) {
+            return Ajax.get('/course/all', param);
         },
         CreateParams (param) {
             return Ajax.get('/course/create', param);
@@ -359,7 +365,25 @@ const Request = {
         },
         orderCreated (param) {
             return Ajax.get('/statistic/orderCreated', param);
-        }
+        },
+        orderPaidCount (param) {
+            return Ajax.get('/statistic/orderPaidCount', param);
+        },
+        orderPaidSum (param) {
+            return Ajax.get('/statistic/orderPaidSum', param);
+        },
+        courseSell (param) {
+            return Ajax.get('/statistic/courseSell', param);
+        },
+        roleSell (param) {
+            return Ajax.get('/statistic/roleSell', param);
+        },
+        videoWatchDuration (param) {
+            return Ajax.get('/statistic/videoWatchDuration', param);
+        },
+        courseWatchDuration (param) {
+            return Ajax.get('/statistic/courseWatchDuration', param);
+        },
     },
     PromoCode: {
         List (param) {

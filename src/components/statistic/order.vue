@@ -49,7 +49,7 @@ export default {
         data.start_at = this.daterange.start;
       }
       if (this.daterange.end) {
-        this.end_at = this.daterange.end;
+        data.end_at = this.daterange.end;
       }
       R.Statistic.orderCreated(data).then(resp => {
         let data = {

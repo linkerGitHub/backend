@@ -53,7 +53,26 @@ export default {
       });
     },
     create() {
-      this.$router.push({ name: 'CourseChapterCreate', params: { cid: this.course.id } });
+      this.$Modal({
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['./create'], resolve);
+          },
+          datas: {
+            cid: this.course.id
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            modal.close();
+            R.CourseChapter.Create(data).then(resp => {
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     },
     remove(data, item) {
       R.CourseChapter.Delete({ course_id: this.course.id, id: item.id }).then(resp => {
@@ -62,7 +81,27 @@ export default {
       });
     },
     edit(item) {
-      this.$router.push({ name: 'CourseChapterEdit', params: { cid: this.course.id, id: item.id } });
+      this.$Modal({
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['./edit'], resolve);
+          },
+          datas: {
+            id: item.id,
+            cid: this.course.id
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            modal.close();
+            R.CourseChapter.Update(data).then(resp => {
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     },
     backCourse() {
       this.$router.push({ name: 'Course' });

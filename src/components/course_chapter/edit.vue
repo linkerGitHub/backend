@@ -1,15 +1,13 @@
 <style lang="less"></style>
 <template>
   <div class>
-    <div class="table-basic-vue frame-page h-panel">
+    <div class="h-panel">
       <div class="h-panel-bar">
         <span class="h-panel-title">编辑课程章节</span>
       </div>
       <div class="h-panel-body">
-        <p>
-          <Button class="h-btn h-btn-primary" icon="icon-arrow-left" @click="back()">返回列表</Button>
-        </p>
         <Form
+          v-width="400"
           ref="form"
           :validOnChange="true"
           :showErrorTip="true"
@@ -27,6 +25,7 @@
           </FormItem>
           <FormItem>
             <Button color="primary" @click="create">保存</Button>
+            <Button @click="close">取消</Button>
           </FormItem>
         </Form>
       </div>
@@ -38,6 +37,7 @@ import Course from 'model/Course';
 import Chapter from 'model/CourseChapter';
 
 export default {
+  props: ['id', 'cid'],
   data() {
     return {
       course: Course.parse({}),
@@ -48,9 +48,8 @@ export default {
     };
   },
   mounted() {
-    this.course.id = this.$route.params.cid;
-    this.chapter.sort = 1;
-    this.chapter.id = this.$route.params.id;
+    this.course.id = this.cid;
+    this.chapter.id = this.id;
     this.init();
   },
   methods: {
@@ -67,11 +66,11 @@ export default {
       if (validResult.result) {
         let data = this.chapter;
         data.course_id = this.course.id;
-        R.CourseChapter.Update(data).then(resp => {
-          HeyUI.$Message.success('添加成功');
-          this.$router.push({ name: 'CourseChapter', params: { cid: this.course.id } });
-        });
+        this.$emit('success', data);
       }
+    },
+    close() {
+      this.$emit('close');
     }
   }
 };

@@ -15,11 +15,23 @@
       <Form :labelWidth="110">
         <FormItem label="课程">
           <template v-slot:label>课程</template>
-          <Select v-model="filter.course_id" :filterable="true" :datas="courses" keyName="id" titleName="title"></Select>
+          <Select
+            v-model="filter.course_id"
+            :filterable="true"
+            :datas="courses"
+            keyName="id"
+            titleName="title"
+          ></Select>
         </FormItem>
         <FormItem>
           <template v-slot:label>章节</template>
-          <Select v-model="filter.video_id" :datas="getVideos" keyName="id" titleName="title" :filterable="true"></Select>
+          <Select
+            v-model="filter.video_id"
+            :datas="getVideos"
+            keyName="id"
+            titleName="title"
+            :filterable="true"
+          ></Select>
         </FormItem>
         <FormItem>
           <Button color="primary" @click="getData(true)">搜索</Button>
@@ -35,7 +47,8 @@
         <TableItem prop="id" title="ID"></TableItem>
         <TableItem title="用户">
           <template slot-scope="{ data }">
-            <span>{{data.user.nick_name}}</span>
+            <span v-if="users[data.user_id]">{{users[data.user_id].nick_name}}</span>
+            <span class="red" v-else>不存在</span>
           </template>
         </TableItem>
         <TableItem title="视频">
@@ -56,7 +69,12 @@
         <TableItem prop="created_at" title="时间"></TableItem>
       </Table>
       <p></p>
-      <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
+      <Pagination
+        v-if="pagination.total > 0"
+        align="right"
+        v-model="pagination"
+        @change="changePage"
+      />
     </div>
   </div>
 </template>
@@ -76,7 +94,8 @@ export default {
         video_id: null
       },
       courses: [],
-      videos: []
+      videos: [],
+      users: []
     };
   },
   mounted() {
@@ -117,13 +136,14 @@ export default {
         this.pagination.total = resp.data.data.total;
         this.videos = resp.data.videos;
         this.courses = resp.data.courses;
+        this.users = resp.data.users;
         this.loading = false;
       });
     },
     deleteSubmit() {
       let items = this.$refs.table.getSelection();
       if (items.length === 0) {
-        this.$Message.error("请选择需要删除的评论");
+        this.$Message.error('请选择需要删除的评论');
         return;
       }
       this.loading = true;
@@ -132,10 +152,10 @@ export default {
         ids.push(items[i].id);
       }
       R.VideoComment.Delete({ ids: ids }).then(resp => {
-        HeyUI.$Message.success("成功");
+        HeyUI.$Message.success('成功');
         this.getData();
       });
-    },
+    }
   }
 };
 </script>

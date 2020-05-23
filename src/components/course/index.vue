@@ -138,7 +138,17 @@ export default {
       this.$router.push({ name: 'CourseEdit', params: { id: item.id } });
     },
     goChapter(item) {
-      this.$router.push({ name: 'CourseChapter', params: { cid: item.id } });
+      this.$Modal({
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['../course_chapter/index'], resolve);
+          },
+          datas: {
+            cid: item.id
+          }
+        }
+      });
     },
     showSubscribeUsers(item) {
       this.$Modal({

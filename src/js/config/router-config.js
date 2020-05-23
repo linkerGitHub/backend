@@ -169,25 +169,6 @@ const initRouter = () => {
                 props: true
             },
             {
-                path: '/course_chapter/:cid',
-                name: 'CourseChapter',
-                component: (resolve) => require(['components/course_chapter/index'], resolve),
-                meta: { title: '课程章节' }
-            },
-            {
-                path: '/course_chapter/:cid/create',
-                name: 'CourseChapterCreate',
-                component: (resolve) => require(['components/course_chapter/create'], resolve),
-                meta: { title: '添加课程章节' },
-            },
-            {
-                path: '/course_chapter/:cid/:id/edit',
-                name: 'CourseChapterEdit',
-                component: (resolve) => require(['components/course_chapter/edit'], resolve),
-                meta: { title: '编辑课程章节' },
-                props: true
-            },
-            {
                 path: '/setting',
                 name: 'Setting',
                 component: (resolve) => require(['components/setting/index'], resolve),

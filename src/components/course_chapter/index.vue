@@ -1,13 +1,13 @@
 <template>
-  <div class="table-basic-vue frame-page h-panel">
+  <div class="h-panel">
     <div class="h-panel-bar">
       <span class="h-panel-title">课程《{{ course.title }}》</span>
     </div>
     <div class="h-panel-body">
-      <p>
-        <Button class="h-btn h-btn-primary" icon="h-icon-left" @click="backCourse()">返回课程列表</Button>
+      <div class="mb-10">
         <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加章节</Button>
-      </p>
+        <Button @click="close()">取消</Button>
+      </div>
       <Table :loading="loading" :datas="datas">
         <TableItem :width="70" prop="sort" title="升序"></TableItem>
         <TableItem :witdth="400" prop="title" title="章节名"></TableItem>
@@ -37,7 +37,7 @@ export default {
     };
   },
   mounted() {
-    this.course.id = this.$route.params.cid;
+    this.course.id = this.cid;
     this.init();
   },
   methods: {
@@ -103,8 +103,8 @@ export default {
         }
       });
     },
-    backCourse() {
-      this.$router.push({ name: 'Course' });
+    close() {
+      this.$emit('close');
     }
   }
 };

@@ -1,15 +1,11 @@
 <style lang="less"></style>
 <template>
   <div class>
-    <div class="table-basic-vue frame-page h-panel">
+    <div class="h-panel">
       <div class="h-panel-bar">
         <span class="h-panel-title">添加首页导航</span>
       </div>
       <div class="h-panel-body">
-        <p>
-          <Button class="h-btn h-btn-primary" icon="icon-arrow-left" @click="back()">返回列表</Button>
-        </p>
-
         <Form
           v-width="400"
           mode="block"
@@ -34,6 +30,7 @@
           </FormItem>
           <FormItem>
             <Button color="primary" @click="create">添加</Button>
+            <Button @click="close()">取消</Button>
           </FormItem>
         </Form>
       </div>
@@ -52,23 +49,15 @@ export default {
       }
     };
   },
-  mounted() {
-    this.init();
-    this.nav.sort = 1;
-  },
   methods: {
-    init() {},
-    back() {
-      this.$router.push({ name: 'Nav' });
-    },
     create() {
       let validResult = this.$refs.form.valid();
       if (validResult.result) {
-        R.Nav.Create(this.nav).then(resp => {
-          HeyUI.$Message.success('添加成功');
-          this.$router.push({ name: 'Nav' });
-        });
+        this.$emit('success', this.nav);
       }
+    },
+    close() {
+      this.$emit('close');
     }
   }
 };

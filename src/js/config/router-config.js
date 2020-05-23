@@ -206,19 +206,6 @@ const initRouter = () => {
                 meta: { title: '首页导航' }
             },
             {
-                path: '/nav/create',
-                name: 'NavCreate',
-                component: (resolve) => require(['components/nav/create'], resolve),
-                meta: { title: '添加首页导航' },
-            },
-            {
-                path: '/nav/:id/edit',
-                name: 'NavEdit',
-                component: (resolve) => require(['components/nav/edit'], resolve),
-                meta: { title: '编辑首页导航' },
-                props: true
-            },
-            {
                 path: '/promoCode',
                 name: 'PromoCode',
                 component: (resolve) => require(['components/promoCode/index'], resolve),

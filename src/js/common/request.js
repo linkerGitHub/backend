@@ -402,7 +402,7 @@ const Request = {
             return Ajax.putJson('/promoCode/' + param.id, param);
         },
         Delete(param) {
-            return Ajax.delete('/promoCode/' + param.id, param);
+            return Ajax.postJson('/promoCode/delete/multi', param);
         }
     },
     VideoUpload: {

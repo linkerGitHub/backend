@@ -269,19 +269,6 @@ const initRouter = () => {
                 meta: { title: '课程分类' }
             },
             {
-                path: '/courseCategory/create',
-                name: 'CourseCategoryCreate',
-                component: (resolve) => require(['components/courseCategory/create'], resolve),
-                meta: { title: '添加课程分类' },
-            },
-            {
-                path: '/courseCategory/:id/edit',
-                name: 'CourseCategoryEdit',
-                component: (resolve) => require(['components/courseCategory/edit'], resolve),
-                meta: { title: '编辑课程分类' },
-                props: true
-            },
-            {
                 path: '*',
                 name: 'CommonNotfoundError',
                 component: (resolve) => require(['components/error-pages/404'], resolve),

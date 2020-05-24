@@ -218,7 +218,31 @@ const Request = {
         },
         CreateInviteBalanceWithdrawOrder(param) {
             return Ajax.postJson('/member/inviteBalance/withdrawOrders', param);
-        }
+        },
+        Detail(param) {
+            return Ajax.get('/member/' + param.id + '/detail', param);
+        },
+        Courses(param) {
+            return Ajax.get('/member/' + param.id + '/detail/userCourses', param);
+        },
+        Videos(param) {
+            return Ajax.get('/member/' + param.id + '/detail/userVideos', param);
+        },
+        Roles(param) {
+            return Ajax.get('/member/' + param.id + '/detail/userRoles', param);
+        },
+        Collect(param) {
+            return Ajax.get('/member/' + param.id + '/detail/userCollect', param);
+        },
+        History(param) {
+            return Ajax.get('/member/' + param.id + '/detail/userHistory', param);
+        },
+        Orders(param) {
+            return Ajax.get('/member/' + param.id + '/detail/userOrders', param);
+        },
+        Invite(param) {
+            return Ajax.get('/member/' + param.id + '/detail/userInvite', param);
+        },
     },
     Course: {
         List(param) {

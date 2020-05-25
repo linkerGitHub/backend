@@ -10,7 +10,13 @@
         </FormItem>
         <FormItem label="会员">
           <template v-slot:label>会员</template>
-          <Select v-model="cond.role_id" :filterable="true" :datas="roles" keyName="id" titleName="name"></Select>
+          <Select
+            v-model="cond.role_id"
+            :filterable="true"
+            :datas="roles"
+            keyName="id"
+            titleName="name"
+          ></Select>
         </FormItem>
         <FormItem>
           <Button color="primary" @click="getData(true)">搜索</Button>
@@ -32,31 +38,25 @@
         <TableItem prop="nick_name" title="昵称"></TableItem>
         <TableItem prop="mobile" title="手机号"></TableItem>
         <TableItem prop="created_at" title="注册时间" :sort="true"></TableItem>
-        <TableItem title="激活">
-          <template slot-scope="{data}">
-            <span v-if="data.is_active === 1">是</span>
-            <span v-else>否</span>
-          </template>
-        </TableItem>
-        <TableItem title="锁定">
-          <template slot-scope="{data}">
-            <span v-if="data.is_lock === 1">是</span>
-            <span v-else>否</span>
-          </template>
-        </TableItem>
         <TableItem title="VIP">
           <template slot-scope="{data}">
             <template v-if="data.role">{{data.role.name}}</template>
           </template>
         </TableItem>
-        <TableItem title="操作" align="center" :width="80">
+        <TableItem title="操作" align="center" :width="160">
           <template slot-scope="{ data }">
             <button class="h-btn h-btn-s h-btn-primary" @click="edit(data)">编辑</button>
+            <Button color="primary" class="h-btn-s" @click="detail(data)">详情</Button>
           </template>
         </TableItem>
       </Table>
       <p></p>
-      <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
+      <Pagination
+        v-if="pagination.total > 0"
+        align="right"
+        v-model="pagination"
+        @change="changePage"
+      />
     </div>
   </div>
 </template>
@@ -115,6 +115,7 @@ export default {
     },
     create() {
       this.$Modal({
+        closeOnMask: false,
         component: {
           vue: resolve => {
             require(['./create'], resolve);
@@ -132,6 +133,7 @@ export default {
     },
     edit(item) {
       this.$Modal({
+        closeOnMask: false,
         component: {
           vue: resolve => {
             require(['./edit'], resolve);
@@ -146,6 +148,26 @@ export default {
               HeyUI.$Message.success('成功');
               this.getData(true);
             });
+          }
+        }
+      });
+    },
+    detail(item) {
+      this.$Modal({
+        hasCloseIcon: true,
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['./detail'], resolve);
+          },
+          datas: {
+            id: item.id
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            modal.close();
+            this.getData();
           }
         }
       });

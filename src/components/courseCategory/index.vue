@@ -1,6 +1,8 @@
 <template>
   <div class="table-basic-vue frame-page h-panel">
-    <div class="h-panel-bar"><span class="h-panel-title">课程分类</span></div>
+    <div class="h-panel-bar">
+      <span class="h-panel-title">课程分类</span>
+    </div>
     <div class="h-panel-body">
       <p>
         <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
@@ -9,8 +11,11 @@
         <TableItem prop="id" title="ID"></TableItem>
         <TableItem prop="sort" title="升序"></TableItem>
         <TableItem prop="name" title="分类名"></TableItem>
-        <TableItem prop="" title="是否显示">
-          <template slot-scope="{ data }"> <span v-if="data.is_show === 1">显示</span><span v-else>不显示</span> </template>
+        <TableItem prop title="是否显示">
+          <template slot-scope="{ data }">
+            <span v-if="data.is_show === 1">显示</span>
+            <span v-else>不显示</span>
+          </template>
         </TableItem>
         <TableItem title="操作" align="center" :width="200">
           <template slot-scope="{ data }">
@@ -22,7 +27,12 @@
         </TableItem>
       </Table>
       <p></p>
-      <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
+      <Pagination
+        v-if="pagination.total > 0"
+        align="right"
+        v-model="pagination"
+        @change="changePage"
+      />
     </div>
   </div>
 </template>
@@ -63,7 +73,23 @@ export default {
       });
     },
     create() {
-      this.$router.push({ name: 'CourseCategoryCreate' });
+      this.$Modal({
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['./create'], resolve);
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            modal.close();
+            R.CourseCategory.Create(data).then(resp => {
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     },
     remove(data, item) {
       R.CourseCategory.Delete({ id: item.id }).then(resp => {
@@ -72,7 +98,26 @@ export default {
       });
     },
     edit(item) {
-      this.$router.push({ name: 'CourseCategoryEdit', params: { id: item.id } });
+      this.$Modal({
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['./edit'], resolve);
+          },
+          datas: {
+            id: item.id
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            modal.close();
+            R.CourseCategory.Update(data).then(resp => {
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     }
   }
 };

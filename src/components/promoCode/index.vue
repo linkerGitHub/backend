@@ -1,27 +1,27 @@
 <template>
   <div class="table-basic-vue frame-page h-panel">
-    <div class="h-panel-bar"><span class="h-panel-title">优惠码</span></div>
+    <div class="h-panel-bar">
+      <span class="h-panel-title">优惠码</span>
+    </div>
     <div class="h-panel-body">
-      <p>
+      <div class="mb-10">
+        <Button color="primary" @click="deleteSubmit()">批量删除</Button>
         <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
-      </p>
-      <Table :loading="loading" :datas="datas">
+      </div>
+      <Table :loading="loading" :datas="datas" :checkbox="true" ref="table" class="mb-10">
         <TableItem prop="code" title="优惠码"></TableItem>
         <TableItem prop="invited_user_reward" title="优惠金额" unit="元"></TableItem>
         <TableItem prop="invite_user_reward" title="所属用户奖励" unit="元"></TableItem>
         <TableItem prop="use_times" title="次数限制" unit="次"></TableItem>
         <TableItem prop="used_times" title="已使用次数" unit="次"></TableItem>
         <TableItem prop="expired_at" title="过期时间"></TableItem>
-        <TableItem title="操作" align="center" :width="80">
-          <template slot-scope="{ data }">
-            <Poptip content="确认删除？" @confirm="remove(datas, data)">
-              <button class="h-btn h-btn-s h-btn-red">删除</button>
-            </Poptip>
-          </template>
-        </TableItem>
       </Table>
-      <p></p>
-      <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
+      <Pagination
+        v-if="pagination.total > 0"
+        align="right"
+        v-model="pagination"
+        @change="changePage"
+      />
     </div>
   </div>
 </template>
@@ -62,12 +62,38 @@ export default {
       });
     },
     create() {
-      this.$router.push({ name: 'PromoCodeCreate' });
+      this.$Modal({
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['./create'], resolve);
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            modal.close();
+            R.PromoCode.Create(data).then(resp => {
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     },
-    remove(data, item) {
-      R.PromoCode.Delete({ id: item.id }).then(resp => {
+    deleteSubmit() {
+      let items = this.$refs.table.getSelection();
+      if (items.length === 0) {
+        this.$Message.error('请选择需要删除的数据');
+        return;
+      }
+      this.loading = true;
+      let ids = [];
+      for (let i = 0; i < items.length; i++) {
+        ids.push(items[i].id);
+      }
+      R.PromoCode.Delete({ ids: ids }).then(resp => {
         HeyUI.$Message.success('成功');
-        this.getData(true);
+        this.getData();
       });
     }
   }

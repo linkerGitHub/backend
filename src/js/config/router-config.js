@@ -169,25 +169,6 @@ const initRouter = () => {
                 props: true
             },
             {
-                path: '/course_chapter/:cid',
-                name: 'CourseChapter',
-                component: (resolve) => require(['components/course_chapter/index'], resolve),
-                meta: { title: '课程章节' }
-            },
-            {
-                path: '/course_chapter/:cid/create',
-                name: 'CourseChapterCreate',
-                component: (resolve) => require(['components/course_chapter/create'], resolve),
-                meta: { title: '添加课程章节' },
-            },
-            {
-                path: '/course_chapter/:cid/:id/edit',
-                name: 'CourseChapterEdit',
-                component: (resolve) => require(['components/course_chapter/edit'], resolve),
-                meta: { title: '编辑课程章节' },
-                props: true
-            },
-            {
                 path: '/setting',
                 name: 'Setting',
                 component: (resolve) => require(['components/setting/index'], resolve),
@@ -225,29 +206,10 @@ const initRouter = () => {
                 meta: { title: '首页导航' }
             },
             {
-                path: '/nav/create',
-                name: 'NavCreate',
-                component: (resolve) => require(['components/nav/create'], resolve),
-                meta: { title: '添加首页导航' },
-            },
-            {
-                path: '/nav/:id/edit',
-                name: 'NavEdit',
-                component: (resolve) => require(['components/nav/edit'], resolve),
-                meta: { title: '编辑首页导航' },
-                props: true
-            },
-            {
                 path: '/promoCode',
                 name: 'PromoCode',
                 component: (resolve) => require(['components/promoCode/index'], resolve),
                 meta: { title: '优惠码' }
-            },
-            {
-                path: '/promoCode/create',
-                name: 'PromoCodeCreate',
-                component: (resolve) => require(['components/promoCode/create'], resolve),
-                meta: { title: '添加优惠码' },
             },
             {
                 path: '/administrator_role',
@@ -286,19 +248,6 @@ const initRouter = () => {
                 name: 'CourseCategory',
                 component: (resolve) => require(['components/courseCategory/index'], resolve),
                 meta: { title: '课程分类' }
-            },
-            {
-                path: '/courseCategory/create',
-                name: 'CourseCategoryCreate',
-                component: (resolve) => require(['components/courseCategory/create'], resolve),
-                meta: { title: '添加课程分类' },
-            },
-            {
-                path: '/courseCategory/:id/edit',
-                name: 'CourseCategoryEdit',
-                component: (resolve) => require(['components/courseCategory/edit'], resolve),
-                meta: { title: '编辑课程分类' },
-                props: true
             },
             {
                 path: '*',

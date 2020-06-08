@@ -571,7 +571,7 @@
         <Cell width="19" class="pt-15" v-if="activeItem === 'MeEduCloud'">
           <Form mode="block" class="p-20">
             <p>
-              <a href="https://www.yuque.com/meedu/yr7rek/adc5ca" target="_blank">配置教程？</a>
+              <a href="https://www.yuque.com/meedu/yr7rek/adc5ca" target="_blank">点我配置教程？</a>
             </p>
             <FormItem>
               <template v-slot:label>服务地址</template>
@@ -601,7 +601,6 @@
                 :trueValue="1"
                 :falseValue="0"
               ></h-switch>
-              <warn text="目前仅支持阿里云和视频直链"></warn>
             </FormItem>
             <FormItem>
               <template v-slot:label>阿里云播放器私密播放</template>
@@ -695,7 +694,7 @@ export default {
           key: 'cache'
         },
         {
-          name: '社交登录',
+          name: '登录',
           key: 'sociallogin'
         },
 
@@ -704,15 +703,15 @@ export default {
           key: 'sms'
         },
         {
-          name: '图片存储',
+          name: '图片',
           key: 'image'
         },
         {
-          name: '支付网关',
+          name: '支付',
           key: 'pay'
         },
         {
-          name: '视频存储',
+          name: '视频',
           key: 'video'
         },
         {
@@ -720,11 +719,11 @@ export default {
           key: 'member'
         },
         {
-          name: '全站SEO',
+          name: 'SEO',
           key: 'seo'
         },
         {
-          name: '用户邀请',
+          name: '邀请',
           key: 'invite'
         },
         {
@@ -732,16 +731,16 @@ export default {
           key: 'wechatMini'
         },
         {
-          name: '其它',
-          key: 'other'
-        },
-        {
-          name: 'MeEduCloud',
+          name: '插件配置',
           key: 'MeEduCloud'
         },
         {
           name: '播放器配置',
           key: 'player'
+        },
+        {
+          name: '其它',
+          key: 'other'
         }
       ],
       setting: {

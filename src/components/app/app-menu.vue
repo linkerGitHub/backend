@@ -76,6 +76,7 @@ export default {
     init() {
       R.User.menus().then(res => {
         this.menus = res.data.menus;
+        this.menuSelect();
       });
       this.$nextTick(() => {
         this.menuSelect();

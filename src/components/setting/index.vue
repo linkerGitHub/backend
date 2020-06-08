@@ -31,9 +31,9 @@
       <span class="h-panel-title">系统配置</span>
     </div>
     <div class="h-panel-body">
-      <p>
-        <Button color="primary" @click="save">保存</Button>
-      </p>
+      <div class="mb-10">
+        <p-button glass="h-btn h-btn-primary" permission="setting.save" text="保存" @click="save()"></p-button>
+      </div>
       <Row class="body">
         <Cell width="4" style="border-right: 1px solid rgb(238, 238, 238);">
           <Row>

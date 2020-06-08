@@ -277,10 +277,10 @@ const Request = {
         List(param) {
             return Ajax.get('/video', param);
         },
-        CreateParams() {
-            return Ajax.get('/video/create/params');
+        Create() {
+            return Ajax.get('/video/create');
         },
-        Create(param) {
+        Store(param) {
             return Ajax.postJson('/video', param);
         },
         Edit(param) {

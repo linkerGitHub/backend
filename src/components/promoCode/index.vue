@@ -14,8 +14,14 @@
         </FormItem>
       </Form>
       <div class="mb-10">
-        <Button color="primary" @click="deleteSubmit()">批量删除</Button>
-        <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
+        <p-del-button permission="promoCode.destroy.multi" @click="deleteSubmit()"></p-del-button>
+        <p-button
+          glass="h-btn h-btn-primary h-btn-s"
+          icon="h-icon-plus"
+          permission="promoCode.store"
+          text="添加"
+          @click="create()"
+        ></p-button>
       </div>
       <Table :loading="loading" :datas="datas" :checkbox="true" ref="table" class="mb-10">
         <TableItem prop="code" title="优惠码"></TableItem>
@@ -25,12 +31,14 @@
         <TableItem prop="used_times" title="已使用次数" unit="次"></TableItem>
         <TableItem prop="expired_at" title="过期时间"></TableItem>
       </Table>
-      <Pagination
-        v-if="pagination.total > 0"
-        align="right"
-        v-model="pagination"
-        @change="changePage"
-      />
+      <div class="mt-10">
+        <Pagination
+          v-if="pagination.total > 0"
+          align="right"
+          v-model="pagination"
+          @change="changePage"
+        />
+      </div>
     </div>
   </div>
 </template>

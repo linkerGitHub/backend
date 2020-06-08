@@ -1,16 +1,21 @@
 <template>
   <div class="table-basic-vue frame-page h-panel">
-    <div class="h-panel-bar"><span class="h-panel-title">管理员</span></div>
+    <div class="h-panel-bar">
+      <span class="h-panel-title">管理员</span>
+    </div>
     <div class="h-panel-body">
-      <p>
+      <div class="mb-10">
         <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
-      </p>
+      </div>
       <Table :loading="loading" :datas="datas">
         <TableItem prop="id" title="ID"></TableItem>
         <TableItem prop="name" title="姓名"></TableItem>
         <TableItem prop="email" title="邮箱"></TableItem>
         <TableItem prop="created_at" title="创建时间"></TableItem>
         <TableItem :render="logShow" title="最近日志"></TableItem>
+        <TableItem title="禁止登录">
+          <template slot-scope="{ data }">{{data.is_ban_login === 1 ? '是' : '否'}}</template>
+        </TableItem>
         <TableItem title="操作" align="center" :width="200">
           <template slot-scope="{ data }">
             <Poptip content="确认删除？" @confirm="remove(datas, data)">
@@ -20,8 +25,14 @@
           </template>
         </TableItem>
       </Table>
-      <p></p>
-      <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
+      <div class="mt-10">
+        <Pagination
+          v-if="pagination.total > 0"
+          align="right"
+          v-model="pagination"
+          @change="changePage"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -62,7 +73,24 @@ export default {
       });
     },
     create() {
-      this.$router.push({ name: 'AdministratorCreate' });
+      this.$Modal({
+        closeOnMask: false,
+        hasCloseIcon: true,
+        component: {
+          vue: resolve => {
+            require(['./create'], resolve);
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            R.Administrator.Store(data).then(resp => {
+              modal.close();
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     },
     remove(data, item) {
       R.Administrator.Delete({ id: item.id }).then(resp => {
@@ -71,7 +99,27 @@ export default {
       });
     },
     edit(item) {
-      this.$router.push({ name: 'AdministratorEdit', params: { id: item.id } });
+      this.$Modal({
+        closeOnMask: false,
+        hasCloseIcon: true,
+        component: {
+          vue: resolve => {
+            require(['./edit'], resolve);
+          },
+          datas: {
+            id: item.id
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            R.Administrator.Update(data).then(resp => {
+              modal.close();
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     },
     logShow(item) {
       return item.last_login_date + '|' + item.last_login_ip;

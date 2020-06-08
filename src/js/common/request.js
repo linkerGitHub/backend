@@ -320,6 +320,9 @@ const Request = {
             return Ajax.get('/administrator', param);
         },
         Create(param) {
+            return Ajax.get('/administrator/create', param);
+        },
+        Store(param) {
             return Ajax.postJson('/administrator', param);
         },
         Edit(param) {

@@ -25,9 +25,15 @@
       </Form>
     </div>
     <div class="h-panel-body">
-      <p>
-        <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
-      </p>
+      <div class="mb-10">
+        <p-button
+          glass="h-btn h-btn-primary"
+          icon="h-icon-plus"
+          permission="member.store"
+          text="添加"
+          @click="create()"
+        ></p-button>
+      </div>
       <Table :loading="loading" :datas="datas" @sort="sortEvt">
         <TableItem prop="id" title="ID"></TableItem>
         <TableItem title="头像">
@@ -45,8 +51,18 @@
         </TableItem>
         <TableItem title="操作" align="center" :width="160">
           <template slot-scope="{ data }">
-            <button class="h-btn h-btn-s h-btn-primary" @click="edit(data)">编辑</button>
-            <Button color="primary" class="h-btn-s" @click="detail(data)">详情</Button>
+            <p-button
+              glass="h-btn h-btn-s h-btn-primary"
+              permission="member.edit"
+              text="编辑"
+              @click="edit(data)"
+            ></p-button>
+            <p-button
+              glass="h-btn h-btn-s h-btn-primary"
+              permission="member.detail"
+              text="详情"
+              @click="detail(data)"
+            ></p-button>
           </template>
         </TableItem>
       </Table>

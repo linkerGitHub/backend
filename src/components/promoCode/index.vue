@@ -4,6 +4,15 @@
       <span class="h-panel-title">优惠码</span>
     </div>
     <div class="h-panel-body">
+      <Form :labelWidth="110">
+        <FormItem label="搜索">
+          <input type="text" v-model="filter.key" placeholder="搜索" />
+        </FormItem>
+        <FormItem>
+          <Button color="primary" @click="getData(true)">搜索</Button>
+          <Button @click="reset">重置</Button>
+        </FormItem>
+      </Form>
       <div class="mb-10">
         <Button color="primary" @click="deleteSubmit()">批量删除</Button>
         <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
@@ -35,14 +44,18 @@ export default {
         total: 0
       },
       datas: [],
-      loading: false
+      loading: false,
+      filter: {
+        key: null
+      }
     };
   },
   mounted() {
-    this.init();
+    this.getData(true);
   },
   methods: {
-    init() {
+    reset() {
+      this.filter.key = null;
       this.getData(true);
     },
     changePage() {
@@ -53,7 +66,9 @@ export default {
         this.pagination.page = 1;
       }
       this.loading = true;
-      R.PromoCode.List(this.pagination).then(resp => {
+      let data = this.pagination;
+      data.key = this.filter.key;
+      R.PromoCode.List(data).then(resp => {
         this.datas = resp.data.data;
         this.pagination.total = resp.data.total;
         this.pagination.page = resp.data.current_page;

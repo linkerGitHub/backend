@@ -1,11 +1,11 @@
 <template>
   <Poptip content="确认删除？" @confirm="$emit('click')" v-if="inPermission">
-    <button class="h-btn h-btn-s h-btn-red">删除</button>
+    <button class="h-btn h-btn-s h-btn-red">{{text || '删除'}}</button>
   </Poptip>
 </template>
 <script>
 export default {
-  props: ['permission', 'isSuper'],
+  props: ['permission', 'isSuper', 'text'],
   computed: {
     inPermission() {
       if (typeof this.$store.state.User.permissions === 'undefined') {

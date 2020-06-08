@@ -52,13 +52,12 @@
         <TableItem prop="created_at" title="时间"></TableItem>
         <TableItem :width="200" title="操作" align="center">
           <template slot-scope="{ data }">
-            <Poptip
-              content="确认完成该订单？"
-              @confirm="finishOrder(datas, data)"
+            <p-del-button
+              permission="order.finish"
+              text="改为已支付"
+              @click="finishOrder(datas, data)"
               v-if="data.status === 1 || data.status === 5"
-            >
-              <button class="h-btn h-btn-s h-btn-primary">改为已支付</button>
-            </Poptip>
+            ></p-del-button>
           </template>
         </TableItem>
       </Table>

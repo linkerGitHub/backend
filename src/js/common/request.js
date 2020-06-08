@@ -38,6 +38,9 @@ const Request = {
     User: {
         info() {
             return Ajax.get('/user');
+        },
+        menus() {
+            return Ajax.get('/menus');
         }
     },
     Login: {
@@ -343,6 +346,9 @@ const Request = {
             return Ajax.get('/administrator_role', param);
         },
         Create(param) {
+            return Ajax.get('/administrator_role/create', param);
+        },
+        Store(param) {
             return Ajax.postJson('/administrator_role', param);
         },
         Edit(param) {

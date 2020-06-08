@@ -1,6 +1,8 @@
 <template>
   <div class="table-basic-vue frame-page h-panel">
-    <div class="h-panel-bar"><span class="h-panel-title">角色</span></div>
+    <div class="h-panel-bar">
+      <span class="h-panel-title">角色</span>
+    </div>
     <div class="h-panel-body">
       <p>
         <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
@@ -11,7 +13,7 @@
         <TableItem prop="slug" title="Slug"></TableItem>
         <TableItem prop="description" title="描述"></TableItem>
         <TableItem prop="created_at" title="创建时间"></TableItem>
-        <TableItem title="操作" align="center" :width="80">
+        <TableItem title="操作" align="center" :width="200">
           <template slot-scope="{ data }">
             <Poptip content="确认删除？" @confirm="remove(datas, data)">
               <button class="h-btn h-btn-s h-btn-red">删除</button>
@@ -21,7 +23,12 @@
         </TableItem>
       </Table>
       <p></p>
-      <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
+      <Pagination
+        v-if="pagination.total > 0"
+        align="right"
+        v-model="pagination"
+        @change="changePage"
+      />
     </div>
   </div>
 </template>
@@ -62,7 +69,24 @@ export default {
       });
     },
     create() {
-      this.$router.push({ name: 'AdministratorRoleCreate' });
+      this.$Modal({
+        closeOnMask: false,
+        hasCloseIcon: true,
+        component: {
+          vue: resolve => {
+            require(['./create'], resolve);
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            R.AdministratorRole.Store(data).then(resp => {
+              modal.close();
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     },
     remove(data, item) {
       R.AdministratorRole.Delete({ id: item.id }).then(resp => {
@@ -71,7 +95,27 @@ export default {
       });
     },
     edit(item) {
-      this.$router.push({ name: 'AdministratorRoleEdit', params: { id: item.id } });
+      this.$Modal({
+        closeOnMask: false,
+        hasCloseIcon: true,
+        component: {
+          vue: resolve => {
+            require(['./edit'], resolve);
+          },
+          datas: {
+            id: item.id
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            R.AdministratorRole.Update(data).then(resp => {
+              modal.close();
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     }
   }
 };

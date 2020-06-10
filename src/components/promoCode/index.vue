@@ -4,9 +4,24 @@
       <span class="h-panel-title">优惠码</span>
     </div>
     <div class="h-panel-body">
+      <Form :labelWidth="110">
+        <FormItem label="搜索">
+          <input type="text" v-model="filter.key" placeholder="搜索" />
+        </FormItem>
+        <FormItem>
+          <Button color="primary" @click="getData(true)">搜索</Button>
+          <Button @click="reset">重置</Button>
+        </FormItem>
+      </Form>
       <div class="mb-10">
-        <Button color="primary" @click="deleteSubmit()">批量删除</Button>
-        <Button class="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
+        <p-del-button permission="promoCode.destroy.multi" @click="deleteSubmit()"></p-del-button>
+        <p-button
+          glass="h-btn h-btn-primary h-btn-s"
+          icon="h-icon-plus"
+          permission="promoCode.store"
+          text="添加"
+          @click="create()"
+        ></p-button>
       </div>
       <Table :loading="loading" :datas="datas" :checkbox="true" ref="table" class="mb-10">
         <TableItem prop="code" title="优惠码"></TableItem>
@@ -16,12 +31,14 @@
         <TableItem prop="used_times" title="已使用次数" unit="次"></TableItem>
         <TableItem prop="expired_at" title="过期时间"></TableItem>
       </Table>
-      <Pagination
-        v-if="pagination.total > 0"
-        align="right"
-        v-model="pagination"
-        @change="changePage"
-      />
+      <div class="mt-10">
+        <Pagination
+          v-if="pagination.total > 0"
+          align="right"
+          v-model="pagination"
+          @change="changePage"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -35,14 +52,18 @@ export default {
         total: 0
       },
       datas: [],
-      loading: false
+      loading: false,
+      filter: {
+        key: null
+      }
     };
   },
   mounted() {
-    this.init();
+    this.getData(true);
   },
   methods: {
-    init() {
+    reset() {
+      this.filter.key = null;
       this.getData(true);
     },
     changePage() {
@@ -53,7 +74,9 @@ export default {
         this.pagination.page = 1;
       }
       this.loading = true;
-      R.PromoCode.List(this.pagination).then(resp => {
+      let data = this.pagination;
+      data.key = this.filter.key;
+      R.PromoCode.List(data).then(resp => {
         this.datas = resp.data.data;
         this.pagination.total = resp.data.total;
         this.pagination.page = resp.data.current_page;

@@ -30,7 +30,7 @@
       </Form>
 
       <div style="margin-bottom: 15px;">
-        <Button color="primary" @click="deleteSubmit()">批量删除</Button>
+        <p-del-button permission="course_comment.destroy" @click="deleteSubmit()"></p-del-button>
       </div>
 
       <Table :loading="loading" :datas="datas" :checkbox="true" ref="table">

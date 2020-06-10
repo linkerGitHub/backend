@@ -273,9 +273,7 @@ const initRouter = () => {
         }
         HeyUI.$LoadingBar.start();
         if (to.meta && to.meta.title) {
-            document.title = to.meta.title + ' - MeEdu';
-        } else {
-            document.title = 'MeEdu';
+            document.title = to.meta.title;
         }
         isFirstRouter = false;
         next();

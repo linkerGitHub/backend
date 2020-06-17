@@ -75,7 +75,7 @@
             </FormItem>
             <FormItem>
               <template v-slot:label>网站备案信息</template>
-              <input type="text" v-model="setting.system.icp" />
+              <input type="text" v-model="setting.meedu.system.icp" />
             </FormItem>
             <FormItem>
               <template v-slot:label>网站统计js</template>

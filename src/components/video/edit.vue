@@ -93,8 +93,8 @@
             <template v-slot:label>腾讯云视频ID</template>
             <tencent-video v-model="video.tencent_video_id"></tencent-video>
           </FormItem>
-          <FormItem label="直链URL" prop="url" v-show="tab === '直链'">
-            <template v-slot:label>直链URL</template>
+          <FormItem label="视频URL地址（以mp4,m3u8等格式结尾的链接）" prop="url" v-show="tab === '直链'">
+            <template v-slot:label>视频URL地址（以mp4,m3u8等格式结尾的链接）</template>
             <input type="text" v-model="video.url" />
           </FormItem>
 

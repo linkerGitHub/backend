@@ -209,6 +209,13 @@
           </div>
 
           <div class="pt-15" v-if="tabSeleted.sms === 'aliyun'">
+            <div class="p-20">
+              <a
+                href="https://www.yuque.com/meedu/yr7rek/bm318u"
+                class="help"
+                target="_blank"
+              >阿里云短信配置教程？</a>
+            </div>
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>AccessKeyId</template>
@@ -241,6 +248,13 @@
             </Form>
           </div>
           <div class="pt-15" v-if="tabSeleted.sms === 'yunpian'">
+            <div class="p-20">
+              <a
+                href="https://www.yuque.com/meedu/yr7rek/wagnf0"
+                class="help"
+                target="_blank"
+              >云片短信配置教程？</a>
+            </div>
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>ApiKey</template>
@@ -336,6 +350,9 @@
           <Tabs :datas="tab.pay" v-model="tabSeleted.pay"></Tabs>
 
           <div class="pt-15" v-if="tabSeleted.pay === 'alipay'">
+            <div class="p-20">
+              <a href="https://www.yuque.com/meedu/yr7rek/eg84gk" class="help" target="_blank">配置教程？</a>
+            </div>
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>开启</template>
@@ -371,6 +388,9 @@
           </div>
 
           <div class="pt-15" v-if="tabSeleted.pay === 'wechat'">
+            <div class="p-20">
+              <a href="https://www.yuque.com/meedu/yr7rek/fbkeoc" class="help" target="_blank">配置教程？</a>
+            </div>
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>开启</template>
@@ -427,6 +447,9 @@
           <Tabs :datas="tab.video" v-model="tabSeleted.video"></Tabs>
 
           <div class="pt-15" v-if="tabSeleted.video === 'aliyun'">
+            <div class="p-20">
+              <a href="https://www.yuque.com/meedu/yr7rek/eh4zdp" class="help" target="_blank">配置教程？</a>
+            </div>
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>Region</template>
@@ -444,6 +467,9 @@
           </div>
 
           <div class="pt-15" v-if="tabSeleted.video === 'tencent'">
+            <div class="p-20">
+              <a href="https://www.yuque.com/meedu/yr7rek/fodh9r" class="help" target="_blank">配置教程？</a>
+            </div>
             <Form mode="block" class="p-20">
               <FormItem>
                 <template v-slot:label>AppId</template>
@@ -569,10 +595,10 @@
         </Cell>
 
         <Cell width="19" class="pt-15" v-if="activeItem === 'MeEduCloud'">
+          <div class="p-20">
+            <a href="https://www.yuque.com/meedu/yr7rek/adc5ca" class="help" target="_blank">配置教程？</a>
+          </div>
           <Form mode="block" class="p-20">
-            <p>
-              <a href="https://www.yuque.com/meedu/yr7rek/adc5ca" target="_blank">点我配置教程？</a>
-            </p>
             <FormItem>
               <template v-slot:label>服务地址</template>
               <input type="text" v-model="setting.meedu.meeducloud.domain" />

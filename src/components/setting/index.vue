@@ -118,6 +118,34 @@
           </Form>
         </Cell>
 
+        <Cell width="19" class="pt-15" v-if="activeItem === 'credit1'">
+          <Form mode="block" class="p-20">
+            <FormItem>
+              <template v-slot:label>注册奖励</template>
+              <input type="text" v-model="setting.meedu.member.credit1.register" />
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>邀请奖励</template>
+              <input type="text" v-model="setting.meedu.member.credit1.invite" />
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>看完课程</template>
+              <input type="text" v-model="setting.meedu.member.credit1.watched_course" />
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>看完视频</template>
+              <input type="text" v-model="setting.meedu.member.credit1.watched_video" />
+            </FormItem>
+            <FormItem>
+              <template v-slot:label>支付订单</template>
+              <input type="text" v-model="setting.meedu.member.credit1.paid_order" />
+              <warn
+                text="注意，支付订单的积分奖励与上面不同，它是根据订单金额*百分比奖励的，所以这里应该填写百分比。举个例子：订单支付金额100元，这里填写0.1，则用户奖励10积分。"
+              ></warn>
+            </FormItem>
+          </Form>
+        </Cell>
+
         <Cell width="19" class="pt-15" v-if="activeItem === 'sociallogin'">
           <Tabs :datas="tab.socialLogin" v-model="tabSeleted.socialLogin"></Tabs>
 
@@ -751,6 +779,10 @@ export default {
         {
           name: '邀请',
           key: 'invite'
+        },
+        {
+          name: '积分',
+          key: 'credit1'
         },
         {
           name: '微信小程序',

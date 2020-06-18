@@ -245,6 +245,9 @@ const Request = {
     },
     Invite(param) {
       return Ajax.get('/member/' + param.id + '/detail/userInvite', param);
+    },
+    Credit1Records(param) {
+      return Ajax.get('/member/' + param.id + '/detail/credit1Records', param);
     }
   },
   Course: {

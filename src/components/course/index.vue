@@ -74,6 +74,12 @@
             ></p-button>
             <p-button
               glass="h-btn h-btn-s h-btn-primary"
+              permission="course_attach"
+              text="附件"
+              @click="goCourseAttach(data)"
+            ></p-button>
+            <p-button
+              glass="h-btn h-btn-s h-btn-primary"
               permission="course.subscribe_users"
               text="订阅用户"
               @click="showSubscribeUsers(data)"
@@ -163,6 +169,20 @@ export default {
         component: {
           vue: resolve => {
             require(['../course_chapter/index'], resolve);
+          },
+          datas: {
+            cid: item.id
+          }
+        }
+      });
+    },
+    goCourseAttach(item) {
+      this.$Modal({
+        closeOnMask: false,
+        hasCloseIcon: true,
+        component: {
+          vue: resolve => {
+            require(['./attach/index'], resolve);
           },
           datas: {
             cid: item.id

@@ -276,6 +276,17 @@ const Request = {
       return Ajax.get('/course/' + param.id + '/subscribe/users', param);
     }
   },
+  CourseAttach: {
+    List(param) {
+      return Ajax.get('/course_attach', param);
+    },
+    Store(param) {
+      return Ajax.postJson('/course_attach', param);
+    },
+    Delete(param) {
+      return Ajax.delete('/course_attach/' + param.id, param);
+    }
+  },
   Video: {
     List(param) {
       return Ajax.get('/video', param);

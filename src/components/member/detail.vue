@@ -20,8 +20,10 @@
   <div class="container">
     <h2 class="mb-10">用户基本信息</h2>
     <Row class="base-info mb-10" v-if="user">
+      <Cell width="6">ID：{{user.id}}</Cell>
       <Cell width="6">昵称：{{user.nick_name}}</Cell>
       <Cell width="6">手机号：{{user.mobile}}</Cell>
+      <Cell width="6">积分：{{user.credit1}}</Cell>
       <Cell width="6">
         锁定：
         <span v-if="user.is_lock === 1">是</span>
@@ -192,6 +194,22 @@
         <Pagination align="right" v-model="paginate.orders" @change="paginateChange('orders')" />
       </Cell>
     </Row>
+
+    <Row v-show="selectTab === 'credit1Records'">
+      <Cell width="24">
+        <Table :datas="userCredit1Records" class="mb-10">
+          <TableItem prop="id" title="ID"></TableItem>
+          <TableItem prop="sum" title="积分"></TableItem>
+          <TableItem prop="remark" title="备注"></TableItem>
+          <TableItem prop="created_at" title="创建"></TableItem>
+        </Table>
+        <Pagination
+          align="right"
+          v-model="paginate.credit1Records"
+          @change="paginateChange('credit1Records')"
+        />
+      </Cell>
+    </Row>
   </div>
 </template>
 <script>
@@ -207,7 +225,8 @@ export default {
         orders: '订单',
         collect: '收藏',
         history: '观看历史',
-        invite: '邀请'
+        invite: '邀请',
+        credit1Records: '积分明细'
       },
       selectTab: 'courses',
       paginate: {
@@ -245,6 +264,11 @@ export default {
           page: 1,
           size: 10,
           total: 0
+        },
+        credit1Records: {
+          page: 1,
+          size: 10,
+          total: 0
         }
       },
       userCourses: [],
@@ -257,7 +281,8 @@ export default {
       userCollectMap: [],
       userHistory: [],
       userHistoryMap: [],
-      userInvite: []
+      userInvite: [],
+      userCredit1Records: []
     };
   },
   mounted() {
@@ -284,7 +309,20 @@ export default {
         this.getUserHistory(true);
       } else if (key === 'invite') {
         this.getUserInvite(true);
+      } else if (key === 'credit1Records') {
+        this.getUserCredit1Records(true);
       }
+    },
+    getUserCredit1Records(reset = false) {
+      if (reset === true) {
+        this.paginate.credit1Records.page = 1;
+      }
+      let data = this.paginate.credit1Records;
+      data.id = this.id;
+      R.Member.Credit1Records(data).then(res => {
+        this.userCredit1Records = res.data.data.data;
+        this.paginate.credit1Records.total = res.data.data.total;
+      });
     },
     getUserCourses(reset = false) {
       if (reset === true) {

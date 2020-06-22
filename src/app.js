@@ -30,11 +30,10 @@ Vue.component('Warn', Warn);
 Vue.component('PButton', PButton);
 Vue.component('PDelButton', PDelButton);
 
-
 const router = routerConfig();
 
 export default new Vue({
-    router,
-    store,
-    render: h => h(App)
+  router,
+  store,
+  render: h => h(App)
 }).$mount('#app');

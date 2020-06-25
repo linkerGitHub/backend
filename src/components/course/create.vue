@@ -1,17 +1,32 @@
 <style lang="less"></style>
 <template>
-  <div class="">
+  <div class>
     <div class="table-basic-vue frame-page h-panel">
-      <div class="h-panel-bar"><span class="h-panel-title">添加课程</span></div>
+      <div class="h-panel-bar">
+        <span class="h-panel-title">添加课程</span>
+      </div>
       <div class="h-panel-body">
         <p>
           <Button class="h-btn h-btn-primary" icon="icon-arrow-left" @click="back()">返回列表</Button>
         </p>
 
-        <Form ref="form" mode="block" :validOnChange="true" :showErrorTip="true" :labelWidth="110" :rules="rules" :model="course">
+        <Form
+          ref="form"
+          mode="block"
+          :validOnChange="true"
+          :showErrorTip="true"
+          :labelWidth="110"
+          :rules="rules"
+          :model="course"
+        >
           <FormItem label="分类" prop="category_id">
             <template v-slot:label>分类</template>
-            <Select v-model="course.category_id" :datas="courseCategories" keyName="id" titleName="name"></Select>
+            <Select
+              v-model="course.category_id"
+              :datas="courseCategories"
+              keyName="id"
+              titleName="name"
+            ></Select>
           </FormItem>
           <FormItem label="课程封面" prop="thumb">
             <template v-slot:label>课程封面</template>
@@ -56,6 +71,10 @@
             <template v-slot:label>SEO关键字</template>
             <textarea v-model="course.seo_keywords"></textarea>
           </FormItem>
+          <FormItem label="评论开关" prop="comment_status">
+            <template v-slot:label>评论开关</template>
+            <Select v-model="course.comment_status" :datas="commentStatus"></Select>
+          </FormItem>
 
           <FormItem>
             <Button color="primary" @click="create">添加</Button>
@@ -76,9 +95,35 @@ export default {
     return {
       course: Course.parse({}),
       rules: {
-        required: ['category_id', 'thumb', 'title', 'charge', 'short_description', 'published_at', 'is_show', 'is_rec', 'seo_description', 'seo_keywords']
+        required: [
+          'category_id',
+          'thumb',
+          'title',
+          'charge',
+          'short_description',
+          'published_at',
+          'is_show',
+          'is_rec',
+          'seo_description',
+          'seo_keywords',
+          'comment_status'
+        ]
       },
-      courseCategories: []
+      courseCategories: [],
+      commentStatus: [
+        {
+          title: '禁止评论',
+          key: 0
+        },
+        {
+          title: '所有人',
+          key: 1
+        },
+        {
+          title: '仅订阅',
+          key: 2
+        }
+      ]
     };
   },
   mounted() {

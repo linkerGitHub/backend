@@ -26,16 +26,17 @@
     </div>
     <div class="h-panel-body">
       <div class="mb-10">
+        <p-del-button permission="video.destroy.multi" @click="deleteSubmit()"></p-del-button>
         <p-button
-          glass="h-btn h-btn-primary"
+          glass="h-btn h-btn-primary h-btn-s"
           icon="h-icon-plus"
           permission="video.store"
           text="添加"
           @click="create()"
         ></p-button>
       </div>
-      <Table :loading="loading" :datas="datas" @sort="sortEvt">
-        <TableItem prop="id" title="ID"></TableItem>
+      <Table :loading="loading" :checkbox="true" :datas="datas" ref="table" @sort="sortEvt">
+        <TableItem prop="id" title="ID" :sort="true"></TableItem>
         <TableItem title="课程">
           <template slot-scope="{ data }">{{data.course.title}}</template>
         </TableItem>
@@ -131,6 +132,22 @@ export default {
       R.Video.Delete({ id: item.id }).then(resp => {
         HeyUI.$Message.success('成功');
         this.getData(true);
+      });
+    },
+    deleteSubmit() {
+      let items = this.$refs.table.getSelection();
+      if (items.length === 0) {
+        this.$Message.error('请选择需要删除的视频');
+        return;
+      }
+      this.loading = true;
+      let ids = [];
+      for (let i = 0; i < items.length; i++) {
+        ids.push(items[i].id);
+      }
+      R.Video.MultiDelete({ ids: ids }).then(resp => {
+        HeyUI.$Message.success('成功');
+        this.getData();
       });
     },
     edit(item) {

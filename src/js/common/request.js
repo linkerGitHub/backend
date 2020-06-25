@@ -305,6 +305,9 @@ const Request = {
     },
     Delete(param) {
       return Ajax.delete('/video/' + param.id, param);
+    },
+    MultiDelete(param) {
+      return Ajax.post('/video/delete/multi', param);
     }
   },
   CourseChapter: {

@@ -64,6 +64,15 @@
       </Cell>
       <Cell width="6">注册IP：{{user.register_ip || '未记录'}}</Cell>
       <Cell width="6">注册地址：{{user.register_area || '未记录'}}</Cell>
+
+      <Cell width="24" class="mt-10 mb-10">
+        <p-button
+          glass="h-btn h-btn-s h-btn-primary"
+          permission="member.credit1.change"
+          text="积分变动"
+          @click="credit1Change()"
+        ></p-button>
+      </Cell>
     </Row>
 
     <h2 class="mb-10">详细记录</h2>
@@ -286,13 +295,15 @@ export default {
     };
   },
   mounted() {
-    R.Member.Detail({ id: this.id }).then(res => {
-      this.user = res.data.data;
-    });
-
+    this.getUser();
     this.getUserCourses();
   },
   methods: {
+    getUser() {
+      R.Member.Detail({ id: this.id }).then(res => {
+        this.user = res.data.data;
+      });
+    },
     tabChange(data) {
       let key = data.key;
       if (key === 'courses') {
@@ -421,6 +432,29 @@ export default {
       } else if (t === 'invite') {
         this.getUserInvite();
       }
+    },
+    credit1Change() {
+      this.$Modal({
+        hasCloseIcon: true,
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['./credit1'], resolve);
+          },
+          datas: {
+            id: this.id
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            modal.close();
+            R.Member.Credit1Change(data).then(() => {
+              HeyUI.$Message.success('成功');
+              this.getUser();
+            });
+          }
+        }
+      });
     }
   }
 };

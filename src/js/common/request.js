@@ -248,6 +248,9 @@ const Request = {
     },
     Credit1Records(param) {
       return Ajax.get('/member/' + param.id + '/detail/credit1Records', param);
+    },
+    Credit1Change(param) {
+      return Ajax.postJson('/member/credit1/change', param);
     }
   },
   Course: {

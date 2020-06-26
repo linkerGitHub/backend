@@ -126,7 +126,24 @@ export default {
       });
     },
     create() {
-      this.$router.push({ name: 'VideoCreate' });
+      this.$Modal({
+        closeOnMask: false,
+        hasCloseIcon: true,
+        component: {
+          vue: resolve => {
+            require(['./create'], resolve);
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            R.Video.Store(data).then(resp => {
+              modal.close();
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     },
     remove(data, item) {
       R.Video.Delete({ id: item.id }).then(resp => {
@@ -151,7 +168,27 @@ export default {
       });
     },
     edit(item) {
-      this.$router.push({ name: 'VideoEdit', params: { id: item.id } });
+      this.$Modal({
+        closeOnMask: false,
+        hasCloseIcon: true,
+        component: {
+          vue: resolve => {
+            require(['./edit'], resolve);
+          },
+          datas: {
+            id: item.id
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            R.Video.Update(data).then(resp => {
+              modal.close();
+              HeyUI.$Message.success('成功');
+              this.getData(true);
+            });
+          }
+        }
+      });
     }
   }
 };

@@ -71,7 +71,7 @@ let ajax = {
   },
   ajax: function (param, extendParam) {
     let params = Utils.extend({}, DefaultParam, param, extendParam || {});
-    params.crossDomain = params.url.indexOf('http') === 0;
+    params.crossDomain = params.url.indexOf('http') === 0 || params.url.indexOf('/backend/addons/') === 0;
     let url = params.url;
     if (!params.crossDomain) {
       url = params.url = this.PREFIX + params.url;
@@ -98,9 +98,6 @@ let ajax = {
         return qs.stringify(params, { allowDots: true });
       }
     };
-    if (params.crossDomain) {
-      defaultParam.headers = {};
-    }
     let that = this;
     params = Utils.extend({}, defaultParam, params);
     return new Promise((resolve) => {

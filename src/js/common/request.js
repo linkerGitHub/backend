@@ -468,6 +468,26 @@ const Request = {
     TencentAuthToken(param) {
       return Ajax.postJson('/video/token/tencent', param);
     }
+  },
+  Extentions: {
+    aliyunHls: {
+      Setting: {
+        Get() {
+          return Ajax.get('/backend/addons/AliyunHls/setting');
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/AliyunHls/setting', param);
+        }
+      },
+      Videos: {
+        All(param) {
+          return Ajax.get('/backend/addons/AliyunHls/videos', param);
+        },
+        SubmitTransTask(param) {
+          return Ajax.postJson('/backend/addons/AliyunHls/videos/submitTransTask', param);
+        }
+      },
+    }
   }
 };
 

@@ -34,6 +34,13 @@
           text="添加"
           @click="create()"
         ></p-button>
+
+        <p-button
+          glass="h-btn h-btn-primary h-btn-s"
+          permission="video.aliyun_hls.list"
+          text="阿里云视频HLS转码"
+          @click="showHlsPage()"
+        ></p-button>
       </div>
       <Table :loading="loading" :checkbox="true" :datas="datas" ref="table" @sort="sortEvt">
         <TableItem prop="id" title="ID" :sort="true"></TableItem>
@@ -186,6 +193,17 @@ export default {
               HeyUI.$Message.success('成功');
               this.getData(true);
             });
+          }
+        }
+      });
+    },
+    showHlsPage() {
+      this.$Modal({
+        closeOnMask: false,
+        hasCloseIcon: true,
+        component: {
+          vue: resolve => {
+            require(['../extentions/aliyunHls/video/index'], resolve);
           }
         }
       });

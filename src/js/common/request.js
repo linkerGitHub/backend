@@ -487,6 +487,14 @@ const Request = {
           return Ajax.postJson('/backend/addons/AliyunHls/videos/submitTransTask', param);
         }
       },
+    },
+    aliyunVideosImport: {
+      Params() {
+        return Ajax.get('/backend/addons/aliyun_videos_import/params');
+      },
+      Import(params) {
+        return Ajax.post('/backend/addons/aliyun_videos_import/import', params);
+      }
     }
   }
 };

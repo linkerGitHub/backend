@@ -41,6 +41,13 @@
           text="阿里云视频HLS转码"
           @click="showHlsPage()"
         ></p-button>
+
+        <p-button
+          glass="h-btn h-btn-primary h-btn-s"
+          permission="video.aliyun_videos_import"
+          text="视频批量导入"
+          @click="showVideosImport()"
+        ></p-button>
       </div>
       <Table :loading="loading" :checkbox="true" :datas="datas" ref="table" @sort="sortEvt">
         <TableItem prop="id" title="ID" :sort="true"></TableItem>
@@ -204,6 +211,17 @@ export default {
         component: {
           vue: resolve => {
             require(['../extentions/aliyunHls/video/index'], resolve);
+          }
+        }
+      });
+    },
+    showVideosImport() {
+      this.$Modal({
+        closeOnMask: false,
+        hasCloseIcon: true,
+        component: {
+          vue: resolve => {
+            require(['../extentions/aliyunVideosImport/import'], resolve);
           }
         }
       });

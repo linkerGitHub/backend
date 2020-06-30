@@ -18,22 +18,6 @@ const initRouter = () => {
         name: 'Home',
         component: (resolve) => require(['components/home/index'], resolve),
         meta: { title: '首页', icon: 'icon-monitor' }
-      }, {
-        path: '/system-error',
-        name: 'SystemError',
-        component: (resolve) => require(['components/error-pages/500'], resolve),
-        meta: { title: '系统错误' }
-      }, {
-        path: '/permission-error',
-        name: 'PermissionError',
-        component: (resolve) => require(['components/error-pages/403'], resolve),
-        meta: { title: '权限错误' }
-      },
-      {
-        path: '/notfound-error',
-        name: 'NotfoundError',
-        component: (resolve) => require(['components/error-pages/404'], resolve),
-        meta: { title: '页面找不到' }
       },
       {
         path: '/announcement',
@@ -45,13 +29,13 @@ const initRouter = () => {
         path: '/statistic',
         name: 'Statistic',
         component: (resolve) => require(['components/statistic/index'], resolve),
-        meta: { title: '公告' }
+        meta: { title: '统计工具' }
       },
       {
         path: '/role',
         name: 'Role',
         component: (resolve) => require(['components/role/index'], resolve),
-        meta: { title: 'VIP角色' }
+        meta: { title: 'VIP' }
       }, {
         path: '/slider',
         name: 'Slider',
@@ -76,26 +60,6 @@ const initRouter = () => {
         meta: { title: '推广链接' }
       },
       {
-        path: '/ad_from/create',
-        name: 'AdFromCreate',
-        component: (resolve) => require(['components/ad_from/create'], resolve),
-        meta: { title: '添加推广链接' }
-      },
-      {
-        path: '/ad_from/:id/edit',
-        name: 'AdFromEdit',
-        component: (resolve) => require(['components/ad_from/edit'], resolve),
-        meta: { title: '编辑推广链接' },
-        props: true
-      },
-      {
-        path: '/ad_from/:id/number',
-        name: 'AdFromNumber',
-        component: (resolve) => require(['components/ad_from/statistics'], resolve),
-        meta: { title: '推广链接数据' },
-        props: true
-      },
-      {
         path: '/course_comment',
         name: 'CourseComment',
         component: (resolve) => require(['components/course_comment/index'], resolve),
@@ -111,17 +75,12 @@ const initRouter = () => {
         path: '/order',
         name: 'Order',
         component: (resolve) => require(['components/order/index'], resolve),
-        meta: { title: '视频评论' }
+        meta: { title: '订单列表' }
       },
       {
         path: '/member',
         name: 'Member',
         component: (resolve) => require(['components/member/index'], resolve),
-        meta: { title: '用户' }
-      }, {
-        path: '/member/create',
-        name: 'MemberCreate',
-        component: (resolve) => require(['components/member/create'], resolve),
         meta: { title: '用户' }
       },
       {
@@ -156,19 +115,6 @@ const initRouter = () => {
         meta: { title: '视频' }
       },
       {
-        path: '/video/create',
-        name: 'VideoCreate',
-        component: (resolve) => require(['components/video/create'], resolve),
-        meta: { title: '添加视频' }
-      },
-      {
-        path: '/video/:id/edit',
-        name: 'VideoEdit',
-        component: (resolve) => require(['components/video/edit'], resolve),
-        meta: { title: '编辑视频' },
-        props: true
-      },
-      {
         path: '/setting',
         name: 'Setting',
         component: (resolve) => require(['components/setting/index'], resolve),
@@ -185,19 +131,6 @@ const initRouter = () => {
         name: 'Administrator',
         component: (resolve) => require(['components/administrator/index'], resolve),
         meta: { title: '管理员' }
-      },
-      {
-        path: '/administrator/create',
-        name: 'AdministratorCreate',
-        component: (resolve) => require(['components/administrator/create'], resolve),
-        meta: { title: '添加管理员' }
-      },
-      {
-        path: '/administrator/:id/edit',
-        name: 'AdministratorEdit',
-        component: (resolve) => require(['components/administrator/edit'], resolve),
-        meta: { title: '编辑管理员' },
-        props: true
       },
       {
         path: '/nav',
@@ -218,25 +151,6 @@ const initRouter = () => {
         meta: { title: '角色' }
       },
       {
-        path: '/administrator_permission',
-        name: 'AdministratorPermission',
-        component: (resolve) => require(['components/administrator_permission/index'], resolve),
-        meta: { title: '权限' }
-      },
-      {
-        path: '/administrator_permission/create',
-        name: 'AdministratorPermissionCreate',
-        component: (resolve) => require(['components/administrator_permission/create'], resolve),
-        meta: { title: '添加权限' }
-      },
-      {
-        path: '/administrator_permission/:id/edit',
-        name: 'AdministratorPermissionEdit',
-        component: (resolve) => require(['components/administrator_permission/edit'], resolve),
-        meta: { title: '编辑权限' },
-        props: true
-      },
-      {
         path: '/addons',
         name: 'Addons',
         component: (resolve) => require(['components/addons/index'], resolve),
@@ -248,6 +162,26 @@ const initRouter = () => {
         name: 'CourseCategory',
         component: (resolve) => require(['components/courseCategory/index'], resolve),
         meta: { title: '课程分类' }
+      }, {
+        path: '/learningPaths',
+        name: 'LearningPaths',
+        component: (resolve) => require(['components/extentions/learningPaths/path/index'], resolve),
+        meta: { title: '学历路径' }
+      }, {
+        path: '/LearningPathsSteps',
+        name: 'LearningPathsSteps',
+        component: (resolve) => require(['components/extentions/learningPaths/step/index'], resolve),
+        meta: { title: '学历路径-步骤' }
+      }, {
+        path: '/system-error',
+        name: 'SystemError',
+        component: (resolve) => require(['components/error-pages/500'], resolve),
+        meta: { title: '系统错误' }
+      }, {
+        path: '/permission-error',
+        name: 'PermissionError',
+        component: (resolve) => require(['components/error-pages/403'], resolve),
+        meta: { title: '权限错误' }
       },
       {
         path: '*',

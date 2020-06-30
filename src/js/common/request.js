@@ -486,7 +486,7 @@ const Request = {
         SubmitTransTask(param) {
           return Ajax.postJson('/backend/addons/AliyunHls/videos/submitTransTask', param);
         }
-      },
+      }
     },
     aliyunVideosImport: {
       Params() {
@@ -494,6 +494,54 @@ const Request = {
       },
       Import(params) {
         return Ajax.post('/backend/addons/aliyun_videos_import/import', params);
+      }
+    },
+    learningPaths: {
+      Paths: {
+        List(param) {
+          return Ajax.get('/backend/addons/LearningPaths/path/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/LearningPaths/path/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/LearningPaths/path/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/LearningPaths/path/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/LearningPaths/path/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/LearningPaths/path/' + param.id, param);
+        }
+      },
+      Steps: {
+        List(param) {
+          return Ajax.get('/backend/addons/LearningPaths/step/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/LearningPaths/step/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/LearningPaths/step/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/LearningPaths/step/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/LearningPaths/step/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/LearningPaths/step/' + param.id, param);
+        },
+        relationCourseParams(param) {
+          return Ajax.get('/backend/addons/LearningPaths/step/' + param.id + '/relationCourseParams', param);
+        },
+        relationCourseSave(param) {
+          return Ajax.postJson('/backend/addons/LearningPaths/step/' + param.id + '/relationCourseParams', param);
+        }
       }
     }
   }

@@ -641,6 +641,61 @@ const Request = {
           return Ajax.delete('/backend/addons/meedu_books/book/' + param.id, param);
         }
       }
+    },
+    meeduTopics: {
+      Category: {
+        List(param) {
+          return Ajax.get('/backend/addons/meedu_topics/category/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/meedu_topics/category/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/meedu_topics/category/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/meedu_topics/category/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/meedu_topics/category/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_topics/category/' + param.id, param);
+        }
+      },
+      Topic: {
+        List(param) {
+          return Ajax.get('/backend/addons/meedu_topics/topic/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/meedu_topics/topic/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/meedu_topics/topic/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/meedu_topics/topic/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/meedu_topics/topic/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_topics/topic/' + param.id, param);
+        }
+      },
+      Comment: {
+        Index(param) {
+          return Ajax.get('/backend/addons/meedu_topics/comment', param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_topics/comment/' + param.id, param);
+        }
+      },
+      Order: {
+        Index(param) {
+          return Ajax.get('/backend/addons/meedu_topics/orders', param);
+        }
+      }
     }
   }
 };

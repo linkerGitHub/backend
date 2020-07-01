@@ -543,6 +543,104 @@ const Request = {
           return Ajax.postJson('/backend/addons/LearningPaths/step/' + param.id + '/relationCourseParams', param);
         }
       }
+    },
+    meeduBooks: {
+      BookComment: {
+        Index(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_comment/index', param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_books/book_comment/' + param.id, param);
+        }
+      },
+      ArticleComment: {
+        Index(param) {
+          return Ajax.get('/backend/addons/meedu_books/article_comment/index', param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_books/article_comment/' + param.id, param);
+        }
+      },
+      Category: {
+        List(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_category/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_category/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/meedu_books/book_category/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_category/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/meedu_books/book_category/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_books/book_category/' + param.id, param);
+        }
+      },
+      Chapter: {
+        List(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_chapter/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_chapter/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/meedu_books/book_chapter/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_chapter/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/meedu_books/book_chapter/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_books/book_chapter/' + param.id, param);
+        }
+      },
+      Article: {
+        List(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_article/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_article/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/meedu_books/book_article/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_article/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/meedu_books/book_article/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_books/book_article/' + param.id, param);
+        }
+      },
+      Book: {
+        List(param) {
+          return Ajax.get('/backend/addons/meedu_books/book/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/meedu_books/book/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/meedu_books/book/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/meedu_books/book/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/meedu_books/book/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_books/book/' + param.id, param);
+        }
+      }
     }
   }
 };

@@ -173,6 +173,11 @@ const initRouter = () => {
         component: (resolve) => require(['components/extentions/learningPaths/step/index'], resolve),
         meta: { title: '学历路径-步骤' }
       }, {
+        path: '/MeeduBooks',
+        name: 'MeeduBooks',
+        component: (resolve) => require(['components/extentions/meeduBooks/book/index'], resolve),
+        meta: { title: '电子书' }
+      }, {
         path: '/system-error',
         name: 'SystemError',
         component: (resolve) => require(['components/error-pages/500'], resolve),

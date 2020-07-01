@@ -14,6 +14,10 @@ import Warn from './components/common/warn';
 import PButton from './components/common/button';
 import PDelButton from './components/common/del-button';
 
+import mavonEditor from 'mavon-editor';
+import 'mavon-editor/dist/css/index.css';
+Vue.use(mavonEditor);
+
 require('./css/app.less');
 
 // 开发环境判断

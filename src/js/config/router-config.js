@@ -183,6 +183,16 @@ const initRouter = () => {
         component: (resolve) => require(['components/extentions/meeduTopics/topic/index'], resolve),
         meta: { title: '话题' }
       }, {
+        path: '/MiaoSha',
+        name: 'MiaoSha',
+        component: (resolve) => require(['components/extentions/miaosha/goods/index'], resolve),
+        meta: { title: '秒杀商品' }
+      }, {
+        path: '/MiaoShaOrders',
+        name: 'MiaoShaOrders',
+        component: (resolve) => require(['components/extentions/miaosha/orders/index'], resolve),
+        meta: { title: '秒杀订单' }
+      }, {
         path: '/system-error',
         name: 'SystemError',
         component: (resolve) => require(['components/error-pages/500'], resolve),

@@ -696,6 +696,33 @@ const Request = {
           return Ajax.get('/backend/addons/meedu_topics/orders', param);
         }
       }
+    },
+    miaoSha: {
+      Goods: {
+        List(param) {
+          return Ajax.get('/backend/addons/MiaoSha/goods/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/MiaoSha/goods/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/MiaoSha/goods/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/MiaoSha/goods/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/MiaoSha/goods/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/MiaoSha/goods/' + param.id, param);
+        }
+      },
+      Orders: {
+        Index(param) {
+          return Ajax.get('/backend/addons/MiaoSha/orders/index', param);
+        }
+      }
     }
   }
 };

@@ -832,6 +832,30 @@ const Request = {
           return Ajax.delete('/backend/addons/Paper/paper_category/' + param.id, param);
         }
       }
+    },
+    promoCodeImport: {
+      Generate(params) {
+        return Ajax.postJson('/backend/addons/promo_code_multi_import/tools/generate', params);
+      }
+    },
+    singlePage: {
+      Page: {
+        List(param) {
+          return Ajax.get('/backend/addons/single_paeg/page/index', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/single_paeg/page/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/single_paeg/page/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/single_paeg/page/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/single_paeg/page/' + param.id, param);
+        }
+      },
     }
   }
 };

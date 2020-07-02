@@ -723,6 +723,115 @@ const Request = {
           return Ajax.get('/backend/addons/MiaoSha/orders/index', param);
         }
       }
+    },
+    paper: {
+      Paper: {
+        List(param) {
+          return Ajax.get('/backend/addons/Paper/paper/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/Paper/paper/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/Paper/paper/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/Paper/paper/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/Paper/paper/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/Paper/paper/' + param.id, param);
+        },
+        Users(param) {
+          return Ajax.get('/backend/addons/Paper/paper/' + param.id + '/user', param);
+        },
+        UserAdd(param) {
+          return Ajax.postJson('/backend/addons/Paper/paper/' + param.id + '/user', param);
+        },
+        UserDel(param) {
+          return Ajax.delete('/backend/addons/Paper/paper/' + param.id + '/user/' + param.user_id);
+        },
+        Questions(param) {
+          return Ajax.get('/backend/addons/Paper/paper/' + param.id + '/questions', param);
+        },
+        AddQuestions(param) {
+          return Ajax.postJson('/backend/addons/Paper/paper/' + param.id + '/questions', param);
+        },
+        DelQuestion(param) {
+          return Ajax.delete('/backend/addons/Paper/paper/' + param.id + '/questions/' + param.question_id);
+        },
+        UserPapers(param) {
+          return Ajax.get(`/backend/addons/Paper/paper/${param.id}/userPaper`, param);
+        },
+        UserPaperInfo(param) {
+          return Ajax.get(`/backend/addons/Paper/paper/${param.id}/userPaper/${param.user_paper_id}`, param);
+        },
+        SubmitScore(param) {
+          return Ajax.postJson(`/backend/addons/Paper/paper/${param.id}/userPaper/${param.user_paper_id}`, param);
+        }
+      },
+      Question: {
+        List(param) {
+          return Ajax.get('/backend/addons/Paper/question/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/Paper/question/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/Paper/question/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/Paper/question/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/Paper/question/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.postJson('/backend/addons/Paper/question/destroy/multi', param);
+        }
+      },
+      QuestionCategory: {
+        List(param) {
+          return Ajax.get('/backend/addons/Paper/question_category/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/Paper/question_category/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/Paper/question_category/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/Paper/question_category/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/Paper/question_category/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/Paper/question_category/' + param.id, param);
+        }
+      },
+      PaperCategory: {
+        List(param) {
+          return Ajax.get('/backend/addons/Paper/paper_category/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/Paper/paper_category/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/Paper/paper_category/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/Paper/paper_category/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/Paper/paper_category/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/Paper/paper_category/' + param.id, param);
+        }
+      }
     }
   }
 };

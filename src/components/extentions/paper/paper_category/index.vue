@@ -1,43 +1,24 @@
 <template>
   <div class="table-basic-vue frame-page h-panel">
     <div class="h-panel-bar">
-      <span class="h-panel-title">友情链接</span>
+      <span class="h-panel-title">试卷分类</span>
     </div>
     <div class="h-panel-body">
-      <div class="mb-10">
-        <p-button
-          glass="h-btn h-btn-primary"
-          icon="h-icon-plus"
-          permission="link.store"
-          text="添加"
-          @click="create()"
-        ></p-button>
-      </div>
-      <Table :loading="loading" :datas="datas">
-        <TableItem prop="id" title="ID"></TableItem>
+      <p>
+        <Button color="h-btn h-btn-primary" icon="h-icon-plus" @click="create()">添加</Button>
+      </p>
+      <Table ref="table" :loading="loading" :datas="datas">
+        <TableItem prop="name" title="分类名" treeOpener></TableItem>
         <TableItem prop="sort" title="升序"></TableItem>
-        <TableItem prop="name" title="链接名"></TableItem>
-        <TableItem prop="url" title="URL"></TableItem>
         <TableItem title="操作" align="center" :width="200">
           <template slot-scope="{ data }">
-            <p-del-button permission="link.destroy" @click="remove(datas, data)"></p-del-button>
-            <p-button
-              glass="h-btn h-btn-s h-btn-primary"
-              permission="link.edit"
-              text="编辑"
-              @click="edit(data)"
-            ></p-button>
+            <Poptip content="确认删除？" @confirm="remove(datas, data)">
+              <button class="h-btn h-btn-s h-btn-red">删除</button>
+            </Poptip>
+            <button class="h-btn h-btn-s h-btn-primary" @click="edit(data)">编辑</button>
           </template>
         </TableItem>
       </Table>
-      <div class="mt-10">
-        <Pagination
-          v-if="pagination.total > 0"
-          align="right"
-          v-model="pagination"
-          @change="changePage"
-        />
-      </div>
     </div>
   </div>
 </template>
@@ -45,11 +26,6 @@
 export default {
   data() {
     return {
-      pagination: {
-        page: 1,
-        size: 20,
-        total: 0
-      },
       datas: [],
       loading: false
     };
@@ -59,22 +35,17 @@ export default {
   },
   methods: {
     init() {
-      this.getData(true);
+      this.getData();
     },
     changePage() {
       this.getData();
     },
-    getData(reload = false) {
-      if (reload) {
-        this.pagination.page = 1;
-      }
+    getData() {
       this.loading = true;
-      R.Link.List(this.pagination).then(resp => {
-        this.datas = resp.data.data;
-        this.pagination.total = resp.data.total;
-        this.pagination.page = resp.data.current_page;
-        this.pagination.size = resp.data.per_page;
+      R.Extentions.paper.PaperCategory.List(this.pagination).then(resp => {
+        this.datas = resp.data.data.data;
         this.loading = false;
+        this.$refs.table.expandAll();
       });
     },
     create() {
@@ -88,7 +59,7 @@ export default {
         },
         events: {
           success: (modal, data) => {
-            R.Link.Store(data).then(resp => {
+            R.Extentions.paper.PaperCategory.Store(data).then(resp => {
               modal.close();
               HeyUI.$Message.success('成功');
               this.getData(true);
@@ -98,7 +69,7 @@ export default {
       });
     },
     remove(data, item) {
-      R.Link.Delete({ id: item.id }).then(resp => {
+      R.Extentions.paper.PaperCategory.Delete({ id: item.id }).then(resp => {
         HeyUI.$Message.success('成功');
         this.getData(true);
       });
@@ -117,7 +88,7 @@ export default {
         },
         events: {
           success: (modal, data) => {
-            R.Link.Update(data).then(resp => {
+            R.Extentions.paper.PaperCategory.Update(data).then(resp => {
               modal.close();
               HeyUI.$Message.success('成功');
               this.getData(true);

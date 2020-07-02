@@ -193,6 +193,16 @@ const initRouter = () => {
         component: (resolve) => require(['components/extentions/miaosha/orders/index'], resolve),
         meta: { title: '秒杀订单' }
       }, {
+        path: '/Paper',
+        name: 'Paper',
+        component: (resolve) => require(['components/extentions/paper/paper/index'], resolve),
+        meta: { title: '试卷' }
+      }, {
+        path: '/PaperQuestion',
+        name: 'PaperQuestion',
+        component: (resolve) => require(['components/extentions/paper/question/index'], resolve),
+        meta: { title: '试题' }
+      }, {
         path: '/system-error',
         name: 'SystemError',
         component: (resolve) => require(['components/error-pages/500'], resolve),

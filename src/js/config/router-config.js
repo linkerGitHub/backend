@@ -218,6 +218,11 @@ const initRouter = () => {
         component: (resolve) => require(['components/extentions/templateOne/nav/index'], resolve),
         meta: { title: '立春模板导航栏' }
       }, {
+        path: '/TuanGouGoods',
+        name: 'TuanGouGoods',
+        component: (resolve) => require(['components/extentions/tuangou/goods/index'], resolve),
+        meta: { title: '团购商品' }
+      }, {
         path: '/system-error',
         name: 'SystemError',
         component: (resolve) => require(['components/error-pages/500'], resolve),

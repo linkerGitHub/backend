@@ -959,6 +959,47 @@ const Request = {
           return Ajax.get('/backend/addons/TencentCloudHls/videos/submitTransTask', param);
         }
       },
+    },
+    tuanGou: {
+      Goods: {
+        List(param) {
+          return Ajax.get('/backend/addons/TuanGou/goods/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/TuanGou/goods/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/TuanGou/goods/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/TuanGou/goods/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/TuanGou/goods/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/TuanGou/goods/' + param.id, param);
+        },
+        Items(param) {
+          return Ajax.get('/backend/addons/TuanGou/goods/' + param.id + '/items', param);
+        },
+        CompleteItem(param) {
+          return Ajax.get('/backend/addons/TuanGou/goods/item/complete', param);
+        },
+      },
+      Orders: {
+        Index(param) {
+          return Ajax.get('/backend/addons/TuanGou/orders/index', param);
+        }
+      },
+      Refunds: {
+        Index(param) {
+          return Ajax.get('/backend/addons/TuanGou/refunds/index', param);
+        },
+        Handler(param) {
+          return Ajax.get('/backend/addons/TuanGou/refunds/' + param.id + '/handler', param);
+        }
+      },
     }
   }
 };

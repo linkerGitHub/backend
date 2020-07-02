@@ -841,21 +841,21 @@ const Request = {
     singlePage: {
       Page: {
         List(param) {
-          return Ajax.get('/backend/addons/single_paeg/page/index', param);
+          return Ajax.get('/backend/addons/single_page/page/index', param);
         },
         Store(param) {
-          return Ajax.postJson('/backend/addons/single_paeg/page/create', param);
+          return Ajax.postJson('/backend/addons/single_page/page/create', param);
         },
         Edit(param) {
-          return Ajax.get('/backend/addons/single_paeg/page/' + param.id);
+          return Ajax.get('/backend/addons/single_page/page/' + param.id);
         },
         Update(param) {
-          return Ajax.putJson('/backend/addons/single_paeg/page/' + param.id, param);
+          return Ajax.putJson('/backend/addons/single_page/page/' + param.id, param);
         },
         Delete(param) {
-          return Ajax.delete('/backend/addons/single_paeg/page/' + param.id, param);
+          return Ajax.delete('/backend/addons/single_page/page/' + param.id, param);
         }
-      },
+      }
     }
   }
 };

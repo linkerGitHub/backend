@@ -203,6 +203,11 @@ const initRouter = () => {
         component: (resolve) => require(['components/extentions/paper/question/index'], resolve),
         meta: { title: '试题' }
       }, {
+        path: '/SinglePage',
+        name: 'SinglePage',
+        component: (resolve) => require(['components/extentions/singlePage/page/index'], resolve),
+        meta: { title: '单页' }
+      }, {
         path: '/system-error',
         name: 'SystemError',
         component: (resolve) => require(['components/error-pages/500'], resolve),

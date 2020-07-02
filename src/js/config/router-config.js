@@ -208,6 +208,16 @@ const initRouter = () => {
         component: (resolve) => require(['components/extentions/singlePage/page/index'], resolve),
         meta: { title: '单页' }
       }, {
+        path: '/TemplateOneTag',
+        name: 'TemplateOneTag',
+        component: (resolve) => require(['components/extentions/templateOne/tag/index'], resolve),
+        meta: { title: '立春模板标签' }
+      }, {
+        path: '/TemplateOneNav',
+        name: 'TemplateOneNav',
+        component: (resolve) => require(['components/extentions/templateOne/nav/index'], resolve),
+        meta: { title: '立春模板导航栏' }
+      }, {
         path: '/system-error',
         name: 'SystemError',
         component: (resolve) => require(['components/error-pages/500'], resolve),

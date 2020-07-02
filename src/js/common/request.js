@@ -856,6 +856,88 @@ const Request = {
           return Ajax.delete('/backend/addons/single_page/page/' + param.id, param);
         }
       }
+    },
+    templateOne: {
+      Nav: {
+        List(param) {
+          return Ajax.get('/backend/addons/TemplateOne/nav/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/TemplateOne/nav/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/TemplateOne/nav/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/TemplateOne/nav/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/TemplateOne/nav/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/TemplateOne/nav/' + param.id, param);
+        }
+      },
+      Tag: {
+        List(param) {
+          return Ajax.get('/backend/addons/TemplateOne/tag/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/TemplateOne/tag/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/TemplateOne/tag/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/TemplateOne/tag/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/TemplateOne/tag/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/TemplateOne/tag/' + param.id, param);
+        }
+      },
+      Slider: {
+        List(param) {
+          return Ajax.get('/backend/addons/TemplateOne/slider/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/TemplateOne/slider/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/TemplateOne/slider/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/TemplateOne/slider/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/TemplateOne/slider/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/TemplateOne/slider/' + param.id, param);
+        }
+      },
+      CourseCategory: {
+        List(param) {
+          return Ajax.get('/backend/addons/TemplateOne/courseCategory', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/TemplateOne/courseCategory', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/TemplateOne/courseCategory', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/TemplateOne/courseCategory/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/TemplateOne/courseCategory/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/TemplateOne/courseCategory/' + param.id, param);
+        }
+      }
     }
   }
 };

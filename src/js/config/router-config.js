@@ -223,6 +223,11 @@ const initRouter = () => {
         component: (resolve) => require(['components/extentions/tuangou/goods/index'], resolve),
         meta: { title: '团购商品' }
       }, {
+        path: '/WendaQuestion',
+        name: 'WendaQuestion',
+        component: (resolve) => require(['components/extentions/wenda/question/index'], resolve),
+        meta: { title: '全部问题' }
+      }, {
         path: '/system-error',
         name: 'SystemError',
         component: (resolve) => require(['components/error-pages/500'], resolve),

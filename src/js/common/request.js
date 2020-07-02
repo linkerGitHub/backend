@@ -949,7 +949,7 @@ const Request = {
         },
         createTemplate(param) {
           return Ajax.get('/backend/addons/TencentCloudHls/createTemplate', param);
-        },
+        }
       },
       Videos: {
         All(param) {
@@ -958,7 +958,7 @@ const Request = {
         SubmitTransTask(param) {
           return Ajax.get('/backend/addons/TencentCloudHls/videos/submitTransTask', param);
         }
-      },
+      }
     },
     tuanGou: {
       Goods: {
@@ -985,7 +985,7 @@ const Request = {
         },
         CompleteItem(param) {
           return Ajax.get('/backend/addons/TuanGou/goods/item/complete', param);
-        },
+        }
       },
       Orders: {
         Index(param) {
@@ -999,7 +999,37 @@ const Request = {
         Handler(param) {
           return Ajax.get('/backend/addons/TuanGou/refunds/' + param.id + '/handler', param);
         }
+      }
+    },
+    wenda: {
+      Category: {
+        List(param) {
+          return Ajax.get('/backend/addons/Wenda/category/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/Wenda/category/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/Wenda/category/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/Wenda/category/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/Wenda/category/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/Wenda/category/' + param.id, param);
+        }
       },
+      Question: {
+        List(param) {
+          return Ajax.get('/backend/addons/Wenda/question/index', param);
+        },
+        Delete(param) {
+          return Ajax.postJson('/backend/addons/Wenda/question/delete', param);
+        }
+      }
     }
   }
 };

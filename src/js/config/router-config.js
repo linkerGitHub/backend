@@ -228,6 +228,18 @@ const initRouter = () => {
         component: (resolve) => require(['components/extentions/wenda/question/index'], resolve),
         meta: { title: '全部问题' }
       }, {
+        path: '/ZhiboCourse',
+        name: 'ZhiboCourse',
+        component: (resolve) => require(['components/extentions/zhibo/course/index'], resolve),
+        meta: {
+          title: '直播课程'
+        }
+      }, {
+        path: '/ZhiboOpen',
+        name: 'ZhiboOpen',
+        component: (resolve) => require(['components/extentions/zhibo/zhibo/index'], resolve),
+        meta: { title: '开播' }
+      }, {
         path: '/system-error',
         name: 'SystemError',
         component: (resolve) => require(['components/error-pages/500'], resolve),

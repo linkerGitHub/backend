@@ -1030,6 +1030,144 @@ const Request = {
           return Ajax.postJson('/backend/addons/Wenda/question/delete', param);
         }
       }
+    },
+    zhibo: {
+      CourseCategory: {
+        List(param) {
+          return Ajax.get('/backend/addons/zhibo/course_category', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/zhibo/course_category/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/zhibo/course_category/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/zhibo/course_category/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/zhibo/course_category/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/zhibo/course_category/' + param.id, param);
+        }
+      },
+      Course: {
+        List(param) {
+          return Ajax.get('/backend/addons/zhibo/course', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/zhibo/course/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/zhibo/course/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/zhibo/course/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/zhibo/course/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/zhibo/course/' + param.id, param);
+        }
+      },
+      CourseChapter: {
+        List(param) {
+          return Ajax.get('/backend/addons/zhibo/course_chapter', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/zhibo/course_chapter/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/zhibo/course_chapter/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/zhibo/course_chapter/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/zhibo/course_chapter/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/zhibo/course_chapter/' + param.id, param);
+        }
+      },
+      Teacher: {
+        List(param) {
+          return Ajax.get('/backend/addons/zhibo/teacher', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/zhibo/teacher/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/zhibo/teacher/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/zhibo/teacher/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/zhibo/teacher/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/zhibo/teacher/' + param.id, param);
+        }
+      },
+      CourseVideo: {
+        List(param) {
+          return Ajax.get('/backend/addons/zhibo/course_video', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/zhibo/course_video/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/zhibo/course_video/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/zhibo/course_video/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/zhibo/course_video/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/zhibo/course_video/' + param.id, param);
+        }
+      },
+      CourseComment: {
+        List(param) {
+          return Ajax.get('/backend/addons/zhibo/course_comment', param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/zhibo/course_comment/' + param.id, param);
+        }
+      },
+      CourseChat: {
+        List(param) {
+          return Ajax.get('/backend/addons/zhibo/course_chat', param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/zhibo/course_chat/' + param.id, param);
+        }
+      },
+      Zhibo: {
+        Create(param) {
+          return Ajax.get('/backend/addons/zhibo/zhibo/create', param);
+        },
+        getParams(param) {
+          return Ajax.get('/backend/addons/zhibo/zhibo/getParams', param);
+        },
+        pause(param) {
+          return Ajax.get('/backend/addons/zhibo/zhibo/pause', param);
+        },
+        resume(param) {
+          return Ajax.get('/backend/addons/zhibo/zhibo/resume', param);
+        },
+        pauseChat(param) {
+          return Ajax.get('/backend/addons/zhibo/zhibo/pauseChat', param);
+        },
+        resumeChat(param) {
+          return Ajax.get('/backend/addons/zhibo/zhibo/resumeChat', param);
+        }
+      }
     }
   }
 };

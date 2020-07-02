@@ -41,6 +41,12 @@
           text="阿里云视频HLS转码"
           @click="showHlsPage()"
         ></p-button>
+        <p-button
+          glass="h-btn h-btn-primary h-btn-s"
+          permission="addons.TencentCloudHls.videos"
+          text="腾讯云视频HLS转码"
+          @click="showTencentHlsPage()"
+        ></p-button>
 
         <p-button
           glass="h-btn h-btn-primary h-btn-s"
@@ -211,6 +217,17 @@ export default {
         component: {
           vue: resolve => {
             require(['../extentions/aliyunHls/video/index'], resolve);
+          }
+        }
+      });
+    },
+    showTencentHlsPage() {
+      this.$Modal({
+        closeOnMask: false,
+        hasCloseIcon: true,
+        component: {
+          vue: resolve => {
+            require(['@/components/extentions/tencentCloudHls/video/index'], resolve);
           }
         }
       });

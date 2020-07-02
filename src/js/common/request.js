@@ -938,6 +938,27 @@ const Request = {
           return Ajax.delete('/backend/addons/TemplateOne/courseCategory/' + param.id, param);
         }
       }
+    },
+    tencentCloudHls: {
+      Setting: {
+        Get() {
+          return Ajax.get('/backend/addons/TencentCloudHls/setting');
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/TencentCloudHls/setting', param);
+        },
+        createTemplate(param) {
+          return Ajax.get('/backend/addons/TencentCloudHls/createTemplate', param);
+        },
+      },
+      Videos: {
+        All(param) {
+          return Ajax.get('/backend/addons/TencentCloudHls/videos', param);
+        },
+        SubmitTransTask(param) {
+          return Ajax.get('/backend/addons/TencentCloudHls/videos/submitTransTask', param);
+        }
+      },
     }
   }
 };

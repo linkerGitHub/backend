@@ -191,7 +191,7 @@ export default {
             R.Video.Update(data).then(resp => {
               modal.close();
               HeyUI.$Message.success('成功');
-              this.getData(true);
+              this.getData();
             });
           }
         }

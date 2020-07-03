@@ -1,6 +1,6 @@
 <template>
   <Poptip content="确认删除？" @confirm="$emit('click')" v-if="inPermission">
-    <button class="h-btn h-btn-s h-btn-red" :class="glass">{{text || '删除'}}</button>
+    <Button class="h-btn h-btn-s h-btn-red" :class="glass">{{text || '删除'}}</Button>
   </Poptip>
 </template>
 <script>

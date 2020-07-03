@@ -26,7 +26,7 @@
     </div>
     <div class="h-panel-body">
       <div class="mb-10">
-        <p-del-button permission="video.destroy.multi" @click="deleteSubmit()"></p-del-button>
+        <p-del-button permission="video.destroy.multi" text="批量删除" @click="deleteSubmit()"></p-del-button>
         <p-button
           glass="h-btn h-btn-primary h-btn-s"
           icon="h-icon-plus"
@@ -56,22 +56,15 @@
         ></p-button>
       </div>
       <Table :loading="loading" :checkbox="true" :datas="datas" ref="table" @sort="sortEvt">
-        <TableItem prop="id" title="ID" :sort="true"></TableItem>
+        <TableItem prop="id" title="ID" :sort="true" :width="80"></TableItem>
         <TableItem title="课程">
           <template slot-scope="{ data }">{{data.course.title}}</template>
         </TableItem>
         <TableItem prop="title" title="视频"></TableItem>
-        <TableItem prop="charge" title="价格" unit="元" :sort="true"></TableItem>
+        <TableItem prop="charge" title="价格" unit="元" :sort="true" :width="80"></TableItem>
         <TableItem prop="published_at" title="上线时间" :sort="true"></TableItem>
-        <TableItem title="显示">
+        <TableItem title="操作" align="center" :width="100">
           <template slot-scope="{ data }">
-            <span v-if="data.is_show === 1">是</span>
-            <span v-else>否</span>
-          </template>
-        </TableItem>
-        <TableItem title="操作" align="center" :width="200">
-          <template slot-scope="{ data }">
-            <p-del-button permission="video.destroy" @click="remove(datas, data)"></p-del-button>
             <p-button
               glass="h-btn h-btn-s h-btn-primary"
               permission="video.edit"
@@ -98,7 +91,7 @@ export default {
     return {
       pagination: {
         page: 1,
-        size: 20,
+        size: 10,
         total: 0
       },
       cond: {
@@ -163,12 +156,6 @@ export default {
             });
           }
         }
-      });
-    },
-    remove(data, item) {
-      R.Video.Delete({ id: item.id }).then(resp => {
-        HeyUI.$Message.success('成功');
-        this.getData(true);
       });
     },
     deleteSubmit() {

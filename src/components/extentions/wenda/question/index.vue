@@ -5,6 +5,10 @@
     </div>
     <div class="h-panel-body">
       <Form ref="form" :labelWidth="110">
+        <FormItem label="用户ID">
+          <template v-slot:label>用户ID</template>
+          <input type="text" v-model="filter.user_id" placeholder="用户ID" />
+        </FormItem>
         <FormItem label="分类" prop="category_id">
           <template v-slot:label>分类</template>
           <Select
@@ -42,23 +46,36 @@
       </div>
 
       <Table ref="table" :checkbox="true" :loading="loading" :datas="datas">
-        <TableItem title="分类" align="center">
+        <TableItem prop="id" title="ID" :width="80"></TableItem>
+        <TableItem title="分类" align="center" :width="120">
           <template slot-scope="{ data }">
             <span>{{data.category.name}}</span>
           </template>
         </TableItem>
-        <TableItem title="用户" align="center">
+        <TableItem title="用户" align="center" :width="100">
           <template slot-scope="{ data }">
             <span>{{data.user.nick_name}}</span>
           </template>
         </TableItem>
         <TableItem prop="title" title="标题"></TableItem>
-        <TableItem prop="view_times" title="浏览" unit="次"></TableItem>
-        <TableItem prop="answer_count" title="答案" unit="个"></TableItem>
-        <TableItem title="状态" align="center">
+        <TableItem prop="view_times" title="浏览" unit="次" :width="80"></TableItem>
+        <TableItem prop="vote_count" title="点赞" unit="次" :width="80"></TableItem>
+        <TableItem prop="answer_count" title="答案" unit="个" :width="80"></TableItem>
+        <TableItem prop="credit1" title="积分" unit="积分" :width="100"></TableItem>
+        <TableItem title="状态" align="center" :width="80">
           <template slot-scope="{ data }">
             <span v-if="data.status === 1">已解决</span>
             <span v-else>未解决</span>
+          </template>
+        </TableItem>
+        <TableItem title="状态" align="center" :width="80">
+          <template slot-scope="{ data }">
+            <p-button
+              glass="h-btn h-btn-s h-btn-primary"
+              permission="addons.Wenda.question.answers"
+              text="回答"
+              @click="showAnswersPage(data)"
+            ></p-button>
           </template>
         </TableItem>
       </Table>
@@ -86,7 +103,8 @@ export default {
       },
       filter: {
         category_id: null,
-        status: null
+        status: null,
+        user_id: null
       },
       statusOptions: [
         {
@@ -125,7 +143,8 @@ export default {
     resetFilter() {
       this.filter = {
         category_id: null,
-        status: null
+        status: null,
+        user_id: null
       };
       this.getData();
     },
@@ -137,6 +156,7 @@ export default {
       let data = this.pagination;
       data.category_id = this.filter.category_id;
       data.status = this.filter.status;
+      data.user_id = this.filter.user_id;
       R.Extentions.wenda.Question.List(data).then(resp => {
         this.datas = resp.data.data.data;
         this.pagination.total = resp.data.data.total;
@@ -151,6 +171,21 @@ export default {
         component: {
           vue: resolve => {
             require(['../category/index'], resolve);
+          }
+        }
+      });
+    },
+    showAnswersPage(item) {
+      this.$Modal({
+        hasCloseIcon: true,
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['../answer/index'], resolve);
+          },
+          datas: {
+            id: item.id,
+            solved: item.status === 1
           }
         }
       });

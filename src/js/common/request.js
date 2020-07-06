@@ -1028,6 +1028,21 @@ const Request = {
         },
         Delete(param) {
           return Ajax.postJson('/backend/addons/Wenda/question/delete', param);
+        },
+        Answers(id) {
+          return Ajax.get('/backend/addons/Wenda/question/' + id + '/answers');
+        },
+        AnswerDelete(questionId, answerId) {
+          return Ajax.delete('/backend/addons/Wenda/question/' + questionId + '/answers/' + answerId);
+        },
+        AnswerSelected(questionId, answerId) {
+          return Ajax.get('/backend/addons/Wenda/question/' + questionId + '/answers/' + answerId + '/selected');
+        },
+        AnswerComments(answerId) {
+          return Ajax.get('/backend/addons/Wenda/question/answers/' + answerId + '/comments');
+        },
+        AnswerCommentDelete(commentId) {
+          return Ajax.delete('/backend/addons/Wenda/question/answers/comments/' + commentId);
         }
       }
     },

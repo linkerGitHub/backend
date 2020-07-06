@@ -248,6 +248,9 @@ const Request = {
     },
     Credit1Records(param) {
       return Ajax.get('/member/' + param.id + '/detail/credit1Records', param);
+    },
+    Credit1Change(param) {
+      return Ajax.postJson('/member/credit1/change', param);
     }
   },
   Course: {
@@ -305,6 +308,9 @@ const Request = {
     },
     Delete(param) {
       return Ajax.delete('/video/' + param.id, param);
+    },
+    MultiDelete(param) {
+      return Ajax.post('/video/delete/multi', param);
     }
   },
   CourseChapter: {
@@ -461,6 +467,707 @@ const Request = {
     },
     TencentAuthToken(param) {
       return Ajax.postJson('/video/token/tencent', param);
+    }
+  },
+  Extentions: {
+    aliyunHls: {
+      Setting: {
+        Get() {
+          return Ajax.get('/backend/addons/AliyunHls/setting');
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/AliyunHls/setting', param);
+        }
+      },
+      Videos: {
+        All(param) {
+          return Ajax.get('/backend/addons/AliyunHls/videos', param);
+        },
+        SubmitTransTask(param) {
+          return Ajax.postJson('/backend/addons/AliyunHls/videos/submitTransTask', param);
+        }
+      }
+    },
+    aliyunVideosImport: {
+      Params() {
+        return Ajax.get('/backend/addons/aliyun_videos_import/params');
+      },
+      Import(params) {
+        return Ajax.post('/backend/addons/aliyun_videos_import/import', params);
+      }
+    },
+    learningPaths: {
+      Paths: {
+        List(param) {
+          return Ajax.get('/backend/addons/LearningPaths/path/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/LearningPaths/path/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/LearningPaths/path/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/LearningPaths/path/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/LearningPaths/path/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/LearningPaths/path/' + param.id, param);
+        }
+      },
+      Steps: {
+        List(param) {
+          return Ajax.get('/backend/addons/LearningPaths/step/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/LearningPaths/step/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/LearningPaths/step/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/LearningPaths/step/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/LearningPaths/step/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/LearningPaths/step/' + param.id, param);
+        },
+        relationCourseParams(param) {
+          return Ajax.get('/backend/addons/LearningPaths/step/' + param.id + '/relationCourseParams', param);
+        },
+        relationCourseSave(param) {
+          return Ajax.postJson('/backend/addons/LearningPaths/step/' + param.id + '/relationCourseParams', param);
+        }
+      }
+    },
+    meeduBooks: {
+      BookComment: {
+        Index(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_comment/index', param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_books/book_comment/' + param.id, param);
+        }
+      },
+      ArticleComment: {
+        Index(param) {
+          return Ajax.get('/backend/addons/meedu_books/article_comment/index', param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_books/article_comment/' + param.id, param);
+        }
+      },
+      Category: {
+        List(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_category/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_category/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/meedu_books/book_category/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_category/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/meedu_books/book_category/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_books/book_category/' + param.id, param);
+        }
+      },
+      Chapter: {
+        List(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_chapter/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_chapter/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/meedu_books/book_chapter/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_chapter/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/meedu_books/book_chapter/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_books/book_chapter/' + param.id, param);
+        }
+      },
+      Article: {
+        List(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_article/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_article/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/meedu_books/book_article/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/meedu_books/book_article/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/meedu_books/book_article/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_books/book_article/' + param.id, param);
+        }
+      },
+      Book: {
+        List(param) {
+          return Ajax.get('/backend/addons/meedu_books/book/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/meedu_books/book/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/meedu_books/book/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/meedu_books/book/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/meedu_books/book/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_books/book/' + param.id, param);
+        }
+      }
+    },
+    meeduTopics: {
+      Category: {
+        List(param) {
+          return Ajax.get('/backend/addons/meedu_topics/category/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/meedu_topics/category/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/meedu_topics/category/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/meedu_topics/category/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/meedu_topics/category/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_topics/category/' + param.id, param);
+        }
+      },
+      Topic: {
+        List(param) {
+          return Ajax.get('/backend/addons/meedu_topics/topic/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/meedu_topics/topic/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/meedu_topics/topic/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/meedu_topics/topic/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/meedu_topics/topic/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_topics/topic/' + param.id, param);
+        }
+      },
+      Comment: {
+        Index(param) {
+          return Ajax.get('/backend/addons/meedu_topics/comment', param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/meedu_topics/comment/' + param.id, param);
+        }
+      },
+      Order: {
+        Index(param) {
+          return Ajax.get('/backend/addons/meedu_topics/orders', param);
+        }
+      }
+    },
+    miaoSha: {
+      Goods: {
+        List(param) {
+          return Ajax.get('/backend/addons/MiaoSha/goods/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/MiaoSha/goods/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/MiaoSha/goods/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/MiaoSha/goods/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/MiaoSha/goods/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/MiaoSha/goods/' + param.id, param);
+        }
+      },
+      Orders: {
+        Index(param) {
+          return Ajax.get('/backend/addons/MiaoSha/orders/index', param);
+        }
+      }
+    },
+    paper: {
+      Paper: {
+        List(param) {
+          return Ajax.get('/backend/addons/Paper/paper/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/Paper/paper/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/Paper/paper/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/Paper/paper/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/Paper/paper/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/Paper/paper/' + param.id, param);
+        },
+        Users(param) {
+          return Ajax.get('/backend/addons/Paper/paper/' + param.id + '/user', param);
+        },
+        UserAdd(param) {
+          return Ajax.postJson('/backend/addons/Paper/paper/' + param.id + '/user', param);
+        },
+        UserDel(param) {
+          return Ajax.delete('/backend/addons/Paper/paper/' + param.id + '/user/' + param.user_id);
+        },
+        Questions(param) {
+          return Ajax.get('/backend/addons/Paper/paper/' + param.id + '/questions', param);
+        },
+        AddQuestions(param) {
+          return Ajax.postJson('/backend/addons/Paper/paper/' + param.id + '/questions', param);
+        },
+        DelQuestion(param) {
+          return Ajax.delete('/backend/addons/Paper/paper/' + param.id + '/questions/' + param.question_id);
+        },
+        UserPapers(param) {
+          return Ajax.get(`/backend/addons/Paper/paper/${param.id}/userPaper`, param);
+        },
+        UserPaperInfo(param) {
+          return Ajax.get(`/backend/addons/Paper/paper/${param.id}/userPaper/${param.user_paper_id}`, param);
+        },
+        SubmitScore(param) {
+          return Ajax.postJson(`/backend/addons/Paper/paper/${param.id}/userPaper/${param.user_paper_id}`, param);
+        }
+      },
+      Question: {
+        List(param) {
+          return Ajax.get('/backend/addons/Paper/question/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/Paper/question/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/Paper/question/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/Paper/question/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/Paper/question/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.postJson('/backend/addons/Paper/question/destroy/multi', param);
+        }
+      },
+      QuestionCategory: {
+        List(param) {
+          return Ajax.get('/backend/addons/Paper/question_category/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/Paper/question_category/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/Paper/question_category/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/Paper/question_category/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/Paper/question_category/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/Paper/question_category/' + param.id, param);
+        }
+      },
+      PaperCategory: {
+        List(param) {
+          return Ajax.get('/backend/addons/Paper/paper_category/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/Paper/paper_category/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/Paper/paper_category/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/Paper/paper_category/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/Paper/paper_category/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/Paper/paper_category/' + param.id, param);
+        }
+      }
+    },
+    promoCodeImport: {
+      Generate(params) {
+        return Ajax.postJson('/backend/addons/promo_code_multi_import/tools/generate', params);
+      }
+    },
+    singlePage: {
+      Page: {
+        List(param) {
+          return Ajax.get('/backend/addons/single_page/page/index', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/single_page/page/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/single_page/page/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/single_page/page/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/single_page/page/' + param.id, param);
+        }
+      }
+    },
+    templateOne: {
+      Nav: {
+        List(param) {
+          return Ajax.get('/backend/addons/TemplateOne/nav/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/TemplateOne/nav/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/TemplateOne/nav/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/TemplateOne/nav/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/TemplateOne/nav/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/TemplateOne/nav/' + param.id, param);
+        }
+      },
+      Tag: {
+        List(param) {
+          return Ajax.get('/backend/addons/TemplateOne/tag/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/TemplateOne/tag/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/TemplateOne/tag/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/TemplateOne/tag/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/TemplateOne/tag/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/TemplateOne/tag/' + param.id, param);
+        }
+      },
+      Slider: {
+        List(param) {
+          return Ajax.get('/backend/addons/TemplateOne/slider/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/TemplateOne/slider/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/TemplateOne/slider/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/TemplateOne/slider/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/TemplateOne/slider/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/TemplateOne/slider/' + param.id, param);
+        }
+      },
+      CourseCategory: {
+        List(param) {
+          return Ajax.get('/backend/addons/TemplateOne/courseCategory', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/TemplateOne/courseCategory', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/TemplateOne/courseCategory', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/TemplateOne/courseCategory/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/TemplateOne/courseCategory/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/TemplateOne/courseCategory/' + param.id, param);
+        }
+      }
+    },
+    tencentCloudHls: {
+      Setting: {
+        Get() {
+          return Ajax.get('/backend/addons/TencentCloudHls/setting');
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/TencentCloudHls/setting', param);
+        },
+        createTemplate(param) {
+          return Ajax.get('/backend/addons/TencentCloudHls/createTemplate', param);
+        }
+      },
+      Videos: {
+        All(param) {
+          return Ajax.get('/backend/addons/TencentCloudHls/videos', param);
+        },
+        SubmitTransTask(param) {
+          return Ajax.get('/backend/addons/TencentCloudHls/videos/submitTransTask', param);
+        }
+      }
+    },
+    tuanGou: {
+      Goods: {
+        List(param) {
+          return Ajax.get('/backend/addons/TuanGou/goods/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/TuanGou/goods/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/TuanGou/goods/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/TuanGou/goods/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/TuanGou/goods/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/TuanGou/goods/' + param.id, param);
+        },
+        Items(param) {
+          return Ajax.get('/backend/addons/TuanGou/goods/' + param.id + '/items', param);
+        },
+        CompleteItem(param) {
+          return Ajax.get('/backend/addons/TuanGou/goods/item/complete', param);
+        }
+      },
+      Orders: {
+        Index(param) {
+          return Ajax.get('/backend/addons/TuanGou/orders/index', param);
+        }
+      },
+      Refunds: {
+        Index(param) {
+          return Ajax.get('/backend/addons/TuanGou/refunds/index', param);
+        },
+        Handler(param) {
+          return Ajax.get('/backend/addons/TuanGou/refunds/' + param.id + '/handler', param);
+        }
+      }
+    },
+    wenda: {
+      Category: {
+        List(param) {
+          return Ajax.get('/backend/addons/Wenda/category/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/Wenda/category/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/Wenda/category/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/Wenda/category/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/Wenda/category/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/Wenda/category/' + param.id, param);
+        }
+      },
+      Question: {
+        List(param) {
+          return Ajax.get('/backend/addons/Wenda/question/index', param);
+        },
+        Delete(param) {
+          return Ajax.postJson('/backend/addons/Wenda/question/delete', param);
+        }
+      }
+    },
+    zhibo: {
+      CourseCategory: {
+        List(param) {
+          return Ajax.get('/backend/addons/zhibo/course_category', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/zhibo/course_category/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/zhibo/course_category/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/zhibo/course_category/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/zhibo/course_category/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/zhibo/course_category/' + param.id, param);
+        }
+      },
+      Course: {
+        List(param) {
+          return Ajax.get('/backend/addons/zhibo/course', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/zhibo/course/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/zhibo/course/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/zhibo/course/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/zhibo/course/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/zhibo/course/' + param.id, param);
+        }
+      },
+      CourseChapter: {
+        List(param) {
+          return Ajax.get('/backend/addons/zhibo/course_chapter', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/zhibo/course_chapter/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/zhibo/course_chapter/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/zhibo/course_chapter/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/zhibo/course_chapter/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/zhibo/course_chapter/' + param.id, param);
+        }
+      },
+      Teacher: {
+        List(param) {
+          return Ajax.get('/backend/addons/zhibo/teacher', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/zhibo/teacher/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/zhibo/teacher/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/zhibo/teacher/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/zhibo/teacher/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/zhibo/teacher/' + param.id, param);
+        }
+      },
+      CourseVideo: {
+        List(param) {
+          return Ajax.get('/backend/addons/zhibo/course_video', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/zhibo/course_video/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/zhibo/course_video/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/zhibo/course_video/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/zhibo/course_video/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/zhibo/course_video/' + param.id, param);
+        }
+      },
+      CourseComment: {
+        List(param) {
+          return Ajax.get('/backend/addons/zhibo/course_comment', param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/zhibo/course_comment/' + param.id, param);
+        }
+      },
+      CourseChat: {
+        List(param) {
+          return Ajax.get('/backend/addons/zhibo/course_chat', param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/zhibo/course_chat/' + param.id, param);
+        }
+      },
+      Zhibo: {
+        Create(param) {
+          return Ajax.get('/backend/addons/zhibo/zhibo/create', param);
+        },
+        getParams(param) {
+          return Ajax.get('/backend/addons/zhibo/zhibo/getParams', param);
+        },
+        pause(param) {
+          return Ajax.get('/backend/addons/zhibo/zhibo/pause', param);
+        },
+        resume(param) {
+          return Ajax.get('/backend/addons/zhibo/zhibo/resume', param);
+        },
+        pauseChat(param) {
+          return Ajax.get('/backend/addons/zhibo/zhibo/pauseChat', param);
+        },
+        resumeChat(param) {
+          return Ajax.get('/backend/addons/zhibo/zhibo/resumeChat', param);
+        }
+      }
     }
   }
 };

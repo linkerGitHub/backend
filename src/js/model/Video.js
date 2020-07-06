@@ -11,5 +11,10 @@ export default new Model({
   tencent_video_id: '',
   url: '',
   duration: null,
-  is_ban_sell: null
+  is_ban_sell: null,
+  comment_status: null,
+  ban_drag: null,
+  free_seconds: null,
+  player_pc: null,
+  player_h5: null
 });

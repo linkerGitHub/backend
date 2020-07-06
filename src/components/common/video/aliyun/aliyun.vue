@@ -34,8 +34,8 @@ export default {
           R.VideoUpload.AliyunAuthTokenRefresh({
             video_id: uploadInfo.videoId
           }).then(res => {
-            if (res.data.code === 500) {
-              HeyUI.$Message.error(res.data.message);
+            if (res.status !== 0) {
+              HeyUI.$Message.error(res.message);
             } else {
               this.aliyun.setUploadAuthAndAddress(uploadInfo, res.data.upload_auth, res.data.upload_address, res.data.video_id);
             }
@@ -45,8 +45,8 @@ export default {
             title: uploadInfo.file.name,
             filename: uploadInfo.file.name
           }).then(res => {
-            if (res.data.code === 500) {
-              HeyUI.$Message.error(res.data.message);
+            if (res.status !== 0) {
+              HeyUI.$Message.error(res.message);
             } else {
               this.aliyun.setUploadAuthAndAddress(uploadInfo, res.data.upload_auth, res.data.upload_address, res.data.video_id);
             }

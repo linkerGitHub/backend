@@ -831,6 +831,70 @@ const Request = {
         Delete(param) {
           return Ajax.delete('/backend/addons/Paper/paper_category/' + param.id, param);
         }
+      },
+      Practice: {
+        List(param) {
+          return Ajax.get('/backend/addons/Paper/practice/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/Paper/practice/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/Paper/practice/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/Paper/practice/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/Paper/practice/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.postJson('/backend/addons/Paper/practice/delete/multi', param);
+        },
+        Users(param) {
+          return Ajax.get('/backend/addons/Paper/practice/' + param.id + '/users', param);
+        },
+        UserRecords(param) {
+          return Ajax.get('/backend/addons/Paper/practice/' + param.id + '/user/records', param);
+        },
+      },
+      PracticeChapter: {
+        List(param) {
+          return Ajax.get('/backend/addons/Paper/practice_chapter/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/Paper/practice_chapter/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/Paper/practice_chapter/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/Paper/practice_chapter/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/Paper/practice_chapter/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.postJson('/backend/addons/Paper/practice_chapter/delete/multi', param);
+        },
+        Questions(param) {
+          return Ajax.get('/backend/addons/Paper/practice_chapter/' + param.id + '/questions', param);
+        },
+        QuestionsCreate(param) {
+          return Ajax.get('/backend/addons/Paper/practice_chapter/' + param.id + '/questions/params', param);
+        },
+        QuestionsStore(param) {
+          return Ajax.postJson('/backend/addons/Paper/practice_chapter/' + param.id + '/questions', param);
+        },
+        QuestionsDelete(param) {
+          return Ajax.postJson('/backend/addons/Paper/practice_chapter/' + param.id + '/questions/delete', param);
+        },
+        Users(param) {
+          return Ajax.get('/backend/addons/Paper/practice_chapter/' + param.id + '/users', param);
+        },
+        UserDetail(param) {
+          return Ajax.get('/backend/addons/Paper/practice_chapter/' + param.id + '/user/detail', param);
+        },
       }
     },
     promoCodeImport: {

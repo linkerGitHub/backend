@@ -4,6 +4,8 @@
   </div>
 </template>
 <script>
+import katex from 'katex';
+
 export default {
   props: {
     value: {
@@ -17,8 +19,8 @@ export default {
     };
   },
   methods: {
-    valChange(oVal, rVal) {
-      localStorage.setItem('meedu_books_md_val', rVal);
+    valChange(value, renderValue) {
+      localStorage.setItem('meedu_books_md_val', renderValue);
     },
     imgAdd(pos, $file) {
       var xhr;

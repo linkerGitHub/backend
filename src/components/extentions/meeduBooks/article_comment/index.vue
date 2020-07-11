@@ -1,11 +1,11 @@
 <template>
   <div class="table-basic-vue frame-page h-panel w-800">
     <div class="h-panel-bar">
-      <span class="h-panel-title">文章评论</span>
+      <span class="h-panel-title">评论</span>
     </div>
     <div class="h-panel-body">
       <Table :loading="loading" :datas="datas">
-        <TableItem title="ID" prop="id"></TableItem>
+        <TableItem title="ID" prop="id" :width="80"></TableItem>
         <TableItem title="专栏">
           <template slot-scope="{data}">
             <span v-if="data.book">{{data.book.name}}</span>
@@ -52,12 +52,14 @@
 </template>
 <script>
 export default {
+  props: ['id'],
   data() {
     return {
       pagination: {
         page: 1,
-        size: 20,
-        total: 0
+        size: 10,
+        total: 0,
+        article_id: this.id
       },
       datas: [],
       loading: false
@@ -81,8 +83,6 @@ export default {
       R.Extentions.meeduBooks.ArticleComment.Index(this.pagination).then(resp => {
         this.datas = resp.data.data.data;
         this.pagination.total = resp.data.data.total;
-        this.pagination.page = resp.data.data.current_page;
-        this.pagination.size = resp.data.data.per_page;
         this.loading = false;
       });
     },

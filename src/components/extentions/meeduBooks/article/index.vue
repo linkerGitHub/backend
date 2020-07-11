@@ -4,6 +4,23 @@
       <span class="h-panel-title">文章</span>
     </div>
     <div class="h-panel-body">
+      <Form :labelWidth="110">
+        <FormItem label="章节">
+          <template v-slot:label>章节</template>
+          <Select
+            v-model="pagination.chapter_id"
+            :filterable="true"
+            :datas="chapters"
+            keyName="id"
+            titleName="name"
+          ></Select>
+        </FormItem>
+        <FormItem>
+          <Button color="primary" @click="getData(true)">搜索</Button>
+          <Button class="h-btn" @click="reset()">重置</Button>
+        </FormItem>
+      </Form>
+
       <div class="mb-10">
         <p-button
           glass="h-btn h-btn-primary"
@@ -12,22 +29,9 @@
           text="添加"
           @click="create()"
         ></p-button>
-        <p-button
-          glass="h-btn h-btn-primary"
-          icon="h-icon-plus"
-          permission="addons.meedu_books.book_article.comments.list"
-          text="评论"
-          @click="showCommentsPage()"
-        ></p-button>
       </div>
       <Table :loading="loading" :datas="datas">
         <TableItem prop="id" title="ID"></TableItem>
-        <TableItem title="电子书">
-          <template slot-scope="{data}">
-            <span v-if="data.book">{{ data.book.name }}</span>
-            <span class="c-red" v-else>已删除</span>
-          </template>
-        </TableItem>
         <TableItem title="章节">
           <template slot-scope="{data}">
             <span v-if="data.chapter">{{ data.chapter.name }}</span>
@@ -51,6 +55,13 @@
               text="编辑"
               @click="edit(data)"
             ></p-button>
+
+            <p-button
+              glass="h-btn h-btn-primary h-btn-s"
+              permission="addons.meedu_books.book_article.comments.list"
+              text="评论"
+              @click="showCommentsPage(data)"
+            ></p-button>
           </template>
         </TableItem>
       </Table>
@@ -72,19 +83,22 @@ export default {
     return {
       pagination: {
         page: 1,
-        size: 20,
+        size: 10,
         total: 0,
-        book_id: this.bid
+        book_id: this.bid,
+        chapter_id: null
       },
       datas: [],
+      chapters: [],
       loading: false
     };
   },
   mounted() {
-    this.init();
+    this.getData(true);
   },
   methods: {
-    init() {
+    reset() {
+      this.pagination.chapter_id = null;
       this.getData(true);
     },
     changePage() {
@@ -96,10 +110,9 @@ export default {
       }
       this.loading = true;
       R.Extentions.meeduBooks.Article.List(this.pagination).then(resp => {
-        this.datas = resp.data.data;
-        this.pagination.total = resp.data.total;
-        this.pagination.page = resp.data.current_page;
-        this.pagination.size = resp.data.per_page;
+        this.datas = resp.data.data.data;
+        this.pagination.total = resp.data.data.total;
+        this.chapters = resp.data.chapters;
         this.loading = false;
       });
     },
@@ -110,6 +123,9 @@ export default {
         component: {
           vue: resolve => {
             require(['./create'], resolve);
+          },
+          datas: {
+            bid: this.bid
           }
         },
         events: {
@@ -152,13 +168,16 @@ export default {
         }
       });
     },
-    showCommentsPage() {
+    showCommentsPage(item) {
       this.$Modal({
         closeOnMask: false,
         hasCloseIcon: true,
         component: {
           vue: resolve => {
             require(['../article_comment/index'], resolve);
+          },
+          datas: {
+            id: item.id
           }
         }
       });

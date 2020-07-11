@@ -1,16 +1,11 @@
 <template>
   <div class="table-basic-vue frame-page h-panel w-800">
     <div class="h-panel-bar">
-      <span class="h-panel-title">专栏评论</span>
+      <span class="h-panel-title">电子书评论</span>
     </div>
     <div class="h-panel-body">
       <Table :loading="loading" :datas="datas">
-        <TableItem title="ID" prop="id"></TableItem>
-        <TableItem title="专栏">
-          <template slot-scope="{data}">
-            <span>{{data.book.name}}</span>
-          </template>
-        </TableItem>
+        <TableItem title="ID" prop="id" :width="80"></TableItem>
         <TableItem title="用户">
           <template slot-scope="{data}">
             <span>{{data.user.nick_name}}</span>
@@ -22,7 +17,7 @@
           </template>
         </TableItem>
         <TableItem prop="created_at" title="时间"></TableItem>
-        <TableItem title="操作" align="center" :width="200">
+        <TableItem title="操作" align="center" :width="100">
           <template slot-scope="{ data }">
             <p-del-button
               permission="addons.meedu_books.book.comments.delete"
@@ -44,12 +39,14 @@
 </template>
 <script>
 export default {
+  props: ['bid'],
   data() {
     return {
       pagination: {
         page: 1,
-        size: 20,
-        total: 0
+        size: 10,
+        total: 0,
+        bid: this.bid
       },
       datas: [],
       loading: false

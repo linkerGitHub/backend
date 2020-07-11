@@ -4,18 +4,31 @@
       <span class="h-panel-title">电子书</span>
     </div>
     <div class="h-panel-body">
+      <Form :labelWidth="110">
+        <FormItem label="关键字搜索">
+          <input type="text" v-model="pagination.key" placeholder="书名搜索" />
+        </FormItem>
+        <FormItem label="分类">
+          <template v-slot:label>分类</template>
+          <Select
+            v-model="pagination.cid"
+            :filterable="true"
+            :datas="categories"
+            keyName="id"
+            titleName="name"
+          ></Select>
+        </FormItem>
+        <FormItem>
+          <Button color="primary" @click="getData(true)">搜索</Button>
+          <Button class="h-btn" @click="reset()">重置</Button>
+        </FormItem>
+      </Form>
       <div class="mb-10">
         <p-button
           glass="h-btn h-btn-primary"
           permission="addons.meedu_books.book_category.list"
           text="电子书分类"
           @click="showCategoriesPage()"
-        ></p-button>
-        <p-button
-          glass="h-btn h-btn-primary"
-          permission="addons.meedu_books.book.comments.list"
-          text="评论"
-          @click="showCommentsPage()"
         ></p-button>
         <p-button
           glass="h-btn h-btn-primary"
@@ -26,16 +39,17 @@
         ></p-button>
       </div>
       <Table :loading="loading" :datas="datas">
-        <TableItem prop="id" title="ID"></TableItem>
-        <TableItem title="分类">
+        <TableItem prop="id" title="ID" :width="80"></TableItem>
+        <TableItem title="分类" :width="120">
           <template slot-scope="{data}">
             <span v-if="data.category">{{ data.category.name }}</span>
             <span class="c-red" v-else>已删除</span>
           </template>
         </TableItem>
         <TableItem prop="name" title="名字"></TableItem>
-        <TableItem prop="charge" title="价格" unit="元"></TableItem>
-        <TableItem prop="view_times" title="浏览次数" unit="次"></TableItem>
+        <TableItem prop="charge" title="价格" unit="元" :width="80"></TableItem>
+        <TableItem prop="view_times" title="浏览次数" unit="次" :width="120"></TableItem>
+        <TableItem prop="user_count" title="订阅" unit="人" :width="120"></TableItem>
         <TableItem prop="published_at" title="上架时间"></TableItem>
         <TableItem title="操作" align="center" :width="300">
           <template slot-scope="{ data }">
@@ -60,6 +74,13 @@
               text="文章"
               @click="showArticlesPage(data)"
             ></p-button>
+
+            <p-button
+              glass="h-btn h-btn-primary h-btn-s"
+              permission="addons.meedu_books.book.comments.list"
+              text="评论"
+              @click="showCommentsPage(data)"
+            ></p-button>
           </template>
         </TableItem>
       </Table>
@@ -80,18 +101,23 @@ export default {
     return {
       pagination: {
         page: 1,
-        size: 20,
-        total: 0
+        size: 10,
+        total: 0,
+        key: null,
+        cid: null
       },
       datas: [],
+      categories: [],
       loading: false
     };
   },
   mounted() {
-    this.init();
+    this.getData(true);
   },
   methods: {
-    init() {
+    reset() {
+      this.pagination.key = null;
+      this.pagination.cid = null;
       this.getData(true);
     },
     changePage() {
@@ -103,10 +129,9 @@ export default {
       }
       this.loading = true;
       R.Extentions.meeduBooks.Book.List(this.pagination).then(resp => {
-        this.datas = resp.data.data;
-        this.pagination.total = resp.data.total;
-        this.pagination.page = resp.data.current_page;
-        this.pagination.size = resp.data.per_page;
+        this.datas = resp.data.data.data;
+        this.pagination.total = resp.data.data.total;
+        this.categories = resp.data.categories;
         this.loading = false;
       });
     },
@@ -191,6 +216,9 @@ export default {
         component: {
           vue: resolve => {
             require(['../book_comment/index'], resolve);
+          },
+          datas: {
+            bid: item.id
           }
         }
       });

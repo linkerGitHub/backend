@@ -551,6 +551,9 @@ const Request = {
         },
         Delete(param) {
           return Ajax.delete('/backend/addons/meedu_books/book_comment/' + param.id, param);
+        },
+        Checked(param) {
+          return Ajax.postJson('/backend/addons/meedu_books/book_comment/checked', param);
         }
       },
       ArticleComment: {
@@ -559,6 +562,9 @@ const Request = {
         },
         Delete(param) {
           return Ajax.delete('/backend/addons/meedu_books/article_comment/' + param.id, param);
+        },
+        Checked(param) {
+          return Ajax.postJson('/backend/addons/meedu_books/article_comment/checked', param);
         }
       },
       Category: {

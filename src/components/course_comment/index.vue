@@ -29,7 +29,7 @@
         </FormItem>
       </Form>
 
-      <div style="margin-bottom: 15px;">
+      <div style="mb-10">
         <p-del-button permission="course_comment.destroy" @click="deleteSubmit()"></p-del-button>
       </div>
 

@@ -35,17 +35,28 @@
           <template v-slot:label>简短介绍</template>
           <textarea v-model="book.short_desc"></textarea>
         </FormItem>
-        <FormItem label="详情介绍" prop="original_desc">
-          <template v-slot:label>详情介绍</template>
-          <tinymce-editor v-model="book.original_desc"></tinymce-editor>
+        <FormItem label="订阅人数" prop="user_count">
+          <template v-slot:label>订阅人数</template>
+          <div class="h-input-group" v-width="200">
+            <input type="text" v-model="book.user_count" />
+            <span class="h-input-addon">人</span>
+          </div>
         </FormItem>
         <FormItem label="显示" prop="is_show">
           <template v-slot:label>显示</template>
           <h-switch v-model="book.is_show"></h-switch>
         </FormItem>
+        <FormItem label="会员免费" prop="is_vip_free">
+          <template v-slot:label>会员免费</template>
+          <h-switch v-model="book.is_vip_free"></h-switch>
+        </FormItem>
         <FormItem label="上架时间" prop="published_at">
           <template v-slot:label>上架时间</template>
           <DatePicker v-model="book.published_at" v-width="200" type="datetime"></DatePicker>
+        </FormItem>
+        <FormItem label="详情介绍" prop="original_desc">
+          <template v-slot:label>详情介绍</template>
+          <tinymce-editor v-model="book.original_desc"></tinymce-editor>
         </FormItem>
 
         <FormItem label="SEO描述" prop="seo_description">
@@ -83,10 +94,12 @@ export default {
         short_desc: '',
         published_at: '',
         seo_description: '',
-        seo_keywords: ''
+        seo_keywords: '',
+        is_vip_free: 0,
+        user_count: 0
       },
       rules: {
-        required: ['cid', 'name', 'is_show', 'original_desc', 'thumb', 'charge', 'short_desc', 'published_at']
+        required: ['cid', 'name', 'is_show', 'original_desc', 'thumb', 'charge', 'short_desc', 'published_at', 'is_vip_free']
       },
       categories: []
     };

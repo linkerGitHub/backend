@@ -1,5 +1,5 @@
 <template>
-  <div class="table-basic-vue frame-page h-panel w-800">
+  <div class="table-basic-vue frame-page h-panel" style="width: 1200px">
     <div class="h-panel-bar">
       <span class="h-panel-title">添加文章</span>
     </div>
@@ -12,10 +12,6 @@
         :rules="rules"
         :model="article"
       >
-        <FormItem label="电子书" prop="bid">
-          <template v-slot:label>电子书</template>
-          <Select v-model="article.bid" :datas="books" keyName="id" titleName="name"></Select>
-        </FormItem>
         <FormItem label="章节" prop="book_cid">
           <template v-slot:label>章节</template>
           <Select v-model="article.book_cid" :datas="cs" keyName="id" titleName="name"></Select>
@@ -30,6 +26,7 @@
             <input type="text" v-model="article.charge" />
             <span class="h-input-addon">元</span>
           </div>
+          <warn text="价格为0即视为试看，可免费阅读"></warn>
         </FormItem>
         <FormItem label="内容" prop="original_content">
           <template v-slot:label>内容</template>
@@ -55,13 +52,14 @@
 import MkEditor from '@/components/common/markdown.vue';
 
 export default {
+  props: ['bid'],
   components: {
     MkEditor
   },
   data() {
     return {
       article: {
-        bid: 0,
+        bid: this.bid,
         book_cid: 0,
         title: '',
         original_content: '',

@@ -54,7 +54,7 @@ export default {
     },
     getData() {
       this.loading = true;
-      R.Extentions.paper.QuestionCategory.List(this.pagination).then(resp => {
+      R.Extentions.paper.QuestionCategory.List({}).then(resp => {
         this.datas = resp.data.data.data;
         this.loading = false;
         this.$refs.table.expandAll();

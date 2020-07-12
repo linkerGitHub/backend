@@ -190,6 +190,11 @@ const initRouter = () => {
         component: (resolve) => require(['components/extentions/paper/question/index'], resolve),
         meta: { title: '试题' }
       }, {
+        path: '/PaperPractice',
+        name: 'PaperPractice',
+        component: (resolve) => require(['components/extentions/paper/practice/index'], resolve),
+        meta: { title: '试题' }
+      }, {
         path: '/SinglePage',
         name: 'SinglePage',
         component: (resolve) => require(['components/extentions/singlePage/page/index'], resolve),

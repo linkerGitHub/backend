@@ -1,5 +1,5 @@
 <template>
-  <div class="table-basic-vue frame-page h-panel w-800">
+  <div class="table-basic-vue frame-page h-panel" style="width:1200px">
     <div class="h-panel-bar">
       <span class="h-panel-title">编辑文章</span>
     </div>
@@ -30,6 +30,7 @@
             <input type="text" v-model="article.charge" />
             <span class="h-input-addon">元</span>
           </div>
+          <warn text="价格为0即视为试看，可免费阅读"></warn>
         </FormItem>
         <FormItem label="内容" prop="original_content">
           <template v-slot:label>内容</template>

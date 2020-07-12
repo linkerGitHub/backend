@@ -35,7 +35,7 @@
         ></p-button>
       </div>
       <Table :loading="loading" :datas="datas" @sort="sortEvt">
-        <TableItem prop="id" title="ID"></TableItem>
+        <TableItem prop="id" title="ID" :sort="true"></TableItem>
         <TableItem prop="nick_name" title="昵称"></TableItem>
         <TableItem prop="mobile" title="手机号"></TableItem>
         <TableItem prop="credit1" title="积分" :sort="true"></TableItem>

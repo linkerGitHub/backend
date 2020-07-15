@@ -50,7 +50,9 @@
         class="mt-10"
         v-if="pagination.total > 0"
         align="right"
-        v-model="pagination"
+        :size="pagination.size"
+        :cur="pagination.page"
+        :total="pagination.total"
         @change="changePage"
       />
     </div>
@@ -78,7 +80,9 @@ export default {
     init() {
       this.getData(true);
     },
-    changePage() {
+    changePage(pagination) {
+      this.pagination.page = parseInt(pagination.cur);
+      this.pagination.size = parseInt(pagination.size);
       this.getData();
     },
     getData(reload = false) {

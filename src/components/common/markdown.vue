@@ -4,11 +4,13 @@
   </div>
 </template>
 <script>
-import katex from 'katex';
-
 export default {
   props: {
     value: {
+      type: String,
+      default: ''
+    },
+    uid: {
       type: String,
       default: ''
     }
@@ -20,7 +22,7 @@ export default {
   },
   methods: {
     valChange(value, renderValue) {
-      localStorage.setItem('meedu_books_md_val', renderValue);
+      localStorage.setItem('markdown_content_val' + this.uid, renderValue);
     },
     imgAdd(pos, $file) {
       var xhr;

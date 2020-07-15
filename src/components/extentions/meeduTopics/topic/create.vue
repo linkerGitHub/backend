@@ -62,6 +62,7 @@
 <script>
 import markdown from '@/components/common/markdown';
 const marked = require('marked');
+import katex from 'katex';
 
 export default {
   components: {
@@ -99,8 +100,12 @@ export default {
     create() {
       let validResult = this.$refs.form.valid();
       if (validResult.result) {
-        this.topic.render_content = marked(this.topic.original_content);
-        this.topic.free_content_render = marked(this.topic.free_content);
+        this.topic.render_content = katex.renderToString(marked(this.topic.original_content), {
+          throwOnError: false
+        });
+        this.topic.free_content_render = katex.renderToString(marked(this.topic.free_content), {
+          throwOnError: false
+        });
         this.$emit('success', this.topic);
       }
     }

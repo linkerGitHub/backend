@@ -95,7 +95,7 @@ export default {
     create() {
       let validResult = this.$refs.form.valid();
       if (validResult.result) {
-        this.article.render_content = localStorage.getItem('meedu_books_md_val');
+        this.article.render_content = localStorage.getItem('markdown_content_val');
         this.$emit('success', this.article);
       }
     }

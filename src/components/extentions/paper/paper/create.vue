@@ -61,23 +61,30 @@
             <h-switch v-model="paper.is_free" :trueValue="1" :falseValue="0"></h-switch>
             <warn text="配置该选项的话所有人都可以参与考试。"></warn>
           </FormItem>
-          <FormItem label="会员免费" prop="is_vip_free" v-if="paper.is_free === 0">
-            <template v-slot:label>会员免费</template>
-            <h-switch v-model="paper.is_vip_free" :trueValue="1" :falseValue="0"></h-switch>
-            <warn text="配置该选项的话购买VIP会员的用户都可以参与考试。"></warn>
-          </FormItem>
-          <FormItem label="必须购买课程" prop="required_courses" v-if="paper.is_free === 0">
-            <template v-slot:label>必须购买课程</template>
-            <Select
-              v-model="paper.required_courses"
-              :datas="courses"
-              :multiple="true"
-              keyName="id"
-              titleName="title"
-              :filterable="true"
-            ></Select>
-            <warn text="配置该选项的话，参与考试的用户必须购买其中至少一个课程。"></warn>
-          </FormItem>
+          <template v-if="paper.is_free === 0">
+            <FormItem label="价格" prop="charge">
+              <template v-slot:label>价格</template>
+              <input type="number" v-model="paper.charge" />
+              <warn text="如果价格大于0的话那么用户可以购买"></warn>
+            </FormItem>
+            <FormItem label="会员免费" prop="is_vip_free">
+              <template v-slot:label>会员免费</template>
+              <h-switch v-model="paper.is_vip_free" :trueValue="1" :falseValue="0"></h-switch>
+              <warn text="配置该选项的话购买VIP会员的用户都可以参与考试。"></warn>
+            </FormItem>
+            <FormItem label="必须购买课程" prop="required_courses">
+              <template v-slot:label>必须购买课程</template>
+              <Select
+                v-model="paper.required_courses"
+                :datas="courses"
+                :multiple="true"
+                keyName="id"
+                titleName="title"
+                :filterable="true"
+              ></Select>
+              <warn text="配置该选项的话，参与考试的用户必须购买其中至少一个课程。"></warn>
+            </FormItem>
+          </template>
         </template>
         <FormItem label="试题随机" prop="is_random">
           <template v-slot:label>试题随机</template>
@@ -117,7 +124,7 @@ export default {
         try_times: null,
         is_vip_free: 0,
         is_free: 0,
-        charge: null,
+        charge: 0,
         random_rule: null,
         random_category_id: null,
         required_courses: [],

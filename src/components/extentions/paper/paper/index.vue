@@ -69,6 +69,7 @@
           <template slot-scope="{ data }">
             <span v-if="data.enabled_invite === 1">仅邀请</span>
             <span v-else-if="data.is_free === 1">免费</span>
+            <span v-else-if="data.charge > 0">￥{{data.charge}}</span>
             <span
               v-else
             >{{data.is_vip_free ? '会员免费' : ''}} {{data.required_courses.length > 0 ? '购买课程' : ''}}</span>

@@ -695,6 +695,9 @@ const Request = {
         },
         Delete(param) {
           return Ajax.delete('/backend/addons/meedu_topics/comment/' + param.id, param);
+        },
+        Check(param) {
+          return Ajax.postJson('/backend/addons/meedu_topics/comment/check', param);
         }
       },
       Order: {

@@ -4,7 +4,19 @@
       <span class="h-panel-title">评论</span>
     </div>
     <div class="h-panel-body">
-      <Table :loading="loading" :datas="datas">
+      <div class="mb-10">
+        <p-del-button
+          permission="addons.meedu_topics.topic.comment.check"
+          text="审核通过"
+          @click="checkSubmit(1)"
+        ></p-del-button>
+        <p-del-button
+          permission="addons.meedu_topics.topic.comment.check"
+          text="审核拒绝"
+          @click="checkSubmit(0)"
+        ></p-del-button>
+      </div>
+      <Table :loading="loading" :datas="datas" :checkbox="true" ref="table">
         <TableItem prop="id" title="ID" :width="80"></TableItem>
         <TableItem title="用户">
           <template slot-scope="{data}">
@@ -18,6 +30,12 @@
           </template>
         </TableItem>
         <TableItem prop="created_at" title="时间"></TableItem>
+        <TableItem title="状态">
+          <template slot-scope="{data}">
+            <span v-if="data.is_check === 1">通过</span>
+            <span v-else class="red">拒绝</span>
+          </template>
+        </TableItem>
         <TableItem title="操作" align="center" :width="100">
           <template slot-scope="{ data }">
             <p-del-button
@@ -77,6 +95,22 @@ export default {
     },
     remove(data, item) {
       R.Extentions.meeduTopics.Comment.Delete({ id: item.id }).then(resp => {
+        HeyUI.$Message.success('成功');
+        this.getData();
+      });
+    },
+    checkSubmit(status) {
+      let items = this.$refs.table.getSelection();
+      if (items.length === 0) {
+        this.$Message.error('请选择需要操作的数据');
+        return;
+      }
+      this.loading = true;
+      let ids = [];
+      for (let i = 0; i < items.length; i++) {
+        ids.push(items[i].id);
+      }
+      R.Extentions.meeduTopics.Comment.Check({ ids: ids, is_check: status }).then(resp => {
         HeyUI.$Message.success('成功');
         this.getData();
       });

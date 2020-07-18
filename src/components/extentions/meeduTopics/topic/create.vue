@@ -61,8 +61,8 @@
 </template>
 <script>
 import markdown from '@/components/common/markdown';
-const marked = require('marked');
 import katex from 'katex';
+const marked = require('marked');
 
 export default {
   components: {

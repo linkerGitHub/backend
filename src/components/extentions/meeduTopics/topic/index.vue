@@ -6,6 +6,10 @@
     <div class="h-panel-body">
       <Form ref="form" :labelWidth="110">
         <FormItem>
+          <template v-slot:label>用户id</template>
+          <input type="text" v-model="filter.user_id" placeholder="用户id" />
+        </FormItem>
+        <FormItem>
           <template v-slot:label>分类</template>
           <Select
             v-model="filter.category_id"
@@ -42,14 +46,21 @@
         <TableItem title="分类" :width="100">
           <template slot-scope="{data}">
             <span v-if="data.category">{{ data.category.name }}</span>
-            <span class="c-red" v-else>已删除</span>
+            <span class="red" v-else>已删除</span>
+          </template>
+        </TableItem>
+        <TableItem title="用户" :width="100">
+          <template slot-scope="{data}">
+            <span v-if="data.user">{{ data.user.nick_name }}</span>
+            <span class="red" v-else>系统</span>
           </template>
         </TableItem>
         <TableItem prop="title" title="标题"></TableItem>
-        <TableItem prop="view_times" title="浏览" unit="次" :width="80"></TableItem>
-        <TableItem prop="charge" title="价格" unit="元" :width="80"></TableItem>
-        <TableItem prop="users_count" title="付费" unit="人" :width="80"></TableItem>
-        <TableItem prop="comments_count" title="评论" unit="个" :width="80"></TableItem>
+        <TableItem prop="charge" title="价格" :width="80"></TableItem>
+        <TableItem prop="view_times" title="浏览" :width="80"></TableItem>
+        <TableItem prop="users_count" title="付费" :width="80"></TableItem>
+        <TableItem prop="comments_count" title="评论" :width="80"></TableItem>
+        <TableItem prop="vote_count" title="点赞" :width="80"></TableItem>
         <TableItem title="操作" align="center" :width="300">
           <template slot-scope="{ data }">
             <p-del-button
@@ -100,7 +111,8 @@ export default {
         total: 0
       },
       filter: {
-        category_id: null
+        category_id: null,
+        user_id: null
       },
       categories: [],
       datas: [],
@@ -113,6 +125,7 @@ export default {
   methods: {
     reset() {
       this.filter.category_id = null;
+      this.filter.user_id = null;
       this.getData(true);
     },
     changePage() {
@@ -125,6 +138,7 @@ export default {
       this.loading = true;
       let data = this.pagination;
       data.category_id = this.filter.category_id;
+      data.user_id = this.filter.user_id;
       R.Extentions.meeduTopics.Topic.List(data).then(resp => {
         this.datas = resp.data.data.data;
         this.pagination.total = resp.data.data.total;

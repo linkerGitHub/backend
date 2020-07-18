@@ -865,7 +865,7 @@ const Request = {
         },
         UserRecords(param) {
           return Ajax.get('/backend/addons/Paper/practice/' + param.id + '/user/records', param);
-        },
+        }
       },
       PracticeChapter: {
         List(param) {
@@ -903,7 +903,7 @@ const Request = {
         },
         UserDetail(param) {
           return Ajax.get('/backend/addons/Paper/practice_chapter/' + param.id + '/user/detail', param);
-        },
+        }
       }
     },
     promoCodeImport: {

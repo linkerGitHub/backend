@@ -30,15 +30,19 @@
         </div>
         <div class="h-panel-body">
           <Row>
-            <Cell class="text-center" :width="8">
-              <h3>当前系统版本</h3>
+            <Cell class="text-center" :width="6">
+              <h3>MeEdu版本</h3>
               <p>{{ systemInfo.meedu_version }}</p>
             </Cell>
-            <Cell class="text-center" :width="8">
-              <h3>系统内核版本</h3>
+            <Cell class="text-center" :width="6">
+              <h3>后台版本</h3>
+              <p>v3.2.2</p>
+            </Cell>
+            <Cell class="text-center" :width="6">
+              <h3>内核版本</h3>
               <p>Laravel {{ systemInfo.laravel_version }}</p>
             </Cell>
-            <Cell class="text-center" :width="8">
+            <Cell class="text-center" :width="6">
               <h3>PHP版本</h3>
               <p>{{ systemInfo.php_version }}</p>
             </Cell>

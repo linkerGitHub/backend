@@ -4,19 +4,31 @@
       <span class="h-panel-title">文章分类</span>
     </div>
     <div class="h-panel-body">
-      <p>
-        <Button color="blue" icon="h-icon-plus" @click="create()">添加</Button>
-      </p>
+      <div class="mb-10">
+        <p-button
+          glass="h-btn h-btn-primary"
+          icon="h-icon-plus"
+          permission="addons.meedu_topics.category.store"
+          text="添加"
+          @click="create()"
+        ></p-button>
+      </div>
       <Table :loading="loading" :datas="datas">
         <TableItem prop="id" title="ID"></TableItem>
         <TableItem prop="sort" title="升序"></TableItem>
         <TableItem prop="name" title="分类名"></TableItem>
         <TableItem title="操作" align="center" :width="200">
           <template slot-scope="{ data }">
-            <Poptip content="确认删除？" @confirm="remove(datas, data)">
-              <button class="h-btn h-btn-s h-btn-red">删除</button>
-            </Poptip>
-            <button class="h-btn h-btn-s h-btn-primary" @click="edit(data)">编辑</button>
+            <p-del-button
+              permission="addons.meedu_topics.category.delete"
+              @click="remove(datas, data)"
+            ></p-del-button>
+            <p-button
+              glass="h-btn h-btn-s h-btn-primary"
+              permission="addons.meedu_topics.category.update"
+              text="编辑"
+              @click="edit(data)"
+            ></p-button>
           </template>
         </TableItem>
       </Table>
@@ -32,24 +44,23 @@ export default {
     };
   },
   mounted() {
-    this.init();
+    this.getData();
   },
   methods: {
-    init() {
-      this.getData();
-    },
     changePage() {
       this.getData();
     },
     getData() {
       this.loading = true;
-      R.Category.List(this.pagination).then(resp => {
+      R.Extentions.meeduTopics.Category.List(this.pagination).then(resp => {
         this.datas = resp.data;
         this.loading = false;
       });
     },
     create() {
       this.$Modal({
+        closeOnMask: false,
+        hasCloseIcon: true,
         component: {
           vue: resolve => {
             require(['./create'], resolve);
@@ -57,7 +68,8 @@ export default {
         },
         events: {
           success: (modal, data) => {
-            R.Category.Store(data).then(resp => {
+            R.Extentions.meeduTopics.Category.Store(data).then(resp => {
+              modal.close();
               HeyUI.$Message.success('成功');
               this.getData(true);
             });
@@ -66,13 +78,15 @@ export default {
       });
     },
     remove(data, item) {
-      R.Category.Delete({ id: item.id }).then(resp => {
+      R.Extentions.meeduTopics.Category.Delete({ id: item.id }).then(resp => {
         HeyUI.$Message.success('成功');
         this.getData(true);
       });
     },
     edit(item) {
       this.$Modal({
+        closeOnMask: false,
+        hasCloseIcon: true,
         component: {
           vue: resolve => {
             require(['./edit'], resolve);
@@ -83,7 +97,8 @@ export default {
         },
         events: {
           success: (modal, data) => {
-            R.Category.Update(data).then(resp => {
+            R.Extentions.meeduTopics.Category.Update(data).then(resp => {
+              modal.close();
               HeyUI.$Message.success('成功');
               this.getData(true);
             });

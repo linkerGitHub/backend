@@ -40,7 +40,7 @@ export default {
         return;
       }
       let file = this.$refs.file.files[0];
-      if (file.type !== 'text/csv') {
+      if (file.name.indexOf('.csv') === -1) {
         HeyUI.$Message.warn('请上传csv格式文件');
         return;
       }

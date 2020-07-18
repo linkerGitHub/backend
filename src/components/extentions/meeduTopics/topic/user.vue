@@ -5,12 +5,7 @@
     </div>
     <div class="h-panel-body">
       <Table :loading="loading" :datas="datas">
-        <TableItem title="文章">
-          <template slot-scope="{data}">
-            <span v-if="data.topic">{{data.topic.title}}</span>
-            <span v-else class="red">已删除</span>
-          </template>
-        </TableItem>
+        <TableItem title="用户ID" props="user_id"></TableItem>
         <TableItem title="用户">
           <template slot-scope="{data}">
             <span>{{data.user.nick_name}}</span>
@@ -31,6 +26,7 @@
 </template>
 <script>
 export default {
+  props: ['id'],
   data() {
     return {
       pagination: {
@@ -57,7 +53,9 @@ export default {
         this.pagination.page = 1;
       }
       this.loading = true;
-      R.Extentions.meeduTopics.Order.Index(this.pagination).then(resp => {
+      let data = this.pagination;
+      data.topic_id = this.id;
+      R.Extentions.meeduTopics.Order.Index(data).then(resp => {
         this.datas = resp.data.data.data;
         this.pagination.total = resp.data.data.total;
         this.loading = false;

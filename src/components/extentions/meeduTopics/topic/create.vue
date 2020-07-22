@@ -14,12 +14,12 @@
       >
         <FormItem label="免费内容" prop="free_content">
           <template v-slot:label>免费内容</template>
-          <markdown v-model="topic.free_content"></markdown>
+          <markdown v-model="topic.free_content" uid="_topic_free_content"></markdown>
           <warn text="该内容所有用户都可以看到，不管是文章收费还是需要登录查看。"></warn>
         </FormItem>
         <FormItem label="文章内容" prop="original_content">
           <template v-slot:label>内容</template>
-          <markdown v-model="topic.original_content"></markdown>
+          <markdown v-model="topic.original_content" uid="_topic_original_content"></markdown>
         </FormItem>
         <FormItem label="分类" prop="cid">
           <template v-slot:label>分类</template>
@@ -61,8 +61,6 @@
 </template>
 <script>
 import markdown from '@/components/common/markdown';
-import katex from 'katex';
-const marked = require('marked');
 
 export default {
   components: {
@@ -100,12 +98,8 @@ export default {
     create() {
       let validResult = this.$refs.form.valid();
       if (validResult.result) {
-        this.topic.render_content = katex.renderToString(marked(this.topic.original_content), {
-          throwOnError: false
-        });
-        this.topic.free_content_render = katex.renderToString(marked(this.topic.free_content), {
-          throwOnError: false
-        });
+        this.topic.render_content = localStorage.getItem('markdown_content_val_topic_original_content');
+        this.topic.free_content_render = localStorage.getItem('markdown_content_val_topic_free_content');
         this.$emit('success', this.topic);
       }
     }

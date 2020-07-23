@@ -43,9 +43,9 @@
 
             <p-button
               glass="h-btn h-btn-default h-btn-s"
-              permission="addons.learnPaths.step.relationCourse.save"
-              text="关联课程"
-              @click="relationCourses(data)"
+              permission="addons.learnPaths.relation.list"
+              text="关联"
+              @click="showRelationPage(data)"
             ></p-button>
           </template>
         </TableItem>
@@ -83,6 +83,7 @@ export default {
     create() {
       this.$Modal({
         hasCloseIcon: true,
+        closeOnMask: false,
         component: {
           vue: resolve => {
             require(['./create'], resolve);
@@ -108,6 +109,7 @@ export default {
     edit(item) {
       this.$Modal({
         hasCloseIcon: true,
+        closeOnMask: false,
         component: {
           vue: resolve => {
             require(['./edit'], resolve);
@@ -127,25 +129,16 @@ export default {
         }
       });
     },
-    relationCourses(item) {
+    showRelationPage(item) {
       this.$Modal({
         hasCloseIcon: true,
         closeOnMask: false,
         component: {
           vue: resolve => {
-            require(['./relation'], resolve);
+            require(['../relation/index'], resolve);
           },
           datas: {
             id: item.id
-          }
-        },
-        events: {
-          success: (modal, data) => {
-            modal.close();
-            R.Extentions.learningPaths.Steps.relationCourseSave({ id: item.id, course_ids: data }).then(resp => {
-              HeyUI.$Message.success('成功');
-              this.getData(true);
-            });
           }
         }
       });

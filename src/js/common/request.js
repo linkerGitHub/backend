@@ -535,13 +535,27 @@ const Request = {
         },
         Delete(param) {
           return Ajax.delete('/backend/addons/LearningPaths/step/' + param.id, param);
-        },
-        relationCourseParams(param) {
-          return Ajax.get('/backend/addons/LearningPaths/step/' + param.id + '/relationCourseParams', param);
-        },
-        relationCourseSave(param) {
-          return Ajax.postJson('/backend/addons/LearningPaths/step/' + param.id + '/relationCourseParams', param);
         }
+      },
+      Relation: {
+        List(param) {
+          return Ajax.get('/backend/addons/LearningPaths/step/relation/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/LearningPaths/step/relation/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/LearningPaths/step/relation/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/LearningPaths/step/relation/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/LearningPaths/step/relation/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/LearningPaths/step/relation/' + param.id, param);
+        },
       }
     },
     meeduBooks: {

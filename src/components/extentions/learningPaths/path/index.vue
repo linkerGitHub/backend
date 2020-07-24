@@ -88,6 +88,7 @@ export default {
     },
     create() {
       this.$Modal({
+        hasCloseIcon: true,
         closeOnMask: false,
         component: {
           vue: resolve => {
@@ -97,6 +98,7 @@ export default {
         events: {
           success: (modal, data) => {
             R.Extentions.learningPaths.Paths.Store(data).then(resp => {
+              modal.close();
               HeyUI.$Message.success('成功');
               this.getData(true);
             });
@@ -107,11 +109,12 @@ export default {
     remove(data, item) {
       R.Extentions.learningPaths.Paths.Delete({ id: item.id }).then(resp => {
         HeyUI.$Message.success('成功');
-        this.getData(true);
+        this.getData();
       });
     },
     edit(item) {
       this.$Modal({
+        hasCloseIcon: true,
         closeOnMask: false,
         component: {
           vue: resolve => {
@@ -124,8 +127,9 @@ export default {
         events: {
           success: (modal, data) => {
             R.Extentions.learningPaths.Paths.Update(data).then(resp => {
+              modal.close();
               HeyUI.$Message.success('成功');
-              this.getData(true);
+              this.getData();
             });
           }
         }

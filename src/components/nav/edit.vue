@@ -28,9 +28,13 @@
             <template v-slot:label>链接地址</template>
             <input type="text" v-model="nav.url" />
           </FormItem>
+          <FormItem label="Active" prop="active_routes">
+            <template v-slot:label>Active</template>
+            <input type="text" v-model="nav.active_routes" />
+            <warn text="不清楚可不填写"></warn>
+          </FormItem>
           <FormItem>
             <Button color="primary" @click="create">保存</Button>
-            <Button @click="close()">取消</Button>
           </FormItem>
         </Form>
       </div>
@@ -62,11 +66,11 @@ export default {
     create() {
       let validResult = this.$refs.form.valid();
       if (validResult.result) {
-        this.$emit('success', this.nav);
+        R.Nav.Update(this.nav).then(resp => {
+          HeyUI.$Message.success('成功');
+          this.$emit('success');
+        });
       }
-    },
-    close() {
-      this.$emit('close');
     }
   }
 };

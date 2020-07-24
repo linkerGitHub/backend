@@ -41,7 +41,6 @@
       </FormItem>
       <FormItem>
         <Button color="primary" @click="create">保存</Button>
-        <Button @click="cancel">取消</Button>
       </FormItem>
     </Form>
   </div>
@@ -74,14 +73,7 @@ export default {
       let validResult = this.$refs.form.valid();
       if (validResult.result) {
         this.$emit('success', this.paths);
-        this.close();
       }
-    },
-    cancel() {
-      this.close();
-    },
-    close() {
-      this.$emit('close');
     }
   }
 };

@@ -469,6 +469,11 @@ const Request = {
       return Ajax.postJson('/video/token/tencent', param);
     }
   },
+  Upload: {
+    ImageDownload(param) {
+      return Ajax.postJson('/upload/image/download', param);
+    }
+  },
   Extentions: {
     aliyunHls: {
       Setting: {

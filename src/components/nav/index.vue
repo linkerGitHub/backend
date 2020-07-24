@@ -17,7 +17,8 @@
         <TableItem prop="id" title="ID"></TableItem>
         <TableItem prop="sort" title="升序"></TableItem>
         <TableItem prop="name" title="链接命"></TableItem>
-        <TableItem prop="url" title="Url"></TableItem>
+        <TableItem prop="url" title="url"></TableItem>
+        <TableItem prop="active_routes" title="active"></TableItem>
         <TableItem title="操作" align="center" :width="200">
           <template slot-scope="{ data }">
             <p-del-button permission="nav.destroy" @click="remove(datas, data)"></p-del-button>
@@ -80,6 +81,7 @@ export default {
     create() {
       this.$Modal({
         closeOnMask: false,
+        hasCloseIcon: true,
         component: {
           vue: resolve => {
             require(['./create'], resolve);
@@ -88,10 +90,7 @@ export default {
         events: {
           success: (modal, data) => {
             modal.close();
-            R.Nav.Create(data).then(resp => {
-              HeyUI.$Message.success('成功');
-              this.getData(true);
-            });
+            this.getData();
           }
         }
       });
@@ -99,12 +98,13 @@ export default {
     remove(data, item) {
       R.Nav.Delete({ id: item.id }).then(resp => {
         HeyUI.$Message.success('成功');
-        this.getData(true);
+        this.getData();
       });
     },
     edit(item) {
       this.$Modal({
         closeOnMask: false,
+        hasCloseIcon: true,
         component: {
           vue: resolve => {
             require(['./edit'], resolve);
@@ -116,10 +116,7 @@ export default {
         events: {
           success: (modal, data) => {
             modal.close();
-            R.Nav.Update(data).then(resp => {
-              HeyUI.$Message.success('成功');
-              this.getData(true);
-            });
+            this.getData();
           }
         }
       });

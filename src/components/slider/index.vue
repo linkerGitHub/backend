@@ -14,6 +14,7 @@
         ></p-button>
       </div>
       <Table :loading="loading" :datas="datas">
+        <TableItem prop="platform" title="平台"></TableItem>
         <TableItem title="封面">
           <template slot-scope="{data}">
             <img :src="data.thumb" width="120" height="60" />
@@ -64,6 +65,7 @@ export default {
     create() {
       this.$Modal({
         closeOnMask: false,
+        hasCloseIcon: true,
         component: {
           vue: resolve => {
             require(['./create'], resolve);
@@ -71,10 +73,8 @@ export default {
         },
         events: {
           success: (modal, data) => {
-            R.Slider.Store(data).then(resp => {
-              HeyUI.$Message.success('成功');
-              this.getData(true);
-            });
+            modal.close();
+            this.getData(true);
           }
         }
       });
@@ -88,6 +88,7 @@ export default {
     edit(item) {
       this.$Modal({
         closeOnMask: false,
+        hasCloseIcon: true,
         component: {
           vue: resolve => {
             require(['./edit'], resolve);
@@ -98,10 +99,8 @@ export default {
         },
         events: {
           success: (modal, data) => {
-            R.Slider.Update(data).then(resp => {
-              HeyUI.$Message.success('成功');
-              this.getData(true);
-            });
+            modal.close();
+            this.getData();
           }
         }
       });

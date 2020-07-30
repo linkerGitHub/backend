@@ -1,11 +1,64 @@
+<style lang="less">
+.image-upload-box {
+  width: 100%;
+  height: auto;
+  float: left;
+  display: flex;
+
+  .input-box {
+    flex: 1;
+    input {
+      width: 100%;
+      height: auto;
+      float: left;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  .buttons {
+    width: auto;
+    height: auto;
+
+    button {
+      display: inline-block;
+      background-color: #000;
+      color: white;
+      border: 0;
+      border-radius: 0;
+      width: auto;
+      height: 29px;
+      padding-left: 10px;
+      padding-right: 10px;
+      float: left;
+      cursor: pointer;
+
+      &.image-download-button {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+      }
+    }
+  }
+}
+</style>
 <template>
   <div>
-    <div class="h-input-group">
-      <input type="text" placeholder="您也可以手动输入图片URL地址" v-model="image" />
-      <Button color="primary" @click="selectImage">
-        <i class="h-icon-upload"></i>
-        {{ this.name }}
-      </Button>
+    <div class="image-upload-box">
+      <div class="input-box">
+        <input type="text" placeholder="您也可以手动输入图片URL地址" v-model="image" />
+      </div>
+      <div class="buttons">
+        <button
+          @click="selectImage"
+          :class="{'image-download-button': image === null || image.length === 0}"
+        >
+          <i class="h-icon-upload"></i>
+          本地上传
+        </button>
+        <button @click="downloadImage" class="image-download-button" v-if="image">
+          <i class="h-icon-inbox"></i> 下载到本地
+        </button>
+      </div>
     </div>
     <div style="background-color: #f2f2f2">
       <img :src="image" width="200px" v-if="image" style="margin-top: 10px;" />
@@ -57,6 +110,15 @@ export default {
         }
         this.image = json.location;
       };
+    },
+    downloadImage() {
+      if (this.image.length === 0) {
+        Hey.$Message.warn('请输入图片url地址');
+        return;
+      }
+      R.Upload.ImageDownload({ url: this.image }).then(res => {
+        this.image = res.data.url;
+      });
     }
   },
   watch: {

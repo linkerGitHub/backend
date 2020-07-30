@@ -9,6 +9,10 @@
       :rules="rules"
       :model="slider"
     >
+      <FormItem label="平台" prop="platform">
+        <template v-slot:label>平台</template>
+        <Select v-model="slider.platform" :datas="platforms" keyName="id" titleName="title"></Select>
+      </FormItem>
       <FormItem label="封面" prop="thumb">
         <template v-slot:label>封面</template>
         <image-upload v-model="slider.thumb" name="封面"></image-upload>
@@ -23,7 +27,6 @@
       </FormItem>
       <FormItem>
         <Button color="primary" @click="create">添加</Button>
-        <Button @click="cancel">取消</Button>
       </FormItem>
     </Form>
   </div>
@@ -35,10 +38,29 @@ export default {
       slider: {
         thumb: '',
         url: '',
-        sort: 0
+        sort: 0,
+        platform: null
       },
+      platforms: [
+        {
+          id: 'PC',
+          title: 'PC'
+        },
+        {
+          id: 'H5',
+          title: 'H5'
+        },
+        {
+          id: 'APP',
+          title: 'APP'
+        },
+        {
+          id: 'MINI',
+          title: '微信小程序'
+        }
+      ],
       rules: {
-        required: ['thumb', 'url', 'sort']
+        required: ['thumb', 'url', 'sort', 'platform']
       }
     };
   },
@@ -46,15 +68,11 @@ export default {
     create() {
       let validResult = this.$refs.form.valid();
       if (validResult.result) {
-        this.$emit('success', this.slider);
-        this.close();
+        R.Slider.Store(this.slider).then(resp => {
+          HeyUI.$Message.success('成功');
+          this.$emit('success');
+        });
       }
-    },
-    cancel() {
-      this.close();
-    },
-    close() {
-      this.$emit('close');
     }
   }
 };

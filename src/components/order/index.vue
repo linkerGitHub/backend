@@ -29,7 +29,8 @@
         <TableItem prop="status_text" title="状态"></TableItem>
         <TableItem title="用户">
           <template slot-scope="{ data }">
-            <span>{{users[data.user_id].nick_name}}</span>
+            <span v-if="users[data.user_id]">{{users[data.user_id].nick_name}}</span>
+            <span v-else class="red">已删除</span>
           </template>
         </TableItem>
         <TableItem title="商品">

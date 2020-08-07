@@ -26,7 +26,7 @@
         <p-button
           glass="h-btn h-btn-primary h-btn-s"
           permission="addons.promo_code_multi_import.import"
-          text="视频批量导入"
+          text="批量导入"
           @click="showImportPage()"
         ></p-button>
 

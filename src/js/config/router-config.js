@@ -232,6 +232,11 @@ const initRouter = () => {
         component: (resolve) => require(['components/extentions/zhibo/zhibo/index'], resolve),
         meta: { title: '开播' }
       }, {
+        path: '/MultiLevelSharePoster',
+        name: 'MultiLevelSharePoster',
+        component: (resolve) => require(['components/extentions/multiLevelShare/poster/index'], resolve),
+        meta: { title: '海报 - 三级分销' }
+      }, {
         path: '/system-error',
         name: 'SystemError',
         component: (resolve) => require(['components/error-pages/500'], resolve),

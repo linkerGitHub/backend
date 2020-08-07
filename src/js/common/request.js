@@ -1275,6 +1275,28 @@ const Request = {
           return Ajax.get('/backend/addons/zhibo/zhibo/resumeChat', param);
         }
       }
+    },
+    multiLevelShare: {
+      Poster: {
+        List(param) {
+          return Ajax.get('/backend/addons/multi_level_share/poster/index', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/multi_level_share/poster/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/multi_level_share/poster/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/multi_level_share/poster/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/multi_level_share/poster/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/multi_level_share/poster/' + param.id, param);
+        }
+      },
     }
   }
 };

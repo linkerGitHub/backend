@@ -56,7 +56,7 @@
             <p-button
               v-else
               glass="h-btn h-btn-primary"
-              permission="addons.XiaoBanKe.teacher.setTeacher"
+              permission="addons.XiaoBanKe.order.setTeacher"
               text="安排教师"
               @click="setTeacher(data)"
             ></p-button>
@@ -74,7 +74,7 @@ export default {
       datas: [],
       pagination: {
         page: 1,
-        size: 20,
+        size: 10,
         total: 0,
         keywords: ''
       },

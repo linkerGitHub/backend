@@ -1297,6 +1297,84 @@ const Request = {
           return Ajax.delete('/backend/addons/multi_level_share/poster/' + param.id, param);
         }
       },
+    },
+    xiaoBanKe: {
+      Order: {
+        Index(param) {
+          return Ajax.get('/backend/addons/XiaoBanKe/order', param);
+        },
+        SetTeacherParams(param) {
+          return Ajax.get('/backend/addons/XiaoBanKe/order/teacherParams', param);
+        },
+        SetTeacher(param) {
+          return Ajax.putJson('/backend/addons/XiaoBanKe/order/' + param.id + '/teacher', param);
+        }
+      },
+      Dashboard: {
+        Index(param) {
+          return Ajax.get('/backend/addons/XiaoBanKe/dashboard', param);
+        },
+      },
+      CourseCategory: {
+        List(param) {
+          return Ajax.get('/backend/addons/XiaoBanKe/course_category', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/XiaoBanKe/course_category/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/XiaoBanKe/course_category/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/XiaoBanKe/course_category/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/XiaoBanKe/course_category/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/XiaoBanKe/course_category/' + param.id, param);
+        }
+      },
+      Course: {
+        List(param) {
+          return Ajax.get('/backend/addons/XiaoBanKe/course', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/XiaoBanKe/course/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/XiaoBanKe/course/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/XiaoBanKe/course/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/XiaoBanKe/course/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/XiaoBanKe/course/' + param.id, param);
+        }
+      },
+      Teacher: {
+        List(param) {
+          return Ajax.get('/backend/addons/XiaoBanKe/teacher', param);
+        },
+        Create(param) {
+          return Ajax.get('/backend/addons/XiaoBanKe/teacher/create', param);
+        },
+        Store(param) {
+          return Ajax.postJson('/backend/addons/XiaoBanKe/teacher/create', param);
+        },
+        Edit(param) {
+          return Ajax.get('/backend/addons/XiaoBanKe/teacher/' + param.id);
+        },
+        Update(param) {
+          return Ajax.putJson('/backend/addons/XiaoBanKe/teacher/' + param.id, param);
+        },
+        Delete(param) {
+          return Ajax.delete('/backend/addons/XiaoBanKe/teacher/' + param.id, param);
+        }
+      },
     }
   }
 };

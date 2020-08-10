@@ -232,6 +232,11 @@ const initRouter = () => {
         component: (resolve) => require(['components/extentions/zhibo/zhibo/index'], resolve),
         meta: { title: '开播' }
       }, {
+        path: '/K12/XiaoBanKe',
+        name: 'XiaoBanKe',
+        component: (resolve) => require(['components/extentions/xiaoBanKe/course/index'], resolve),
+        meta: { title: '大小班' }
+      }, {
         path: '/MultiLevelSharePoster',
         name: 'MultiLevelSharePoster',
         component: (resolve) => require(['components/extentions/multiLevelShare/poster/index'], resolve),

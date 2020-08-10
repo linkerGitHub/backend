@@ -94,7 +94,7 @@ export default {
         data.goods_type = 'course';
         data.goods_title = course.title;
         data.goods_thumb = course.thumb;
-        data.goods_charge = course.charge * 100;
+        data.goods_charge = course.charge;
         this.$emit('success', data);
       }
     }

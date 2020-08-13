@@ -143,9 +143,29 @@ export default {
         {
           id: 2,
           name: '直播课'
+        },
+        {
+          id: 3,
+          name: '1v1'
         }
       ]
     };
+  },
+  watch: {
+    'course.type'() {
+      if (this.course.type === 0) {
+        this.course.max_people_num = 6;
+      } else if (this.course.type === 1) {
+        // 大班课
+        this.course.max_people_num = 200;
+      } else if (this.course.type === 2) {
+        // 直播课
+        this.course.max_people_num = 0;
+      } else if (this.course.type === 3) {
+        // 1v1
+        this.course.max_people_num = 1;
+      }
+    }
   },
   mounted() {
     R.Extentions.xiaoBanKe.Course.Edit({ id: this.id }).then(res => {

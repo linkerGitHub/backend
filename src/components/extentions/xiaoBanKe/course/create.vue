@@ -21,7 +21,7 @@
           <FormItem label="上限人数" prop="max_people_num">
             <template v-slot:label>上限人数</template>
             <div class="h-input-group" v-width="200">
-              <input type="text" v-model="course.max_people_num" />
+              <input type="text" v-model="course.max_people_num" disabled />
               <span class="h-input-addon">人</span>
             </div>
             <warn text="小班课推荐最多6人，大班课推荐最多50人，填写0表示不限制"></warn>
@@ -142,9 +142,29 @@ export default {
         {
           id: 2,
           name: '直播课'
+        },
+        {
+          id: 3,
+          name: '1v1'
         }
       ]
     };
+  },
+  watch: {
+    'course.type'() {
+      if (this.course.type === 0) {
+        this.course.max_people_num = 6;
+      } else if (this.course.type === 1) {
+        // 大班课
+        this.course.max_people_num = 200;
+      } else if (this.course.type === 2) {
+        // 直播课
+        this.course.max_people_num = 0;
+      } else if (this.course.type === 3) {
+        // 1v1
+        this.course.max_people_num = 1;
+      }
+    }
   },
   mounted() {
     R.Extentions.xiaoBanKe.Course.Create().then(res => {

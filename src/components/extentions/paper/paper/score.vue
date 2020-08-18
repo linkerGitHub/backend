@@ -24,8 +24,10 @@
       width: 100%;
       height: auto;
       float: left;
+      margin-right: 15px;
+      margin-bottom: 15px;
 
-      div {
+      .option-item {
         width: 100%;
         height: auto;
         float: left;
@@ -33,9 +35,18 @@
         padding-left: 10px;
         margin-bottom: 2px;
 
-        &.active {
-          background-color: green;
+        &.user-active {
+          background-color: red;
           color: white;
+        }
+
+        &.active {
+          background-color: rgba(0, 128, 0, 0.6);
+          color: white;
+
+          &.user-active {
+            background-color: rgba(0, 128, 0, 1);
+          }
         }
       }
     }
@@ -45,9 +56,9 @@
     width: 100%;
     height: auto;
     float: left;
-    color: white;
+    color: #333;
     line-height: 30px;
-    background-color: #333;
+    background-color: rgba(0, 0, 0, 0.2);
     padding-left: 8px;
   }
 
@@ -101,6 +112,10 @@ p {
       <span class="h-panel-title">阅卷</span>
     </div>
     <div class="h-panel-body">
+      <h2 class="mb-10">
+        {{userPaper.status_text}}
+        <span v-if="userPaper.status === 2">- {{userPaper.score}}分</span>
+      </h2>
       <div class="question-item" v-for="item in questions" :key="item.id">
         <div class="title">
           <span>{{item.question.type_text}}</span>
@@ -108,52 +123,20 @@ p {
           <span>{{item.question.level_text}}</span>
         </div>
         <div class="content">
-          <div v-html="item.question.content"></div>
+          <div class="mb-10" v-html="item.question.content"></div>
           <div class="option" v-if="item.question.type === 1 || item.question.type === 2">
-            <div
-              :class="selectIsActive(item.question.option1, item.question) ? 'active': ''"
-              v-if="item.question.option1"
-            >{{item.question.option1}}</div>
-            <div
-              :class="selectIsActive(item.question.option2, item.question) ? 'active': ''"
-              v-if="item.question.option2"
-            >{{item.question.option2}}</div>
-            <div
-              :class="selectIsActive(item.question.option3, item.question) ? 'active': ''"
-              v-if="item.question.option3"
-            >{{item.question.option3}}</div>
-            <div
-              :class="selectIsActive(item.question.option4, item.question) ? 'active': ''"
-              v-if="item.question.option4"
-            >{{item.question.option4}}</div>
-            <div
-              :class="selectIsActive(item.question.option5, item.question) ? 'active': ''"
-              v-if="item.question.option5"
-            >{{item.question.option5}}</div>
-            <div
-              :class="selectIsActive(item.question.option6, item.question) ? 'active': ''"
-              v-if="item.question.option6"
-            >{{item.question.option6}}</div>
-            <div
-              :class="selectIsActive(item.question.option7, item.question) ? 'active': ''"
-              v-if="item.question.option7"
-            >{{item.question.option7}}</div>
-            <div
-              :class="selectIsActive(item.question.option8, item.question) ? 'active': ''"
-              v-if="item.question.option8"
-            >{{item.question.option8}}</div>
-            <div
-              :class="selectIsActive(item.question.option9, item.question) ? 'active': ''"
-              v-if="item.question.option9"
-            >{{item.question.option9}}</div>
-            <div
-              :class="selectIsActive(item.question.option10, item.question) ? 'active': ''"
-              v-if="item.question.option10"
-            >{{item.question.option10}}</div>
+            <template v-for="i in optionLength">
+              <div
+                class="option-item"
+                :class="{'active':selectIsActive('option' + i, item.question.answer), 'user-active':selectIsActive('option' + i, item.answer_content)}"
+                v-if="item.question['option'+i]"
+                :key="i"
+              >{{item.question['option' + i]}}</div>
+            </template>
           </div>
         </div>
         <div class="answer">
-          <p>回答：{{item.answer_content}}</p>
+          <p v-if="item.question.type !== 1 && item.question.type !== 2">回答：{{userAnswer(item)}}</p>
           <template v-if="item.thumbs_rows.length > 0">
             <img
               v-for="(img, index) in item.thumbs_rows"
@@ -174,7 +157,7 @@ p {
           <p>解析：</p>
           <p v-html="item.question.remark"></p>
         </div>
-        <div class="score" v-if="item.question.type === 4">
+        <div class="score" v-if="userPaper.status === 3">
           <p>请打分：</p>
           <Select
             v-model="item.score"
@@ -202,7 +185,8 @@ export default {
   data() {
     return {
       userPaper: {},
-      questions: []
+      questions: [],
+      optionLength: 10
     };
   },
   mounted() {
@@ -219,9 +203,24 @@ export default {
       }
       return rows;
     },
-    selectIsActive(val, item) {
-      var answers = item.answer.split(',');
+    selectIsActive(val, answer) {
+      var answers = answer.split(',');
       return answers.indexOf(val) !== -1;
+    },
+    userAnswer(item) {
+      if (item.question.type === 1) {
+        return item.question[item.answer_content];
+      } else if (item.question.type === 2) {
+        let rows = [];
+        item.answer_content.split(',').forEach(i => {
+          rows.push(item.question[i]);
+        });
+        return rows.join(',');
+      } else if (item.question.type === 5) {
+        return parseInt(item.answer_content) === 1 ? '正确' : '错误';
+      } else {
+        return item.answer_content;
+      }
     },
     init() {
       R.Extentions.paper.Paper.UserPaperInfo({

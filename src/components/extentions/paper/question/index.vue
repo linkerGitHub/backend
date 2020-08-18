@@ -78,12 +78,7 @@
         <TableItem prop="score" title="分数" unit="分"></TableItem>
         <TableItem title="问题" :width="300">
           <template slot-scope="{ data }">
-            Q:
-            <div v-html="data.content"></div>A:
-            <div>
-              <span v-if="data.type !==5">{{data.answer}}</span>
-              <span v-else>{{data.answer === 1 ? '正确': '错误'}}</span>
-            </div>
+            <div v-html="data.content"></div>
           </template>
         </TableItem>
         <TableItem title="操作" align="center" :width="100">

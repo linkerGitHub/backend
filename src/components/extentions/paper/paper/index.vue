@@ -33,7 +33,7 @@
         <p-button
           glass="h-btn h-btn-primary"
           permission="addons.Paper.paper_category.list"
-          text="试卷分类"
+          text="分类"
           @click="showCategoriesPage()"
         ></p-button>
       </div>

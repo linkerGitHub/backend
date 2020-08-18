@@ -20,7 +20,7 @@ export default {
       data: this.value,
       id: 'tinymce' + Math.ceil(Math.random() * 100),
       config: {
-        height: '400px',
+        height: '144px',
         language: 'zh_CN',
         convert_urls: false,
         language_url: window.location.protocol + '//' + window.location.host + window.location.pathname + '/dist/tinymce/zh_CN.js',

@@ -242,6 +242,11 @@ const initRouter = () => {
         component: (resolve) => require(['components/extentions/multiLevelShare/poster/index'], resolve),
         meta: { title: '海报 - 三级分销' }
       }, {
+        path: '/Snapshot/images',
+        name: 'SnapshotImages',
+        component: (resolve) => require(['components/extentions/snapshot/index'], resolve),
+        meta: { title: '照片 - 随机拍照' }
+      }, {
         path: '/system-error',
         name: 'SystemError',
         component: (resolve) => require(['components/error-pages/500'], resolve),

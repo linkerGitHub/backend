@@ -1375,6 +1375,13 @@ const Request = {
           return Ajax.delete('/backend/addons/XiaoBanKe/teacher/' + param.id, param);
         }
       },
+    },
+    Snapshot: {
+      Images: {
+        Index(param) {
+          return Ajax.get('/backend/addons/Snapshot/images', param);
+        },
+      }
     }
   }
 };

@@ -12,29 +12,39 @@
         :rules="rules"
         :model="question"
       >
-        <FormItem label="分类" prop="category_id">
-          <template v-slot:label>分类</template>
-          <Select
-            v-model="question.category_id"
-            :datas="categories"
-            keyName="id"
-            titleName="name"
-            :filterable="true"
-          ></Select>
-          <warn text="注意，这里只能选择二级分类，一级分类无法选择。"></warn>
-        </FormItem>
-        <FormItem label="类型" prop="type">
-          <template v-slot:label>类型</template>
-          <Select v-model="question.type" :datas="types" keyName="id" titleName="name"></Select>
-        </FormItem>
-        <FormItem label="难度" prop="level">
-          <template v-slot:label>难度</template>
-          <Select v-model="question.level" :datas="levels" keyName="id" titleName="name"></Select>
-        </FormItem>
-        <FormItem label="分数" prop="score">
-          <template v-slot:label>分数</template>
-          <input type="number" v-model="question.score" min="0" />
-        </FormItem>
+        <Row :space="10">
+          <Cell width="6">
+            <FormItem label="分类" prop="category_id">
+              <template v-slot:label>分类</template>
+              <Select
+                v-model="question.category_id"
+                :datas="categories"
+                keyName="id"
+                titleName="name"
+                :filterable="true"
+              ></Select>
+            </FormItem>
+          </Cell>
+          <Cell width="6">
+            <FormItem label="类型" prop="type">
+              <template v-slot:label>类型</template>
+              <Select v-model="question.type" :datas="types" keyName="id" titleName="name"></Select>
+            </FormItem>
+          </Cell>
+          <Cell width="6">
+            <FormItem label="难度" prop="level">
+              <template v-slot:label>难度</template>
+              <Select v-model="question.level" :datas="levels" keyName="id" titleName="name"></Select>
+            </FormItem>
+          </Cell>
+          <Cell width="6">
+            <FormItem label="分数" prop="score">
+              <template v-slot:label>分数</template>
+              <input type="number" v-model="question.score" min="0" />
+            </FormItem>
+          </Cell>
+        </Row>
+
         <FormItem label="问题内容" prop="content">
           <template v-slot:label>问题内容</template>
           <tinymce-editor v-model="question.content"></tinymce-editor>
@@ -90,7 +100,7 @@
         <template v-if="question.type === 1 || question.type === 2">
           <FormItem :prop="'option'+i" v-for="i in optionLength" :key="i">
             <template v-slot:label>选项{{i}}</template>
-            <input type="text" v-model="question['option' + i]" />
+            <wang-editor v-model="question['option' + i]"></wang-editor>
           </FormItem>
         </template>
 
@@ -108,10 +118,11 @@
 </template>
 <script>
 import TinymceEditor from '@/components/common/tinymce';
+import WangEditor from '@/components/common/wangEditor';
 
 export default {
   props: ['id'],
-  components: { TinymceEditor },
+  components: { TinymceEditor, WangEditor },
   data() {
     return {
       question: {
@@ -157,7 +168,7 @@ export default {
         }
         arr.push({
           key: 'option' + i,
-          title: `选项${i}:${val}`
+          title: `选项${i}`
         });
       }
       return arr;
@@ -183,6 +194,13 @@ export default {
         this.levels = res.data.levels;
         this.types = res.data.types;
         this.categories = res.data.categories;
+
+        for (let i = 5; i <= 10; i++) {
+          if (this.question['option' + i] === null || this.question['option' + i].length === 0) {
+            break;
+          }
+          this.optionLength++;
+        }
 
         if (this.question.type === 2) {
           // 多选

@@ -32,6 +32,13 @@
             </FormItem>
           </Cell>
         </Row>
+        <Row :space="10">
+          <Cell :width="24">
+            <FormItem prop="desc" label="详细介绍">
+              <tinymce-editor v-model="goods.desc"></tinymce-editor>
+            </FormItem>
+          </Cell>
+        </Row>
 
         <Row :space="10">
           <Cell :width="6">
@@ -73,8 +80,11 @@
   </div>
 </template>
 <script>
+import TinymceEditor from '@/components/common/tinymce';
+
 export default {
   props: ['id'],
+  components: { TinymceEditor },
   data() {
     return {
       goods: {
@@ -87,10 +97,23 @@ export default {
         num: null,
         started_at: null,
         end_at: null,
-        page_title: null
+        page_title: null,
+        desc: null
       },
       rules: {
-        required: ['goods_id', 'goods_type', 'goods_title', 'goods_thumb', 'goods_charge', 'num', 'charge', 'started_at', 'end_at', 'page_title']
+        required: [
+          'goods_id',
+          'goods_type',
+          'goods_title',
+          'goods_thumb',
+          'goods_charge',
+          'desc',
+          'num',
+          'charge',
+          'started_at',
+          'end_at',
+          'page_title'
+        ]
       },
       goodsList: [],
       types: []

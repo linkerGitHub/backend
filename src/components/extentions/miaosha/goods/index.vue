@@ -48,6 +48,7 @@
       <Table :loading="loading" :datas="datas">
         <TableItem prop="id" title="ID" :width="80"></TableItem>
         <TableItem prop="goods_id" title="GID" :width="80"></TableItem>
+        <TableItem prop="goods_type_text" title="类型" :width="100"></TableItem>
         <TableItem prop="goods_title" title="商品"></TableItem>
         <TableItem title="价格" :width="150">
           <template slot-scope="{ data }">

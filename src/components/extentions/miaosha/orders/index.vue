@@ -55,18 +55,35 @@
 
       <Table :loading="loading" :datas="datas">
         <TableItem prop="id" title="ID" :width="80"></TableItem>
-        <TableItem title="商品">
-          <template slot-scope="{ data }">{{data.goods.goods_title}}</template>
+        <TableItem title="GID" :width="80">
+          <template slot-scope="{ data }">
+            <span v-if="data.goods">{{data.goods.goods_id}}</span>
+            <span class="red" v-else>已删除</span>
+          </template>
         </TableItem>
-        <TableItem title="价格" :width="80">
-          <template slot-scope="{ data }">{{data.charge}}元</template>
-        </TableItem>
+        <TableItem prop="user_id" title="UID" :width="80"></TableItem>
         <TableItem title="用户" :width="120">
           <template slot-scope="{ data }">
             <span v-if="data.user">{{data.user.nick_name}}</span>
             <span class="red" v-else>已删除</span>
           </template>
         </TableItem>
+        <TableItem title="类型" :width="100">
+          <template slot-scope="{ data }">
+            <span v-if="data.goods">{{data.goods.goods_type_text}}</span>
+            <span class="red" v-else>已删除</span>
+          </template>
+        </TableItem>
+        <TableItem title="商品">
+          <template slot-scope="{ data }">
+            <span v-if="data.goods">{{data.goods.goods_title}}</span>
+            <span class="red" v-else>已删除</span>
+          </template>
+        </TableItem>
+        <TableItem title="秒杀价" :width="80">
+          <template slot-scope="{ data }">{{data.charge}}元</template>
+        </TableItem>
+
         <TableItem title="状态" :width="80">
           <template slot-scope="{ data }">
             <span v-if="data.status === 1">已支付</span>

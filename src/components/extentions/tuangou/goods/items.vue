@@ -7,7 +7,7 @@
 }
 </style>
 <template>
-  <div class="table-basic-vue frame-page h-panel w-800">
+  <div class="table-basic-vue frame-page h-panel h-panel-margin-0 w-1000">
     <div class="h-panel-bar">
       <span class="h-panel-title">团列表</span>
     </div>

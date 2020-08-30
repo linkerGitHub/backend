@@ -14,6 +14,7 @@ import Warn from './components/common/warn';
 import PButton from './components/common/button';
 import PDelButton from './components/common/del-button';
 import CopyText from './components/common/copytext';
+import InputDuration from './components/common/duration';
 
 import mavonEditor from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
@@ -35,6 +36,7 @@ Vue.component('Warn', Warn);
 Vue.component('PButton', PButton);
 Vue.component('PDelButton', PDelButton);
 Vue.component('copytext', CopyText);
+Vue.component('InputDuration', InputDuration);
 
 const router = routerConfig();
 

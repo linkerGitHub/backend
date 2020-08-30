@@ -8,10 +8,15 @@
         <Row :space="10">
           <Cell :width="8">
             <FormItem label="关键字">
-              <input type="text" v-model="filter.keywords" placeholder="请输入关键字" />
+              <input type="text" v-model="filter.keywords" placeholder="请输入商品名关键字" />
             </FormItem>
           </Cell>
-          <Cell :width="6">
+          <Cell :width="8">
+            <FormItem label="用户ID">
+              <input type="text" v-model="filter.user_id" placeholder="用户ID" />
+            </FormItem>
+          </Cell>
+          <Cell :width="8">
             <FormItem label="状态">
               <Select v-model="filter.status" :datas="status" keyName="id" titleName="title"></Select>
             </FormItem>
@@ -50,7 +55,10 @@
           <template slot-scope="{ data }">￥{{data.charge}}</template>
         </TableItem>
         <TableItem title="状态" :width="80">
-          <template slot-scope="{ data }">{{data.status_text}}</template>
+          <template slot-scope="{ data }">
+            <span v-if="data.status_text === '已支付'">已支付</span>
+            <span v-else class="red">未支付</span>
+          </template>
         </TableItem>
         <TableItem title="时间" :width="120">
           <template slot-scope="{ data }">{{data.created_at}}</template>
@@ -94,7 +102,8 @@ export default {
       ],
       filter: {
         keywords: null,
-        status: null
+        status: null,
+        user_id: null
       }
     };
   },
@@ -108,6 +117,7 @@ export default {
     reset() {
       this.filter.keywords = null;
       this.filter.status = null;
+      this.filter.user_id = null;
       this.getData(true);
     },
     getData(reload = false) {

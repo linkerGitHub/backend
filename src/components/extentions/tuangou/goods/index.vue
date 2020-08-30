@@ -76,7 +76,7 @@
           <template slot-scope="{ data }">
             <span>{{data.started_at}}</span>
             -
-            <span>￥{{data.ended_at}}</span>
+            <span>{{data.ended_at}}</span>
           </template>
         </TableItem>
         <TableItem title="操作" align="center" :width="200">

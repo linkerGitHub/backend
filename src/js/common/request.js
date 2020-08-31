@@ -196,6 +196,9 @@ const Request = {
     List(param) {
       return Ajax.get('/order', param);
     },
+    Detail(param) {
+      return Ajax.get('/order/' + param.id, param);
+    },
     Finish(param) {
       return Ajax.get('/order/' + param.id + '/finish', param);
     }

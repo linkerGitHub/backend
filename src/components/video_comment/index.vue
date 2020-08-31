@@ -12,40 +12,53 @@
       <span class="h-panel-title">视频评论</span>
     </div>
     <div class="h-panel-body">
-      <Form :labelWidth="110">
-        <FormItem label="课程">
-          <template v-slot:label>课程</template>
-          <Select
-            v-model="filter.course_id"
-            :filterable="true"
-            :datas="courses"
-            keyName="id"
-            titleName="title"
-          ></Select>
-        </FormItem>
-        <FormItem>
-          <template v-slot:label>章节</template>
-          <Select
-            v-model="filter.video_id"
-            :datas="getVideos"
-            keyName="id"
-            titleName="title"
-            :filterable="true"
-          ></Select>
-        </FormItem>
-        <FormItem>
-          <Button color="primary" @click="getData(true)">搜索</Button>
-          <Button class="h-btn" @click="reset">重置</Button>
-        </FormItem>
+      <Form>
+        <Row :space="10">
+          <Cell :width="6">
+            <FormItem label="UID">
+              <input type="number" v-model="filter.user_id" min="0" placeholder="用户ID" />
+            </FormItem>
+          </Cell>
+          <Cell :width="6">
+            <FormItem label="课程">
+              <Select
+                v-model="filter.course_id"
+                :filterable="true"
+                :datas="courses"
+                keyName="id"
+                titleName="title"
+              ></Select>
+            </FormItem>
+          </Cell>
+          <Cell :width="6">
+            <FormItem label="视频">
+              <Select
+                v-model="filter.video_id"
+                :datas="getVideos"
+                keyName="id"
+                titleName="title"
+                :filterable="true"
+              ></Select>
+            </FormItem>
+          </Cell>
+          <Cell :width="6">
+            <FormItem>
+              <Button color="primary" @click="getData(true)">搜索</Button>
+              <Button class="h-btn" @click="reset">重置</Button>
+            </FormItem>
+          </Cell>
+        </Row>
       </Form>
 
-      <div style="margin-bottom: 15px;">
+      <div class="mb-10">
         <p-del-button permission="video_comment.destroy" @click="deleteSubmit()"></p-del-button>
       </div>
 
       <Table :loading="loading" :datas="datas" :checkbox="true" ref="table">
-        <TableItem prop="id" title="ID"></TableItem>
-        <TableItem title="用户">
+        <TableItem prop="id" title="ID" :width="100"></TableItem>
+        <TableItem prop="user_id" title="UID" :width="100"></TableItem>
+        <TableItem prop="video_id" title="VID" :width="100"></TableItem>
+        <TableItem title="用户" :width="120">
           <template slot-scope="{ data }">
             <span v-if="users[data.user_id]">{{users[data.user_id].nick_name}}</span>
             <span class="red" v-else>不存在</span>
@@ -66,7 +79,7 @@
             <p v-html="data.render_content"></p>
           </template>
         </TableItem>
-        <TableItem prop="created_at" title="时间"></TableItem>
+        <TableItem prop="created_at" title="时间" :width="120"></TableItem>
       </Table>
       <p></p>
       <Pagination
@@ -84,7 +97,7 @@ export default {
     return {
       pagination: {
         page: 1,
-        size: 20,
+        size: 10,
         total: 0
       },
       datas: [],
@@ -119,7 +132,8 @@ export default {
     reset() {
       this.filter = {
         course_id: null,
-        video_id: null
+        video_id: null,
+        user_id: null
       };
       this.getData(true);
     },
@@ -129,8 +143,7 @@ export default {
       }
       this.loading = true;
       let data = this.pagination;
-      data.video_id = this.filter.video_id;
-      data.course_id = this.filter.course_id;
+      Object.assign(data, this.filter);
       R.VideoComment.List(data).then(resp => {
         this.datas = resp.data.data.data;
         this.pagination.total = resp.data.data.total;

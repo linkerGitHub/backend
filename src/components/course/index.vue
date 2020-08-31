@@ -61,19 +61,19 @@
               @click="edit(data)"
             ></p-button>
             <p-button
-              glass="h-btn h-btn-s h-btn-primary"
+              glass="h-btn h-btn-s"
               permission="course_chapter"
               text="章节"
               @click="goChapter(data)"
             ></p-button>
             <p-button
-              glass="h-btn h-btn-s h-btn-primary"
+              glass="h-btn h-btn-s"
               permission="course_attach"
               text="附件"
               @click="goCourseAttach(data)"
             ></p-button>
             <p-button
-              glass="h-btn h-btn-s h-btn-primary"
+              glass="h-btn h-btn-s"
               permission="course.watchRecords"
               text="观看记录"
               @click="showWatchRecords(data)"
@@ -190,7 +190,7 @@ export default {
         hasCloseIcon: true,
         component: {
           vue: resolve => {
-            require(['../course_chapter/index'], resolve);
+            require(['./chapter/index'], resolve);
           },
           datas: {
             cid: item.id

@@ -275,8 +275,17 @@ const Request = {
     Delete(param) {
       return Ajax.delete('/course/' + param.id, param);
     },
-    SubscribeUsers(param) {
-      return Ajax.get('/course/' + param.id + '/subscribe/users', param);
+    WatchRecords(param) {
+      return Ajax.get('/course/' + param.id + '/watch/records', param);
+    },
+    Subscribes(param) {
+      return Ajax.get('/course/' + param.course_id + '/subscribes', param);
+    },
+    SubscribeDelete(param) {
+      return Ajax.get('/course/' + param.course_id + '/subscribe/delete', param);
+    },
+    SubscribeCreate(param) {
+      return Ajax.postJson('/course/' + param.course_id + '/subscribe/create', param);
     }
   },
   CourseAttach: {

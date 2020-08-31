@@ -120,7 +120,7 @@ export default {
       let data = this.pagination;
       data.id = this.id;
       Object.assign(data, this.filter);
-      R.Course.SubscribeUsers(data).then(res => {
+      R.Course.WatchRecords(data).then(res => {
         this.list = res.data.data.data;
         this.users = res.data.users;
         this.pagination.total = res.data.data.total;

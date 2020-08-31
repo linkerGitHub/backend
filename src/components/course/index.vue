@@ -3,28 +3,36 @@
     <div class="h-panel-bar">
       <span class="h-panel-title">课程</span>
     </div>
-    <div class="h-panel-bar">
-      <Form :labelWidth="110">
-        <FormItem label="关键字搜索">
-          <input type="text" v-model="cond.keywords" placeholder="课程标题" />
-        </FormItem>
-        <FormItem label="分类">
-          <template v-slot:label>分类</template>
-          <Select
-            v-model="cond.cid"
-            :filterable="true"
-            :datas="categories"
-            keyName="id"
-            titleName="name"
-          ></Select>
-        </FormItem>
-        <FormItem>
-          <Button class="h-btn h-btn-primary" @click="getData(true)">搜索</Button>
-          <Button class="h-btn" @click="reset()">重置</Button>
-        </FormItem>
-      </Form>
-    </div>
     <div class="h-panel-body">
+      <div class="mb-10">
+        <Form>
+          <Row :space="10">
+            <Cell :width="6">
+              <FormItem label="搜索">
+                <input type="text" v-model="cond.keywords" placeholder="课程标题" />
+              </FormItem>
+            </Cell>
+            <Cell :width="6">
+              <FormItem label="分类">
+                <template v-slot:label>分类</template>
+                <Select
+                  v-model="cond.cid"
+                  :filterable="true"
+                  :datas="categories"
+                  keyName="id"
+                  titleName="name"
+                ></Select>
+              </FormItem>
+            </Cell>
+            <Cell :width="6">
+              <FormItem>
+                <Button class="h-btn h-btn-primary" @click="getData(true)">搜索</Button>
+                <Button class="h-btn" @click="reset()">重置</Button>
+              </FormItem>
+            </Cell>
+          </Row>
+        </Form>
+      </div>
       <div class="mb-10">
         <p-button
           glass="h-btn h-btn-primary"
@@ -38,7 +46,11 @@
         <TableItem prop="id" title="ID" :sort="true" :width="80"></TableItem>
         <TableItem prop="title" title="课程"></TableItem>
         <TableItem prop="charge" title="价格" unit="元" :sort="true" :width="120"></TableItem>
-        <TableItem title="订阅" prop="user_count" unit="人" :sort="true" :width="120"></TableItem>
+        <TableItem title="订阅" :sort="true" :width="120">
+          <template slot-scope="{data}">
+            <span @click="showSubscribesPage(data)">{{data.user_count}}</span>
+          </template>
+        </TableItem>
         <TableItem title="操作" align="center" :width="350">
           <template slot-scope="{ data }">
             <p-del-button permission="course.destroy" @click="remove(datas, data)"></p-del-button>
@@ -62,9 +74,9 @@
             ></p-button>
             <p-button
               glass="h-btn h-btn-s h-btn-primary"
-              permission="course.subscribe_users"
+              permission="course.watchRecords"
               text="观看记录"
-              @click="showSubscribeUsers(data)"
+              @click="showWatchRecords(data)"
             ></p-button>
           </template>
         </TableItem>
@@ -100,12 +112,9 @@ export default {
     };
   },
   mounted() {
-    this.init();
+    this.getData(true);
   },
   methods: {
-    init() {
-      this.getData(true);
-    },
     changePage() {
       this.getData();
     },
@@ -115,7 +124,7 @@ export default {
       this.getData();
     },
     reset() {
-      this.cond.keywords = '';
+      this.cond.keywords = null;
       this.cond.cid = null;
       this.getData(true);
     },
@@ -203,13 +212,27 @@ export default {
         }
       });
     },
-    showSubscribeUsers(item) {
+    showWatchRecords(item) {
       this.$Modal({
         closeOnMask: false,
         hasCloseIcon: true,
         component: {
           vue: resolve => {
-            require(['./subscribe_users'], resolve);
+            require(['./watch_records'], resolve);
+          },
+          datas: {
+            id: item.id
+          }
+        }
+      });
+    },
+    showSubscribesPage(item) {
+      this.$Modal({
+        closeOnMask: false,
+        hasCloseIcon: true,
+        component: {
+          vue: resolve => {
+            require(['./subscribe/index'], resolve);
           },
           datas: {
             id: item.id

@@ -14,6 +14,8 @@
     <div class="h-panel-body">
       <h3 class="mb-10">基本信息</h3>
       <Row :space="10" class="order-info mb-10">
+        <Cell :width="6">UID：{{user.id}}</Cell>
+        <Cell :width="6">用户：{{user.nick_name}}</Cell>
         <Cell :width="6">订单ID：{{order.id}}</Cell>
         <Cell :width="6">订单号：{{order.order_id}}</Cell>
         <Cell :width="6">总额：￥{{order.charge}}</Cell>

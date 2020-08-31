@@ -1,28 +1,74 @@
-<style lang="less">
-</style>
 <template>
-  <div style="padding: 30px">
-    <div style="margin-bottom: 15px;">
+  <div class="table-basic-vue frame-page h-panel h-panel-margin-0 w-1000">
+    <div class="h-panel-bar">
+      <span class="h-panel-title">观看记录</span>
+    </div>
+    <div class="h-panel-body">
+      <div class="mb-10">
+        <Form>
+          <Row :space="10">
+            <Cell :width="6">
+              <FormItem label="UID">
+                <input type="text" v-model="filter.user_id" placeholder="用户ID" />
+              </FormItem>
+            </Cell>
+            <Cell :width="10">
+              <FormItem label="看完时间">
+                <DateRangePicker v-model="dateRange" format="YYYY-MM-DD"></DateRangePicker>
+              </FormItem>
+            </Cell>
+            <Cell :width="6">
+              <FormItem>
+                <Button class="h-btn h-btn-primary" @click="getData(true)">搜索</Button>
+                <Button class="h-btn" @click="reset()">重置</Button>
+              </FormItem>
+            </Cell>
+          </Row>
+        </Form>
+      </div>
       <Table :loading="loading" :datas="list">
-        <TableItem title="ID" prop="id"></TableItem>
-        <TableItem title="用户">
-          <template slot-scope="{ data }">{{users[data.user_id].nick_name}}</template>
+        <TableItem title="CID" prop="course_id" :width="80"></TableItem>
+        <TableItem title="UID" prop="user_id" :width="80"></TableItem>
+        <TableItem title="用户" :width="120">
+          <template slot-scope="{ data }">
+            <span
+              v-if="typeof users[data.user_id] !== 'undefined'"
+            >{{users[data.user_id].nick_name}}</span>
+            <span v-else class="red">已删除</span>
+          </template>
         </TableItem>
-        <TableItem title="看完">
-          <template slot-scope="{ data }">{{data.is_watched === 1 ? '是' : '否'}}</template>
+        <TableItem title="观看进度">
+          <template slot-scope="{ data }">
+            <span>{{data.progress}}%</span>
+          </template>
+        </TableItem>
+        <TableItem title="开始时间">
+          <template slot-scope="{ data }">
+            <span>{{data.created_at}}</span>
+          </template>
         </TableItem>
         <TableItem title="看完时间">
-          <template slot-scope="{ data }">{{data.watched_at}}</template>
+          <template slot-scope="{ data }">
+            <span>{{data.watched_at}}</span>
+          </template>
+        </TableItem>
+        <TableItem title="订阅">
+          <template slot-scope="{ data }">
+            <span v-if="typeof subscribeRecords[data.user_id] !== 'undefined'">是</span>
+            <span v-else class="red">否</span>
+          </template>
         </TableItem>
       </Table>
-    </div>
 
-    <Pagination
-      v-if="pagination.total > 0"
-      align="right"
-      v-model="pagination"
-      @change="changePage"
-    />
+      <div class="mt-10">
+        <Pagination
+          v-if="pagination.total > 0"
+          align="right"
+          v-model="pagination"
+          @change="changePage"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -35,32 +81,55 @@ export default {
       users: [],
       pagination: {
         page: 1,
-        size: 20,
+        size: 10,
         total: 0
       },
-      loading: false
+      loading: false,
+      subscribeRecords: [],
+      filter: {
+        user_id: null,
+        watched_start_at: null,
+        watched_end_at: null
+      },
+      dateRange: {}
     };
   },
   mounted() {
-    this.init();
+    this.getData(true);
+  },
+  watch: {
+    dateRange() {
+      this.filter.watched_start_at = this.dateRange.start;
+      this.filter.watched_end_at = this.dateRange.end;
+    }
   },
   methods: {
-    init() {
+    reset() {
+      this.filter.user_id = null;
+      this.filter.watched_start_at = null;
+      this.filter.watched_end_at = null;
+      this.dateRange = {};
+      this.getData(true);
+    },
+    getData(reset = false) {
+      if (reset) {
+        this.pagination.page = 1;
+      }
+
       this.loading = true;
-      let p = this.pagination;
-      p.id = this.id;
-      R.Course.SubscribeUsers(p).then(res => {
+      let data = this.pagination;
+      data.id = this.id;
+      Object.assign(data, this.filter);
+      R.Course.SubscribeUsers(data).then(res => {
         this.list = res.data.data.data;
         this.users = res.data.users;
         this.pagination.total = res.data.data.total;
-        this.pagination.page = res.data.data.current_page;
-        this.pagination.size = res.data.data.per_page;
+        this.subscribeRecords = res.data.subscribe_records;
         this.loading = false;
       });
     },
     changePage() {
-      this.pagination.page = 1;
-      this.init();
+      this.getData();
     }
   }
 };

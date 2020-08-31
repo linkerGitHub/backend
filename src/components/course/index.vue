@@ -37,10 +37,9 @@
       <Table :loading="loading" :datas="datas" @sort="sortEvt">
         <TableItem prop="id" title="ID" :sort="true" :width="80"></TableItem>
         <TableItem prop="title" title="课程"></TableItem>
-        <TableItem prop="charge" title="价格" unit="元" :sort="true" :width="80"></TableItem>
-        <TableItem prop="published_at" title="上线" :sort="true"></TableItem>
-        <TableItem title="订阅" prop="user_count" unit="人" :sort="true" :width="80"></TableItem>
-        <TableItem title="操作" align="center" :width="300">
+        <TableItem prop="charge" title="价格" unit="元" :sort="true" :width="120"></TableItem>
+        <TableItem title="订阅" prop="user_count" unit="人" :sort="true" :width="120"></TableItem>
+        <TableItem title="操作" align="center" :width="350">
           <template slot-scope="{ data }">
             <p-del-button permission="course.destroy" @click="remove(datas, data)"></p-del-button>
             <p-button
@@ -64,7 +63,7 @@
             <p-button
               glass="h-btn h-btn-s h-btn-primary"
               permission="course.subscribe_users"
-              text="订阅"
+              text="观看记录"
               @click="showSubscribeUsers(data)"
             ></p-button>
           </template>

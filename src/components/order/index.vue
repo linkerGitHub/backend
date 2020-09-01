@@ -18,6 +18,11 @@
               </FormItem>
             </Cell>
             <Cell :width="6">
+              <FormItem label="订单号">
+                <input type="text" v-model="cond.order_id" placeholder="订单号" />
+              </FormItem>
+            </Cell>
+            <Cell :width="6">
               <FormItem label="状态">
                 <Select v-model="cond.status" :datas="statusArr"></Select>
               </FormItem>
@@ -41,7 +46,11 @@
             <span v-else class="red">已删除</span>
           </template>
         </TableItem>
-        <TableItem prop="order_id" title="订单号" :width="120"></TableItem>
+        <TableItem title="订单号" :width="120">
+          <template slot-scope="{data}">
+            <copytext :copytext="data.order_id" />
+          </template>
+        </TableItem>
         <TableItem title="总价" :width="100">
           <template slot-scope="{data}">
             <span>￥{{data.charge}}</span>
@@ -102,7 +111,8 @@ export default {
       },
       cond: {
         user_id: null,
-        status: null
+        status: null,
+        order_id: null
       },
       statusArr: [
         {
@@ -137,6 +147,7 @@ export default {
     reset() {
       this.cond.user_id = null;
       this.cond.status = null;
+      this.cond.order_id = null;
       this.getData(true);
     },
     getData(reload = false) {

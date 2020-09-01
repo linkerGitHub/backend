@@ -43,7 +43,7 @@
         ></p-button>
       </div>
       <Table :loading="loading" :datas="datas" @sort="sortEvt">
-        <TableItem prop="id" title="ID" :sort="true" :width="80"></TableItem>
+        <TableItem prop="id" title="CID" :sort="true" :width="80"></TableItem>
         <TableItem prop="title" title="课程"></TableItem>
         <TableItem prop="charge" title="价格" unit="元" :sort="true" :width="120"></TableItem>
         <TableItem title="订阅" :sort="true" :width="120">

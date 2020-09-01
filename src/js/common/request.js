@@ -323,6 +323,18 @@ const Request = {
     },
     MultiDelete(param) {
       return Ajax.post('/video/delete/multi', param);
+    },
+    Subscribes(param) {
+      return Ajax.get('/video/' + param.video_id + '/subscribes', param);
+    },
+    SubscribeCreate(param) {
+      return Ajax.postJson('/video/' + param.video_id + '/subscribe/create', param);
+    },
+    SubscribeDelete(param) {
+      return Ajax.get('/video/' + param.video_id + '/subscribe/delete', param);
+    },
+    WatchRecords(param) {
+      return Ajax.get('/video/' + param.video_id + '/watch/records', param);
     }
   },
   CourseChapter: {

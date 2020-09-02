@@ -3,80 +3,83 @@
     <div class="h-panel-bar">
       <span class="h-panel-title">用户</span>
     </div>
-    <div class="h-panel-bar">
-      <Form>
-        <Row :space="10">
-          <Cell :width="6">
-            <FormItem label="搜索">
-              <input type="text" v-model="cond.keywords" placeholder="用户昵称/手机号" />
-            </FormItem>
-          </Cell>
-          <Cell :width="6">
-            <FormItem label="会员">
-              <template v-slot:label>会员</template>
-              <Select
-                v-model="cond.role_id"
-                :filterable="true"
-                :datas="roles"
-                keyName="id"
-                titleName="name"
-              ></Select>
-            </FormItem>
-          </Cell>
-          <Cell :width="6">
-            <FormItem>
-              <Button color="primary" @click="getData(true)">搜索</Button>
-              <Button @click="reset">重置</Button>
-            </FormItem>
-          </Cell>
-        </Row>
-      </Form>
-    </div>
     <div class="h-panel-body">
-      <div class="mb-10">
+      <div class="float-box mb-10">
+        <Form>
+          <Row :space="10">
+            <Cell :width="6">
+              <FormItem label="搜索">
+                <input type="text" v-model="cond.keywords" placeholder="用户昵称/手机号" />
+              </FormItem>
+            </Cell>
+            <Cell :width="6">
+              <FormItem label="会员">
+                <template v-slot:label>会员</template>
+                <Select
+                  v-model="cond.role_id"
+                  :filterable="true"
+                  :datas="roles"
+                  keyName="id"
+                  titleName="name"
+                ></Select>
+              </FormItem>
+            </Cell>
+            <Cell :width="6">
+              <FormItem>
+                <Button color="primary" @click="getData(true)">搜索</Button>
+                <Button @click="reset">重置</Button>
+              </FormItem>
+            </Cell>
+          </Row>
+        </Form>
+      </div>
+      <div class="float-box mb-10">
         <p-button
-          glass="h-btn h-btn-primary"
+          glass="h-btn h-btn-primary h-btn-s"
           icon="h-icon-plus"
           permission="member.store"
           text="添加"
           @click="create()"
         ></p-button>
       </div>
-      <Table :loading="loading" :datas="datas" @sort="sortEvt">
-        <TableItem prop="id" title="ID" :sort="true" :width="80"></TableItem>
-        <TableItem prop="nick_name" title="昵称" :width="120"></TableItem>
-        <TableItem prop="mobile" title="手机号" :width="150"></TableItem>
-        <TableItem prop="credit1" title="积分" :sort="true" :width="80"></TableItem>
-        <TableItem prop="created_at" title="注册时间" :sort="true" :width="120"></TableItem>
-        <TableItem title="VIP" :width="100">
-          <template slot-scope="{data}">
-            <template v-if="data.role">{{data.role.name}}</template>
-          </template>
-        </TableItem>
-        <TableItem title="操作" align="center" :width="160">
-          <template slot-scope="{ data }">
-            <p-button
-              glass="h-btn h-btn-s h-btn-primary"
-              permission="member.edit"
-              text="编辑"
-              @click="edit(data)"
-            ></p-button>
-            <p-button
-              glass="h-btn h-btn-s h-btn-primary"
-              permission="member.detail"
-              text="详情"
-              @click="detail(data)"
-            ></p-button>
-          </template>
-        </TableItem>
-      </Table>
-      <p></p>
-      <Pagination
-        v-if="pagination.total > 0"
-        align="right"
-        v-model="pagination"
-        @change="changePage"
-      />
+      <div class="float-box mb-10">
+        <Table :loading="loading" :datas="datas" @sort="sortEvt">
+          <TableItem prop="id" title="ID" :sort="true" :width="80"></TableItem>
+          <TableItem prop="nick_name" title="昵称" :width="120"></TableItem>
+          <TableItem prop="mobile" title="手机号" :width="150"></TableItem>
+          <TableItem prop="credit1" title="积分" :sort="true" :width="80"></TableItem>
+          <TableItem prop="created_at" title="注册时间" :sort="true" :width="120"></TableItem>
+          <TableItem title="VIP" :width="100">
+            <template slot-scope="{data}">
+              <template v-if="data.role">{{data.role.name}}</template>
+            </template>
+          </TableItem>
+          <TableItem title="操作" align="center" :width="160">
+            <template slot-scope="{ data }">
+              <p-button
+                glass="h-btn h-btn-s h-btn-primary"
+                permission="member.edit"
+                text="编辑"
+                @click="edit(data)"
+              ></p-button>
+              <p-button
+                glass="h-btn h-btn-s"
+                permission="member.detail"
+                text="详情"
+                @click="detail(data)"
+              ></p-button>
+            </template>
+          </TableItem>
+        </Table>
+      </div>
+      <div class="float-box mb-10">
+        <Pagination
+          v-if="pagination.total > 0"
+          align="right"
+          v-model="pagination"
+          @change="changePage"
+        />
+      </div>
     </div>
   </div>
 </template>

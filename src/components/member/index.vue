@@ -4,24 +4,32 @@
       <span class="h-panel-title">用户</span>
     </div>
     <div class="h-panel-bar">
-      <Form :labelWidth="110">
-        <FormItem label="关键字搜索">
-          <input type="text" v-model="cond.keywords" placeholder="用户昵称/手机号" />
-        </FormItem>
-        <FormItem label="会员">
-          <template v-slot:label>会员</template>
-          <Select
-            v-model="cond.role_id"
-            :filterable="true"
-            :datas="roles"
-            keyName="id"
-            titleName="name"
-          ></Select>
-        </FormItem>
-        <FormItem>
-          <Button color="primary" @click="getData(true)">搜索</Button>
-          <Button @click="reset">重置</Button>
-        </FormItem>
+      <Form>
+        <Row :space="10">
+          <Cell :width="6">
+            <FormItem label="搜索">
+              <input type="text" v-model="cond.keywords" placeholder="用户昵称/手机号" />
+            </FormItem>
+          </Cell>
+          <Cell :width="6">
+            <FormItem label="会员">
+              <template v-slot:label>会员</template>
+              <Select
+                v-model="cond.role_id"
+                :filterable="true"
+                :datas="roles"
+                keyName="id"
+                titleName="name"
+              ></Select>
+            </FormItem>
+          </Cell>
+          <Cell :width="6">
+            <FormItem>
+              <Button color="primary" @click="getData(true)">搜索</Button>
+              <Button @click="reset">重置</Button>
+            </FormItem>
+          </Cell>
+        </Row>
       </Form>
     </div>
     <div class="h-panel-body">
@@ -35,12 +43,12 @@
         ></p-button>
       </div>
       <Table :loading="loading" :datas="datas" @sort="sortEvt">
-        <TableItem prop="id" title="ID" :sort="true"></TableItem>
-        <TableItem prop="nick_name" title="昵称"></TableItem>
-        <TableItem prop="mobile" title="手机号"></TableItem>
-        <TableItem prop="credit1" title="积分" :sort="true"></TableItem>
-        <TableItem prop="created_at" title="注册时间" :sort="true"></TableItem>
-        <TableItem title="VIP">
+        <TableItem prop="id" title="ID" :sort="true" :width="80"></TableItem>
+        <TableItem prop="nick_name" title="昵称" :width="120"></TableItem>
+        <TableItem prop="mobile" title="手机号" :width="150"></TableItem>
+        <TableItem prop="credit1" title="积分" :sort="true" :width="80"></TableItem>
+        <TableItem prop="created_at" title="注册时间" :sort="true" :width="120"></TableItem>
+        <TableItem title="VIP" :width="100">
           <template slot-scope="{data}">
             <template v-if="data.role">{{data.role.name}}</template>
           </template>
@@ -78,7 +86,7 @@ export default {
     return {
       pagination: {
         page: 1,
-        size: 20,
+        size: 10,
         total: 0
       },
       cond: {
@@ -128,6 +136,7 @@ export default {
     create() {
       this.$Modal({
         closeOnMask: false,
+        hasCloseIcon: true,
         component: {
           vue: resolve => {
             require(['./create'], resolve);
@@ -136,6 +145,7 @@ export default {
         events: {
           success: (modal, data) => {
             R.Member.Store(data).then(resp => {
+              modal.close();
               HeyUI.$Message.success('成功');
               this.getData(true);
             });
@@ -146,6 +156,7 @@ export default {
     edit(item) {
       this.$Modal({
         closeOnMask: false,
+        hasCloseIcon: true,
         component: {
           vue: resolve => {
             require(['./edit'], resolve);
@@ -157,8 +168,9 @@ export default {
         events: {
           success: (modal, data) => {
             R.Member.Update(data).then(resp => {
+              modal.close();
               HeyUI.$Message.success('成功');
-              this.getData(true);
+              this.getData();
             });
           }
         }
@@ -166,8 +178,8 @@ export default {
     },
     detail(item) {
       this.$Modal({
-        hasCloseIcon: true,
         closeOnMask: false,
+        hasCloseIcon: true,
         component: {
           vue: resolve => {
             require(['./detail'], resolve);

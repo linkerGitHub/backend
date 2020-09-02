@@ -22,7 +22,10 @@
     <Row class="base-info mb-10" v-if="user">
       <Cell width="6">ID：{{user.id}}</Cell>
       <Cell width="6">昵称：{{user.nick_name}}</Cell>
-      <Cell width="6">手机号：{{user.mobile}}</Cell>
+      <Cell width="6">
+        手机号：
+        <copytext :copytext="user.mobile" />
+      </Cell>
       <Cell width="6">积分：{{user.credit1}}</Cell>
       <Cell width="6">
         锁定：

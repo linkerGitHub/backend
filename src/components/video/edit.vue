@@ -88,18 +88,12 @@
 
           <FormItem label="视频时长" prop="duration">
             <template v-slot:label>视频时长</template>
-            <div class="h-input-group" v-width="200">
-              <input type="text" v-model="video.duration" />
-              <span class="h-input-addon">秒</span>
-            </div>
+            <input-duration v-model="video.duration"></input-duration>
           </FormItem>
 
           <FormItem label="试看时长" prop="free_seconds">
             <template v-slot:label>试看时长</template>
-            <div class="h-input-group" v-width="200">
-              <input type="text" v-model="video.free_seconds" />
-              <span class="h-input-addon">秒</span>
-            </div>
+            <input-duration v-model="video.free_seconds"></input-duration>
           </FormItem>
 
           <FormItem label="禁止快进" prop="ban_drag">

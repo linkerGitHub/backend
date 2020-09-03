@@ -7,11 +7,14 @@
   margin-right: 5px;
   margin-bottom: 5px;
 }
+.grey {
+  color: rgba(0, 0, 0, 0.2);
+}
 </style>
 <template>
   <div class="table-basic-vue frame-page h-panel">
     <div class="h-panel-bar">
-      <span class="h-panel-title">用户</span>
+      <span class="h-panel-title">全部用户</span>
     </div>
     <div class="h-panel-body">
       <div class="float-box mb-10">
@@ -64,10 +67,15 @@
       </div>
       <div class="float-box mb-10">
         <Table :loading="loading" :datas="datas" @sort="sortEvt">
-          <TableItem prop="id" title="ID" :sort="true" :width="80"></TableItem>
-          <TableItem prop="nick_name" title="昵称" :width="120"></TableItem>
-          <TableItem prop="mobile" title="手机号" :width="150"></TableItem>
-          <TableItem prop="credit1" title="积分" :sort="true" :width="80"></TableItem>
+          <TableItem title="用户" :width="240">
+            <template slot-scope="{data}">
+              <copytext :copytext="data.id" />
+              <span class="grey">/</span>
+              <copytext :copytext="data.nick_name" />
+              <span class="grey">/</span>
+              <copytext :copytext="data.mobile" />
+            </template>
+          </TableItem>
           <TableItem title="标签" :width="200">
             <template slot-scope="{data}">
               <span class="tag-item" v-for="tag in data.tags" :key="tag.id">
@@ -81,7 +89,14 @@
               <template v-if="data.role">{{data.role.name}}</template>
             </template>
           </TableItem>
-          <TableItem title="操作" align="center" :width="160">
+          <TableItem title="备注" :width="200">
+            <template slot-scope="{data}">
+              <template v-if="typeof userRemarks[data.id] !== 'undefined'">
+                <div v-html="userRemarks[data.id].remark"></div>
+              </template>
+            </template>
+          </TableItem>
+          <TableItem title="操作" align="center" :width="240">
             <template slot-scope="{ data }">
               <p-button
                 glass="h-btn h-btn-s h-btn-primary"
@@ -100,6 +115,12 @@
                 permission="member.tags"
                 text="标签"
                 @click="showTags(data)"
+              ></p-button>
+              <p-button
+                glass="h-btn h-btn-s"
+                permission="member.remark"
+                text="备注"
+                @click="showRemark(data)"
               ></p-button>
             </template>
           </TableItem>
@@ -134,7 +155,8 @@ export default {
       },
       datas: [],
       loading: false,
-      roles: []
+      roles: [],
+      userRemarks: []
     };
   },
   mounted() {
@@ -163,11 +185,12 @@ export default {
       let data = this.pagination;
       Object.assign(data, this.cond);
       R.Member.List(data).then(resp => {
-        this.datas = resp.data.members.data;
-        this.pagination.total = resp.data.members.total;
+        this.datas = resp.data.data.data;
+        this.pagination.total = resp.data.data.total;
         this.loading = false;
         this.roles = resp.data.roles;
         this.tags = resp.data.tags;
+        this.userRemarks = resp.data.user_remarks;
       });
     },
     create() {
@@ -244,6 +267,26 @@ export default {
           datas: {
             id: item.id,
             tags: item.tags
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            modal.close();
+            this.getData();
+          }
+        }
+      });
+    },
+    showRemark(item) {
+      this.$Modal({
+        closeOnMask: false,
+        hasCloseIcon: true,
+        component: {
+          vue: resolve => {
+            require(['./remark'], resolve);
+          },
+          datas: {
+            id: item.id
           }
         },
         events: {

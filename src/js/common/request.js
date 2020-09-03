@@ -258,6 +258,12 @@ const Request = {
     Tags(param) {
       return Ajax.putJson('/member/' + param.id + '/tags', param);
     },
+    Remark(param) {
+      return Ajax.get('/member/' + param.id + '/remark', param);
+    },
+    RemarkUpdate(param) {
+      return Ajax.putJson('/member/' + param.id + '/remark', param);
+    },
   },
   Course: {
     List(param) {

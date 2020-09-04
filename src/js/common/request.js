@@ -1,6 +1,26 @@
 import Ajax from './ajax';
 
 const Request = {
+  MpWechatMessageReply: {
+    List(param) {
+      return Ajax.get('/mpWechatMessageReply', param);
+    },
+    Create(param) {
+      return Ajax.get('/mpWechatMessageReply/create', param);
+    },
+    Store(param) {
+      return Ajax.postJson('/mpWechatMessageReply', param);
+    },
+    Edit(param) {
+      return Ajax.get('/mpWechatMessageReply/' + param.id);
+    },
+    Update(param) {
+      return Ajax.putJson('/mpWechatMessageReply/' + param.id, param);
+    },
+    Delete(param) {
+      return Ajax.delete('/mpWechatMessageReply/' + param.id, param);
+    }
+  },
   Dashboard: {
     index() {
       return Ajax.get('/dashboard');

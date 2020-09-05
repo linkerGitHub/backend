@@ -1,6 +1,17 @@
 import Ajax from './ajax';
 
 const Request = {
+  MpWecaht: {
+    Menu(param) {
+      return Ajax.get('/mpWechat/menu', param);
+    },
+    MenuUpdate(param) {
+      return Ajax.putJson('/mpWechat/menu', param);
+    },
+    MenuEmpty(param) {
+      return Ajax.delete('/mpWechat/menu', param);
+    }
+  },
   MpWechatMessageReply: {
     List(param) {
       return Ajax.get('/mpWechatMessageReply', param);

@@ -14,13 +14,13 @@
         ></p-button>
       </div>
       <Table :loading="loading" :datas="datas">
-        <TableItem prop="platform" title="平台"></TableItem>
+        <TableItem prop="platform" title="平台" :width="80"></TableItem>
+        <TableItem prop="sort" title="排序" :width="80"></TableItem>
         <TableItem title="封面">
           <template slot-scope="{data}">
             <img :src="data.thumb" width="120" height="60" />
           </template>
         </TableItem>
-        <TableItem prop="sort" title="排序"></TableItem>
         <TableItem prop="url" title="URL"></TableItem>
         <TableItem title="操作" align="center" :width="200">
           <template slot-scope="{ data }">
@@ -46,12 +46,9 @@ export default {
     };
   },
   mounted() {
-    this.init();
+    this.getData(true);
   },
   methods: {
-    init() {
-      this.getData(true);
-    },
     changePage() {
       this.getData();
     },
@@ -82,7 +79,7 @@ export default {
     remove(data, item) {
       R.Slider.Delete({ id: item.id }).then(resp => {
         HeyUI.$Message.success('成功');
-        this.getData(true);
+        this.getData();
       });
     },
     edit(item) {

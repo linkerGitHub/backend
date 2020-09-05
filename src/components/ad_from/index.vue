@@ -52,7 +52,7 @@ export default {
     return {
       pagination: {
         page: 1,
-        size: 20,
+        size: 10,
         total: 0
       },
       datas: [],
@@ -60,12 +60,9 @@ export default {
     };
   },
   mounted() {
-    this.init();
+    this.getData(true);
   },
   methods: {
-    init() {
-      this.getData(true);
-    },
     changePage() {
       this.getData();
     },
@@ -77,13 +74,12 @@ export default {
       R.AdFrom.List(this.pagination).then(resp => {
         this.datas = resp.data.data;
         this.pagination.total = resp.data.total;
-        this.pagination.page = resp.data.current_page;
-        this.pagination.size = resp.data.per_page;
         this.loading = false;
       });
     },
     create() {
       this.$Modal({
+        hasCloseIcon: true,
         closeOnMask: false,
         component: {
           vue: resolve => {
@@ -92,10 +88,8 @@ export default {
         },
         events: {
           success: (modal, data) => {
-            R.AdFrom.Store(data).then(resp => {
-              HeyUI.$Message.success('成功');
-              this.getData(true);
-            });
+            modal.close();
+            this.getData(true);
           }
         }
       });
@@ -103,11 +97,12 @@ export default {
     remove(data, item) {
       R.AdFrom.Delete({ id: item.id }).then(resp => {
         HeyUI.$Message.success('成功');
-        this.getData(true);
+        this.getData();
       });
     },
     edit(item) {
       this.$Modal({
+        hasCloseIcon: true,
         closeOnMask: false,
         component: {
           vue: resolve => {
@@ -119,16 +114,15 @@ export default {
         },
         events: {
           success: (modal, data) => {
-            R.AdFrom.Update(data).then(resp => {
-              HeyUI.$Message.success('成功');
-              this.getData(true);
-            });
+            modal.close();
+            this.getData();
           }
         }
       });
     },
     goNumber(item) {
       this.$Modal({
+        hasCloseIcon: true,
         closeOnMask: false,
         component: {
           vue: resolve => {

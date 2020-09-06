@@ -58,20 +58,13 @@
 <script>
 export default {
   data() {
-    return {
-      pagination: {
-        page: 1,
-        size: 20,
-        total: 0
-      },
-      datas: [],
-      loading: false
-    };
+    return {};
   },
   methods: {
     showPage(page) {
       this.$Modal({
         closeOnMask: false,
+        hasCloseIcon: true,
         component: {
           vue: resolve => {
             require(['./' + page], resolve);

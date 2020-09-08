@@ -1,8 +1,8 @@
 <style lang="less"></style>
 <template>
-  <div class="table-basic-vue frame-page h-panel h-panel-margin-0 w-800">
+  <div class="h-panel w-800">
     <div class="h-panel-bar">
-      <span class="h-panel-title">创建用户</span>
+      <span class="h-panel-title">新建</span>
     </div>
     <div class="h-panel-body">
       <Form

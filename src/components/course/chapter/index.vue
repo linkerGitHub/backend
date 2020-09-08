@@ -1,7 +1,7 @@
 <template>
   <div class="h-panel">
     <div class="h-panel-bar">
-      <span class="h-panel-title">课程《{{ course.title }}》</span>
+      <span class="h-panel-title">章节</span>
     </div>
     <div class="h-panel-body">
       <div class="mb-10">
@@ -14,8 +14,8 @@
         ></p-button>
       </div>
       <Table :loading="loading" :datas="datas">
-        <TableItem :width="70" prop="sort" title="升序"></TableItem>
-        <TableItem :witdth="400" prop="title" title="章节名"></TableItem>
+        <TableItem :width="80" prop="sort" title="升序"></TableItem>
+        <TableItem :witdth="400" prop="title" title="章节"></TableItem>
         <TableItem title="操作" align="center" :width="200">
           <template slot-scope="{ data }">
             <p-del-button permission="course_chapter.destroy" @click="remove(datas, data)"></p-del-button>
@@ -63,6 +63,7 @@ export default {
     create() {
       this.$Modal({
         closeOnMask: false,
+        hasCloseIcon: true,
         component: {
           vue: resolve => {
             require(['./create'], resolve);
@@ -74,10 +75,7 @@ export default {
         events: {
           success: (modal, data) => {
             modal.close();
-            R.CourseChapter.Create(data).then(resp => {
-              HeyUI.$Message.success('成功');
-              this.getData(true);
-            });
+            this.getData(true);
           }
         }
       });
@@ -91,6 +89,7 @@ export default {
     edit(item) {
       this.$Modal({
         closeOnMask: false,
+        hasCloseIcon: true,
         component: {
           vue: resolve => {
             require(['./edit'], resolve);
@@ -103,10 +102,7 @@ export default {
         events: {
           success: (modal, data) => {
             modal.close();
-            R.CourseChapter.Update(data).then(resp => {
-              HeyUI.$Message.success('成功');
-              this.getData(true);
-            });
+            this.getData();
           }
         }
       });

@@ -3,15 +3,14 @@
   <div class>
     <div class="h-panel">
       <div class="h-panel-bar">
-        <span class="h-panel-title">编辑课程章节</span>
+        <span class="h-panel-title">编辑</span>
       </div>
       <div class="h-panel-body">
         <Form
-          v-width="400"
           ref="form"
+          mode="block"
           :validOnChange="true"
           :showErrorTip="true"
-          :labelWidth="110"
           :rules="rules"
           :model="chapter"
         >
@@ -21,11 +20,10 @@
           </FormItem>
           <FormItem label="升序" prop="sort">
             <template v-slot:label>升序</template>
-            <input type="number" v-model="chapter.sort" />
+            <input type="number" v-model="chapter.sort" min="0" />
           </FormItem>
           <FormItem>
             <Button color="primary" @click="create">保存</Button>
-            <Button @click="close">取消</Button>
           </FormItem>
         </Form>
       </div>
@@ -58,19 +56,16 @@ export default {
         this.chapter = resp.data;
       });
     },
-    back() {
-      this.$router.push({ name: 'CourseChapter', params: { cid: this.course.id } });
-    },
     create() {
       let validResult = this.$refs.form.valid();
       if (validResult.result) {
         let data = this.chapter;
         data.course_id = this.course.id;
-        this.$emit('success', data);
+        R.CourseChapter.Update(data).then(resp => {
+          HeyUI.$Message.success('成功');
+          this.$emit('success');
+        });
       }
-    },
-    close() {
-      this.$emit('close');
     }
   }
 };

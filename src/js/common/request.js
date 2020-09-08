@@ -1,6 +1,37 @@
 import Ajax from './ajax';
 
 const Request = {
+  MpWecaht: {
+    Menu(param) {
+      return Ajax.get('/mpWechat/menu', param);
+    },
+    MenuUpdate(param) {
+      return Ajax.putJson('/mpWechat/menu', param);
+    },
+    MenuEmpty(param) {
+      return Ajax.delete('/mpWechat/menu', param);
+    }
+  },
+  MpWechatMessageReply: {
+    List(param) {
+      return Ajax.get('/mpWechatMessageReply', param);
+    },
+    Create(param) {
+      return Ajax.get('/mpWechatMessageReply/create', param);
+    },
+    Store(param) {
+      return Ajax.postJson('/mpWechatMessageReply', param);
+    },
+    Edit(param) {
+      return Ajax.get('/mpWechatMessageReply/' + param.id);
+    },
+    Update(param) {
+      return Ajax.putJson('/mpWechatMessageReply/' + param.id, param);
+    },
+    Delete(param) {
+      return Ajax.delete('/mpWechatMessageReply/' + param.id, param);
+    }
+  },
   Dashboard: {
     index() {
       return Ajax.get('/dashboard');
@@ -196,6 +227,9 @@ const Request = {
     List(param) {
       return Ajax.get('/order', param);
     },
+    Detail(param) {
+      return Ajax.get('/order/' + param.id, param);
+    },
     Finish(param) {
       return Ajax.get('/order/' + param.id + '/finish', param);
     }
@@ -251,7 +285,16 @@ const Request = {
     },
     Credit1Change(param) {
       return Ajax.postJson('/member/credit1/change', param);
-    }
+    },
+    Tags(param) {
+      return Ajax.putJson('/member/' + param.id + '/tags', param);
+    },
+    Remark(param) {
+      return Ajax.get('/member/' + param.id + '/remark', param);
+    },
+    RemarkUpdate(param) {
+      return Ajax.putJson('/member/' + param.id + '/remark', param);
+    },
   },
   Course: {
     List(param) {
@@ -275,8 +318,17 @@ const Request = {
     Delete(param) {
       return Ajax.delete('/course/' + param.id, param);
     },
-    SubscribeUsers(param) {
-      return Ajax.get('/course/' + param.id + '/subscribe/users', param);
+    WatchRecords(param) {
+      return Ajax.get('/course/' + param.id + '/watch/records', param);
+    },
+    Subscribes(param) {
+      return Ajax.get('/course/' + param.course_id + '/subscribes', param);
+    },
+    SubscribeDelete(param) {
+      return Ajax.get('/course/' + param.course_id + '/subscribe/delete', param);
+    },
+    SubscribeCreate(param) {
+      return Ajax.postJson('/course/' + param.course_id + '/subscribe/create', param);
     }
   },
   CourseAttach: {
@@ -311,6 +363,18 @@ const Request = {
     },
     MultiDelete(param) {
       return Ajax.post('/video/delete/multi', param);
+    },
+    Subscribes(param) {
+      return Ajax.get('/video/' + param.video_id + '/subscribes', param);
+    },
+    SubscribeCreate(param) {
+      return Ajax.postJson('/video/' + param.video_id + '/subscribe/create', param);
+    },
+    SubscribeDelete(param) {
+      return Ajax.get('/video/' + param.video_id + '/subscribe/delete', param);
+    },
+    WatchRecords(param) {
+      return Ajax.get('/video/' + param.video_id + '/watch/records', param);
     }
   },
   CourseChapter: {

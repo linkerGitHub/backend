@@ -247,6 +247,16 @@ const initRouter = () => {
         component: (resolve) => require(['components/extentions/snapshot/index'], resolve),
         meta: { title: '照片 - 随机拍照' }
       }, {
+        path: '/mpWechatMessageReply',
+        name: 'mpWechatMessageReply',
+        component: (resolve) => require(['components/mp_wechat_message_reply/index'], resolve),
+        meta: { title: '微信公众号消息回复' }
+      }, {
+        path: '/mpWechatMenu',
+        name: 'mpWechatMenu',
+        component: (resolve) => require(['components/mp_wechat/menu'], resolve),
+        meta: { title: '微信公众号菜单' }
+      }, {
         path: '/system-error',
         name: 'SystemError',
         component: (resolve) => require(['components/error-pages/500'], resolve),

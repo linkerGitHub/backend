@@ -55,6 +55,12 @@
           text="讲师"
           @click="showTeacherPage()"
         ></p-button>
+        <p-button
+          glass="h-btn h-btn-primary"
+          permission="addons.Zhibo.course_comment"
+          text="评论"
+          @click="showCourseCommentPage()"
+        ></p-button>
 
         <p-button
           glass="h-btn h-btn-primary"
@@ -263,6 +269,17 @@ export default {
         component: {
           vue: resolve => {
             require(['../teacher/index'], resolve);
+          }
+        }
+      });
+    },
+    showCourseCommentPage() {
+      this.$Modal({
+        hasCloseIcon: true,
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['../course_comment/index'], resolve);
           }
         }
       });

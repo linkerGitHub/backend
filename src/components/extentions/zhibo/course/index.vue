@@ -4,11 +4,11 @@
       <span class="h-panel-title">直播课程</span>
     </div>
     <div class="h-panel-body">
-      <div class="mb-10">
+      <div class="float-box mb-10">
         <p-button
           glass="h-btn h-btn-primary"
           permission="addons.Zhibo.course_category.list"
-          text="课程分类"
+          text="分类"
           @click="showCategoryPage()"
         ></p-button>
 
@@ -27,65 +27,69 @@
           @click="create()"
         ></p-button>
       </div>
-      <Table :loading="loading" :datas="datas">
-        <TableItem prop="id" title="ID" :width="80"></TableItem>
-        <TableItem title="分类">
-          <template slot-scope="{ data }">
-            <span v-if="data.category">{{data.category.name}}</span>
-            <span v-else class="red">已删除</span>
-          </template>
-        </TableItem>
-        <TableItem prop="title" title="课程名"></TableItem>
-        <TableItem prop="charge" title="价格" unit="元"></TableItem>
-        <TableItem prop="published_at" title="上线时间"></TableItem>
-        <TableItem prop="views_times" title="浏览次数" :width="100" unit="次"></TableItem>
-        <TableItem prop="join_user_times" title="学员" :width="100" unit="人"></TableItem>
-        <TableItem title="显示" :width="50">
-          <template slot-scope="{ data }">
-            <span v-if="data.is_show === 1">是</span>
-            <span v-else>否</span>
-          </template>
-        </TableItem>
-        <TableItem title="会员免费" :width="50">
-          <template slot-scope="{ data }">
-            <span v-if="data.vip_can_view === 1">是</span>
-            <span v-else>否</span>
-          </template>
-        </TableItem>
-        <TableItem title="操作" align="center" :width="300">
-          <template slot-scope="{ data }">
-            <p-del-button permission="addons.Zhibo.course.delete" @click="remove(datas, data)"></p-del-button>
-            <p-button
-              glass="h-btn h-btn-s h-btn-primary"
-              permission="addons.Zhibo.course.update"
-              text="编辑"
-              @click="edit(data)"
-            ></p-button>
+      <div class="float-box mb-10">
+        <Table :loading="loading" :datas="datas">
+          <TableItem prop="id" title="ID" :width="80"></TableItem>
+          <TableItem title="分类">
+            <template slot-scope="{ data }">
+              <span v-if="data.category">{{data.category.name}}</span>
+              <span v-else class="red">已删除</span>
+            </template>
+          </TableItem>
+          <TableItem prop="title" title="课程名"></TableItem>
+          <TableItem prop="charge" title="价格" unit="元" :width="80"></TableItem>
+          <TableItem prop="published_at" title="上线时间" :width="120"></TableItem>
+          <TableItem prop="views_times" title="浏览次数" :width="100" unit="次"></TableItem>
+          <TableItem prop="join_user_times" title="学员" :width="100" unit="人"></TableItem>
+          <TableItem title="显示" :width="50">
+            <template slot-scope="{ data }">
+              <span v-if="data.is_show === 1">是</span>
+              <span v-else>否</span>
+            </template>
+          </TableItem>
+          <TableItem title="会员免费" :width="50">
+            <template slot-scope="{ data }">
+              <span v-if="data.vip_can_view === 1">是</span>
+              <span v-else>否</span>
+            </template>
+          </TableItem>
+          <TableItem title="操作" align="center" :width="300">
+            <template slot-scope="{ data }">
+              <p-del-button permission="addons.Zhibo.course.delete" @click="remove(datas, data)"></p-del-button>
+              <p-button
+                glass="h-btn h-btn-s h-btn-primary"
+                permission="addons.Zhibo.course.update"
+                text="编辑"
+                @click="edit(data)"
+              ></p-button>
 
-            <p-button
-              glass="h-btn h-btn-s h-btn-primary"
-              permission="addons.Zhibo.course_chapter.list"
-              text="章节"
-              @click="goChapters(data)"
-            ></p-button>
+              <p-button
+                glass="h-btn h-btn-s h-btn-primary"
+                permission="addons.Zhibo.course_chapter.list"
+                text="章节"
+                @click="goChapters(data)"
+              ></p-button>
 
-            <p-button
-              glass="h-btn h-btn-s h-btn-primary"
-              permission="addons.Zhibo.course_video.list"
-              text="内容安排"
-              @click="goVideosPage(data)"
-            ></p-button>
-          </template>
-        </TableItem>
-      </Table>
+              <p-button
+                glass="h-btn h-btn-s h-btn-primary"
+                permission="addons.Zhibo.course_video.list"
+                text="内容安排"
+                @click="goVideosPage(data)"
+              ></p-button>
+            </template>
+          </TableItem>
+        </Table>
+      </div>
 
-      <Pagination
-        class="mt-10"
-        v-if="pagination.total > 0"
-        align="right"
-        v-model="pagination"
-        @change="changePage"
-      />
+      <div class="float-box mb-10">
+        <Pagination
+          class="mt-10"
+          v-if="pagination.total > 0"
+          align="right"
+          v-model="pagination"
+          @change="changePage"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -104,12 +108,9 @@ export default {
     };
   },
   mounted() {
-    this.init();
+    this.getData();
   },
   methods: {
-    init() {
-      this.getData();
-    },
     changePage() {
       this.getData();
     },

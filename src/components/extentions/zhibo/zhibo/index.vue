@@ -4,58 +4,69 @@
       <span class="h-panel-title">开始直播</span>
     </div>
     <div class="h-panel-body">
-      <Form v-width="400" mode="block">
-        <FormItem label="课程">
-          <template v-slot:label>课程</template>
-          <Select
-            v-model="course_id"
-            :datas="courses"
-            keyName="id"
-            titleName="title"
-            :filterable="true"
-          ></Select>
-        </FormItem>
-        <FormItem label="课程安排">
-          <template v-slot:label>课程安排</template>
-          <Select
-            v-model="video_id"
-            :datas="videos[course_id]"
-            keyName="id"
-            titleName="title"
-            :filterable="true"
-          ></Select>
-        </FormItem>
-        <FormItem label="直播服务商">
-          <template v-slot:label>直播服务商</template>
-          <Select v-model="service" :datas="services" keyName="id" titleName="title"></Select>
-        </FormItem>
-        <FormItem>
-          <p-button
-            glass="h-btn h-btn-primary"
-            permission="addons.Zhibo.zhibo.open"
-            text="开始直播"
-            @click="create()"
-          ></p-button>
-        </FormItem>
-      </Form>
+      <div class="float-box mb-10">
+        <Form>
+          <Row :space="10">
+            <Cell :width="6">
+              <FormItem label="课程">
+                <Select
+                  v-model="course_id"
+                  :datas="courses"
+                  keyName="id"
+                  titleName="title"
+                  :filterable="true"
+                ></Select>
+              </FormItem>
+            </Cell>
+            <Cell :width="6">
+              <FormItem label="课程安排">
+                <Select
+                  v-model="video_id"
+                  :datas="videos[course_id]"
+                  keyName="id"
+                  titleName="title"
+                  :filterable="true"
+                ></Select>
+              </FormItem>
+            </Cell>
+            <Cell :width="6">
+              <FormItem label="服务商">
+                <Select v-model="service" :datas="services" keyName="id" titleName="title"></Select>
+              </FormItem>
+            </Cell>
+            <Cell :width="6">
+              <FormItem>
+                <p-button
+                  glass="h-btn h-btn-primary"
+                  permission="addons.Zhibo.zhibo.open"
+                  text="开始直播"
+                  @click="create()"
+                ></p-button>
+              </FormItem>
+            </Cell>
+          </Row>
+        </Form>
+      </div>
 
-      <div class="mt-10" v-if="push_url">
-        <div class="h-input-group mb-10" v-width="500">
-          <span class="h-input-addon">推流地址</span>
-          <input type="text" v-model="push_url" />
-          <Button color="primary" @click="$Clipboard({text: push_url})">复制</Button>
+      <template v-if="push_url">
+        <div class="float-box mb-10">
+          <div class="h-input-group mb-10">
+            <span class="h-input-addon">推流地址</span>
+            <input type="text" v-model="push_url" />
+            <Button color="primary" @click="$Clipboard({text: push_url})">复制</Button>
+          </div>
+          <div class="h-input-group mb-10">
+            <span class="h-input-addon">OBS服务器</span>
+            <input type="text" v-model="obs.server" />
+            <Button color="primary" @click="$Clipboard({text: obs.server})">复制</Button>
+          </div>
+          <div class="h-input-group mb-10">
+            <span class="h-input-addon">OBS串流密钥</span>
+            <input type="text" v-model="obs.token" />
+            <Button color="primary" @click="$Clipboard({text: obs.token})">复制</Button>
+          </div>
         </div>
-        <div class="h-input-group mb-10" v-width="500">
-          <span class="h-input-addon">OBS服务器</span>
-          <input type="text" v-model="obs.server" />
-          <Button color="primary" @click="$Clipboard({text: obs.server})">复制</Button>
-        </div>
-        <div class="h-input-group mb-10" v-width="500">
-          <span class="h-input-addon">OBS串流密钥</span>
-          <input type="text" v-model="obs.token" />
-          <Button color="primary" @click="$Clipboard({text: obs.token})">复制</Button>
-        </div>
-        <div class="mb-10">
+        <div class="float-box mb-10">
           <p-button
             glass="h-btn h-btn-primary"
             permission="addons.Zhibo.zhibo.pause"
@@ -84,7 +95,7 @@
             @click="resumeChat()"
           ></p-button>
         </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>

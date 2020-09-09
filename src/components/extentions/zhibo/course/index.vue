@@ -5,6 +5,43 @@
     </div>
     <div class="h-panel-body">
       <div class="float-box mb-10">
+        <Form>
+          <Row :space="10">
+            <Cell :width="6">
+              <FormItem label="分类" prop="category_id">
+                <Select
+                  v-model="filter.category_id"
+                  :datas="categories"
+                  keyName="id"
+                  titleName="name"
+                  :filterable="true"
+                ></Select>
+              </FormItem>
+            </Cell>
+            <Cell :width="6">
+              <FormItem label="讲师" prop="teacher_id">
+                <Select
+                  v-model="filter.teacher_id"
+                  :datas="teachers"
+                  keyName="id"
+                  titleName="name"
+                  :filterable="true"
+                ></Select>
+              </FormItem>
+            </Cell>
+            <Cell :width="6">
+              <FormItem label="搜索" prop="title">
+                <input type="text" v-model="filter.keywords" placeholder="请输入关键字" />
+              </FormItem>
+            </Cell>
+            <Cell :width="6">
+              <Button color="primary" @click="getData()">过滤</Button>
+              <Button @click="reset">重置</Button>
+            </Cell>
+          </Row>
+        </Form>
+      </div>
+      <div class="float-box mb-10">
         <p-button
           glass="h-btn h-btn-primary"
           permission="addons.Zhibo.course_category.list"
@@ -33,6 +70,12 @@
           <TableItem title="分类">
             <template slot-scope="{ data }">
               <span v-if="data.category">{{data.category.name}}</span>
+              <span v-else class="red">已删除</span>
+            </template>
+          </TableItem>
+          <TableItem title="讲师">
+            <template slot-scope="{ data }">
+              <span v-if="data.teacher">{{data.teacher.name}}</span>
               <span v-else class="red">已删除</span>
             </template>
           </TableItem>
@@ -104,13 +147,28 @@ export default {
         total: 0,
         keywords: ''
       },
-      loading: false
+      filter: {
+        teacher_id: null,
+        category_id: null,
+        keywords: null
+      },
+      loading: false,
+      teachers: [],
+      categories: []
     };
   },
   mounted() {
     this.getData();
   },
   methods: {
+    reset() {
+      this.filter = {
+        teacher_id: null,
+        category_id: null,
+        keywords: null
+      };
+      this.getData(true);
+    },
     changePage() {
       this.getData();
     },
@@ -120,9 +178,13 @@ export default {
         this.keywords = '';
       }
       this.loading = true;
-      R.Extentions.zhibo.Course.List(this.pagination).then(resp => {
-        this.datas = resp.data.data;
-        this.pagination.total = resp.data.total;
+      let data = this.pagination;
+      Object.assign(data, this.filter);
+      R.Extentions.zhibo.Course.List(data).then(resp => {
+        this.datas = resp.data.data.data;
+        this.pagination.total = resp.data.data.total;
+        this.teachers = resp.data.teachers;
+        this.categories = resp.data.categories;
         this.loading = false;
       });
     },

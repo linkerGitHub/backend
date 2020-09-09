@@ -1307,8 +1307,11 @@ const Request = {
         List(param) {
           return Ajax.get('/backend/addons/zhibo/course_comment', param);
         },
+        Check(param) {
+          return Ajax.postJson('/backend/addons/zhibo/course_comment/check', param);
+        },
         Delete(param) {
-          return Ajax.delete('/backend/addons/zhibo/course_comment/' + param.id, param);
+          return Ajax.postJson('/backend/addons/zhibo/course_comment/delete', param);
         }
       },
       CourseChat: {

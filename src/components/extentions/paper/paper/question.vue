@@ -1,4 +1,26 @@
 <style lang="less" scoped>
+.banner {
+  text-align: center;
+
+  .title {
+    width: 100%;
+    height: auto;
+    float: left;
+    font-size: 18px;
+    line-height: 40px;
+  }
+
+  .value {
+    width: 100%;
+    height: auto;
+    float: left;
+    font-size: 24px;
+    font-weight: 600;
+    color: #000;
+    line-height: 64px;
+  }
+}
+
 .paper-quesiton {
   width: 100%;
   height: 500px;
@@ -90,6 +112,18 @@
     </div>
     <div class="h-panel-body">
       <div class="float-box mb-10">
+        <Row>
+          <Cell :width="12" class="banner">
+            <div class="title">总分</div>
+            <div class="value">{{totalScore}}分</div>
+          </Cell>
+          <Cell :width="12" class="banner">
+            <div class="title">试题</div>
+            <div class="value">{{data.length}}道</div>
+          </Cell>
+        </Row>
+      </div>
+      <div class="float-box mb-10">
         <Row :space="30">
           <Cell :width="12">
             <div class="paper-quesiton">
@@ -154,6 +188,15 @@ export default {
   },
   mounted() {
     this.getData();
+  },
+  computed: {
+    totalScore() {
+      let score = 0;
+      for (let i = 0; i < this.data.length; i++) {
+        score += this.data[i].score;
+      }
+      return score;
+    }
   },
   methods: {
     categoryChange() {

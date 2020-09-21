@@ -76,8 +76,8 @@
           </TableItem>
           <TableItem title="参与规则" :width="80">
             <template slot-scope="{ data }">
-              <span v-if="data.enabled_invite === 1">仅邀请</span>
-              <span v-else-if="data.is_free === 1">免费</span>
+              <span class="blue" v-if="data.enabled_invite === 1">仅邀请</span>
+              <span class="red" v-else-if="data.is_free === 1">免费</span>
               <span v-else-if="data.charge > 0">￥{{data.charge}}</span>
               <span
                 v-else

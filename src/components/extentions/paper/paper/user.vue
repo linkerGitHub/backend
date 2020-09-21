@@ -1,13 +1,12 @@
 <template>
-  <div class="table-basic-vue frame-page h-panel" style="width: 800px">
+  <div class="h-panel w-800">
     <div class="h-panel-bar">
-      <span class="h-panel-title">考试用户</span>
+      <span class="h-panel-title">参与用户</span>
     </div>
     <div class="h-panel-body">
-      <div>
+      <div class="float-box mb-10">
         <Form mode="block">
-          <FormItem>
-            <template v-slot:label>添加用户</template>
+          <FormItem label="添加用户">
             <textarea v-model="mobiles" placeholder="一行一个手机号"></textarea>
           </FormItem>
           <FormItem>
@@ -17,7 +16,6 @@
               text="添加"
               @click="userAdd()"
             ></p-button>
-
             <a
               :href="'/backend/addons/Paper/paper/'+id+'/user/export?token='+token"
               target="_blank"
@@ -26,39 +24,43 @@
           </FormItem>
         </Form>
       </div>
-      <Table ref="table" :loading="loading" :datas="datas">
-        <TableItem title="用户">
-          <template slot-scope="{ data }">
-            <span>{{data.user.nick_name}}</span>
-          </template>
-        </TableItem>
-        <TableItem title="最大分数">
-          <template slot-scope="{ data }">
-            <span>{{typeof userScores[data.user.id] === 'undefined' ? 0 : userScores[data.user.id]}}分</span>
-          </template>
-        </TableItem>
-        <TableItem title="是否及格">
-          <template slot-scope="{ data }">
-            <span v-if="typeof userScores[data.user.id] === 'undefined'">否</span>
-            <span v-else>{{userScores[data.user.id] >= passScore ? '是' : '否' }}</span>
-          </template>
-        </TableItem>
-        <TableItem title="操作" align="center" :width="200">
-          <template slot-scope="{ data }">
-            <Poptip content="确认删除？" @confirm="remove(data)">
-              <button class="h-btn h-btn-s h-btn-red">删除</button>
-            </Poptip>
-          </template>
-        </TableItem>
-      </Table>
+      <div class="float-box mb-10">
+        <Table ref="table" :loading="loading" :datas="datas">
+          <TableItem title="用户">
+            <template slot-scope="{ data }">
+              <span>{{data.user.nick_name}}</span>
+            </template>
+          </TableItem>
+          <TableItem title="分数">
+            <template slot-scope="{ data }">
+              <span>{{typeof userScores[data.user.id] === 'undefined' ? 0 : userScores[data.user.id]}}分</span>
+            </template>
+          </TableItem>
+          <TableItem title="及格">
+            <template slot-scope="{ data }">
+              <span v-if="typeof userScores[data.user.id] === 'undefined'">否</span>
+              <span v-else>{{userScores[data.user.id] >= passScore ? '是' : '否' }}</span>
+            </template>
+          </TableItem>
+          <TableItem title="操作" align="center" :width="200">
+            <template slot-scope="{ data }">
+              <Poptip content="确认删除？" @confirm="remove(data)">
+                <button class="h-btn h-btn-s h-btn-red">删除</button>
+              </Poptip>
+            </template>
+          </TableItem>
+        </Table>
+      </div>
 
-      <Pagination
-        class="mt-10"
-        v-if="pagination.total > 0"
-        align="right"
-        v-model="pagination"
-        @change="changePage"
-      />
+      <div class="float-box mb-10">
+        <Pagination
+          class="mt-10"
+          v-if="pagination.total > 0"
+          align="right"
+          v-model="pagination"
+          @change="changePage"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -69,7 +71,7 @@ export default {
     return {
       pagination: {
         page: 1,
-        size: 20,
+        size: 10,
         total: 0
       },
       datas: [],
@@ -81,13 +83,10 @@ export default {
     };
   },
   mounted() {
-    this.init();
+    this.getData();
     this.token = Utils.getLocal('token');
   },
   methods: {
-    init() {
-      this.getData();
-    },
     changePage() {
       this.getData();
     },

@@ -1311,6 +1311,7 @@ const Request = {
           return Ajax.postJson('/backend/addons/zhibo/course_comment/check', param);
         },
         Delete(param) {
+
           return Ajax.postJson('/backend/addons/zhibo/course_comment/delete', param);
         }
       },
@@ -1447,6 +1448,9 @@ const Request = {
       Images: {
         Index(param) {
           return Ajax.get('/backend/addons/Snapshot/images', param);
+        },
+        Delete(param) {
+          return Ajax.postJson('/backend/addons/Snapshot/images/delete/multi', param);
         },
       }
     }

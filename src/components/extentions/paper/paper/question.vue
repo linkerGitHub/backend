@@ -93,7 +93,7 @@
         <Row :space="30">
           <Cell :width="12">
             <div class="paper-quesiton">
-              <div class="title">已选择试题(点击试题可删除)</div>
+              <div class="title">已选择{{data.length}}试题(点击试题可删除)</div>
               <div
                 class="paper-item"
                 @click="deleteQuestion(question)"

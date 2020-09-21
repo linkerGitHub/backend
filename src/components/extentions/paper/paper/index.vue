@@ -30,7 +30,7 @@
 
       <div class="mb-10">
         <p-button
-          glass="h-btn h-btn-primary"
+          glass="h-btn h-btn-s h-btn-primary"
           icon="h-icon-plus"
           permission="addons.Paper.paper.store"
           text="添加"
@@ -38,7 +38,7 @@
         ></p-button>
 
         <p-button
-          glass="h-btn h-btn-primary"
+          glass="h-btn h-btn-s h-btn-primary"
           permission="addons.Paper.paper_category.list"
           text="分类"
           @click="showCategoriesPage()"

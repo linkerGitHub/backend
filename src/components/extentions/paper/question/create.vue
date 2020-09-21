@@ -1,5 +1,5 @@
 <template>
-  <div class="table-basic-vue frame-page h-panel w-800">
+  <div class="h-panel w-800">
     <div class="h-panel-bar">
       <span class="h-panel-title">添加试题</span>
     </div>

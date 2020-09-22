@@ -4,26 +4,34 @@
       <span class="h-panel-title">练习</span>
     </div>
     <div class="h-panel-body">
-      <Form ref="form" :labelWidth="110">
-        <FormItem label="分类" prop="category_id">
-          <template v-slot:label>分类</template>
-          <Select
-            v-model="pagination.category_id"
-            :datas="categories"
-            keyName="id"
-            titleName="name"
-            :filterable="true"
-          ></Select>
-        </FormItem>
-        <FormItem label="名称搜索" prop="key">
-          <template v-slot:label>名称搜索</template>
-          <input type="text" v-model="pagination.key" placeholder="名称搜索" />
-        </FormItem>
-        <FormItem>
-          <Button color="primary" @click="getData(true)">过滤</Button>
-          <Button @click="resetFilter()">重置</Button>
-        </FormItem>
-      </Form>
+      <div class="float-box mb-10">
+        <Form>
+          <Row :space="10">
+            <Cell :width="6">
+              <FormItem label="分类">
+                <Select
+                  v-model="filer.category_id"
+                  :datas="categories"
+                  keyName="id"
+                  titleName="name"
+                  :filterable="true"
+                ></Select>
+              </FormItem>
+            </Cell>
+            <Cell :width="6">
+              <FormItem label="搜索" prop="key">
+                <input type="text" v-model="filer.key" placeholder="搜索" />
+              </FormItem>
+            </Cell>
+            <Cell :width="6">
+              <FormItem>
+                <Button color="primary" @click="getData(true)">过滤</Button>
+                <Button @click="resetFilter()">重置</Button>
+              </FormItem>
+            </Cell>
+          </Row>
+        </Form>
+      </div>
 
       <div class="mb-10">
         <p-button
@@ -53,17 +61,17 @@
           </template>
         </TableItem>
         <TableItem prop="name" title="练习名"></TableItem>
-        <TableItem title="免费" align="center" :width="80">
-          <template slot-scope="{ data }">
-            <span>{{data.is_free === 1 ? '是' : '否'}}</span>
-          </template>
-        </TableItem>
         <TableItem title="VIP免费" align="center" :width="80">
           <template slot-scope="{ data }">
             <span>{{data.is_vip_free === 1 ? '是' : '否'}}</span>
           </template>
         </TableItem>
-        <TableItem prop="charge" title="价格" unit="元" :width="120" :sort="true"></TableItem>
+        <TableItem title="价格" :width="120">
+          <template slot-scope="{ data }">
+            <span v-if="data.is_free === 1" class="red">免费</span>
+            <span v-else>￥{{data.charge}}</span>
+          </template>
+        </TableItem>
         <TableItem title="操作" align="center" :width="200">
           <template slot-scope="{ data }">
             <p-button
@@ -90,7 +98,9 @@ export default {
     return {
       pagination: {
         page: 1,
-        size: 10,
+        size: 10
+      },
+      filer: {
         category_id: null,
         key: null,
         sort: null,
@@ -109,14 +119,12 @@ export default {
       this.getData();
     },
     sortEvt(sort) {
-      this.pagination.order = sort.prop;
-      this.pagination.sort = sort.type;
+      this.filer.order = sort.prop;
+      this.filer.sort = sort.type;
       this.getData(true);
     },
     resetFilter() {
-      this.pagination = {
-        page: 1,
-        size: 10,
+      this.filer = {
         category_id: null,
         key: null,
         sort: null,
@@ -129,7 +137,9 @@ export default {
         this.pagination.page = 1;
       }
       this.loading = true;
-      R.Extentions.paper.Practice.List(this.pagination).then(resp => {
+      let data = this.pagination;
+      Object.assign(data, this.filer);
+      R.Extentions.paper.Practice.List(data).then(resp => {
         this.datas = resp.data.data.data;
         this.loading = false;
         this.categories = resp.data.categories;

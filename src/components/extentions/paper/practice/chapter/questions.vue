@@ -1,55 +1,141 @@
+<style lang="less" scoped>
+.paper-quesiton {
+  width: 100%;
+  height: 500px;
+  float: left;
+  overflow-y: auto;
+  border: 1px solid #aaa;
+  padding: 15px;
+
+  .paper-item {
+    width: 100%;
+    height: auto;
+    float: left;
+    background-color: rgba(0, 0, 0, 0.02);
+    padding: 15px;
+    border-radius: 15px;
+    margin-top: 10px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    .info {
+      color: rgba(0, 0, 0, 0.4);
+      font-size: 0.8rem;
+      margin-bottom: 5px;
+    }
+    .content {
+      color: #333;
+    }
+  }
+}
+
+.question-box {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  float: left;
+
+  .filter-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 60px;
+    padding: 10px 15px;
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+  .body {
+    margin-top: 60px;
+    width: 100%;
+    height: 440px;
+    float: left;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.03);
+    padding: 15px;
+
+    .paper-item {
+      width: 100%;
+      height: auto;
+      float: left;
+      background-color: rgba(0, 0, 0, 0.02);
+      padding: 15px;
+      border-radius: 15px;
+      margin-top: 10px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+
+      .info {
+        color: rgba(0, 0, 0, 0.4);
+        font-size: 0.8rem;
+        margin-bottom: 5px;
+      }
+      .content {
+        color: #333;
+      }
+    }
+  }
+}
+</style>
 <template>
-  <div class="table-basic-vue frame-page h-panel w-800">
+  <div class="h-panel w-1000">
     <div class="h-panel-bar">
-      <span class="h-panel-title">章节</span>
+      <span class="h-panel-title">指定试题</span>
     </div>
     <div class="h-panel-body">
-      <Form ref="form" :labelWidth="110">
-        <FormItem label="类型" prop="category_id">
-          <template v-slot:label>类型</template>
-          <h-switch v-model="params.status" :trueValue="1" :falseValue="0">
-            <span slot="open">已添加试题管理</span>
-            <span slot="close">添加新试题</span>
-          </h-switch>
-        </FormItem>
-        <FormItem label="分类" prop="category_id">
-          <template v-slot:label>分类</template>
-          <Select
-            v-model="params.category_id"
-            :datas="categories"
-            keyName="id"
-            titleName="name"
-            :filterable="true"
-          ></Select>
-        </FormItem>
-        <FormItem>
-          <Button color="primary" @click="getData()">查询试题</Button>
-          <Button @click="resetFilter()">重置</Button>
-        </FormItem>
-      </Form>
-
-      <div class="mb-10">
-        <p-del-button
-          v-if="params.status === 0"
-          permission="addons.Paper.practice_chapter.questions.store"
-          text="批量添加"
-          @click="create()"
-        ></p-del-button>
-        <p-del-button
-          v-if="params.status === 1"
-          permission="addons.Paper.practice_chapter.questions.delete"
-          text="批量删除"
-          @click="deleteSubmit()"
-        ></p-del-button>
+      <div class="float-box mb-10">
+        <Row :space="30">
+          <Cell :width="12">
+            <div class="paper-quesiton">
+              <div class="title">已选择{{datas.length}}道试题(点击试题可删除)</div>
+              <div
+                class="paper-item"
+                @click="deleteQuestion(question)"
+                v-for="question in datas"
+                :key="question.id"
+              >
+                <div
+                  class="info"
+                >ID:{{question.id}}|{{question.type_text}}|{{question.level_text}}|{{question.score}}分</div>
+                <div class="content" v-html="question.content"></div>
+              </div>
+            </div>
+          </Cell>
+          <Cell :width="12">
+            <div class="question-box">
+              <div class="filter-box">
+                <Select
+                  v-model="filter.category_id"
+                  :datas="categories"
+                  keyName="id"
+                  titleName="name"
+                  :filterable="true"
+                  @change="categoryChange"
+                ></Select>
+              </div>
+              <div class="body">
+                <div
+                  class="paper-item"
+                  @click="addQuestion(question)"
+                  v-for="question in questions"
+                  :key="question.id"
+                >
+                  <div
+                    class="info"
+                  >ID:{{question.id}}|{{question.type_text}}|{{question.level_text}}|{{question.score}}分</div>
+                  <div class="content" v-html="question.content"></div>
+                </div>
+              </div>
+            </div>
+          </Cell>
+        </Row>
       </div>
-      <Table ref="table" :loading="loading" :checkbox="true" :datas="datas">
-        <TableItem prop="id" title="ID" :width="80"></TableItem>
-        <TableItem title="试题">
-          <template slot-scope="{ data }">
-            <div v-html="data.content"></div>
-          </template>
-        </TableItem>
-      </Table>
     </div>
   </div>
 </template>
@@ -58,69 +144,38 @@ export default {
   props: ['id'],
   data() {
     return {
-      params: {
+      filter: {
         category_id: null,
-        id: this.id,
-        status: 1
+        id: this.id
       },
+      questions: [],
       datas: [],
       categories: [],
       loading: false
     };
   },
-  watch: {
-    'params.status'() {
-      this.datas = [];
-      this.getData();
-    }
-  },
   mounted() {
     this.getData();
   },
   methods: {
-    resetFilter() {
-      this.params.category_id = null;
-      this.getData();
-    },
-    changePage() {
+    categoryChange() {
       this.getData();
     },
     getData() {
-      this.loading = true;
-      R.Extentions.paper.PracticeChapter.QuestionsCreate(this.params).then(resp => {
+      R.Extentions.paper.PracticeChapter.QuestionsCreate(this.filter).then(resp => {
         this.datas = resp.data.data;
+        this.questions = resp.data.questions;
         this.categories = resp.data.categories;
-        this.loading = false;
       });
     },
-    deleteSubmit() {
-      let items = this.$refs.table.getSelection();
-      if (items.length === 0) {
-        this.$Message.error('请选择需要删除的试题');
-        return;
-      }
-      this.loading = true;
-      let ids = [];
-      for (let i = 0; i < items.length; i++) {
-        ids.push(items[i].id);
-      }
-      R.Extentions.paper.PracticeChapter.QuestionsDelete({ id: this.id, qids: ids }).then(resp => {
+    deleteQuestion(question) {
+      R.Extentions.paper.PracticeChapter.QuestionsDelete({ id: this.id, qids: [question.id] }).then(resp => {
         HeyUI.$Message.success('成功');
         this.getData();
       });
     },
-    create() {
-      let items = this.$refs.table.getSelection();
-      if (items.length === 0) {
-        this.$Message.error('请选择需要添加的试题');
-        return;
-      }
-      this.loading = true;
-      let ids = [];
-      for (let i = 0; i < items.length; i++) {
-        ids.push(items[i].id);
-      }
-      R.Extentions.paper.PracticeChapter.QuestionsStore({ id: this.id, qids: ids }).then(resp => {
+    addQuestion(quesiton) {
+      R.Extentions.paper.PracticeChapter.QuestionsStore({ id: this.id, qids: [quesiton.id] }).then(resp => {
         HeyUI.$Message.success('成功');
         this.getData();
       });

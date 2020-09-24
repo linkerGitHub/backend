@@ -170,7 +170,7 @@ export default {
         closeOnMask: false,
         component: {
           vue: resolve => {
-            require(['@/components/extentions/promoCodeImport/generate'], resolve);
+            require(['./generator'], resolve);
           }
         },
         events: {

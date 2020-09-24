@@ -1,5 +1,5 @@
 <template>
-  <div class="table-basic-vue frame-page h-panel h-panel-margin-0 w-1000">
+  <div class="h-panel w-1200">
     <div class="h-panel-bar">
       <span class="h-panel-title">观看记录</span>
     </div>
@@ -35,9 +35,23 @@
             <span v-else class="red">已删除</span>
           </template>
         </TableItem>
-        <TableItem title="观看">
+        <TableItem title="视频">
           <template slot-scope="{ data }">
-            <span>{{ data.watch_seconds }}s</span>
+            <span v-if="typeof videos[data.video_id] !== 'undefined'">{{ videos[data.video_id].title }}</span>
+            <span v-else class="red">已删除</span>
+          </template>
+        </TableItem>
+        <TableItem title="时长" :width="100">
+          <template slot-scope="{ data }">
+            <span v-if="typeof videos[data.video_id] !== 'undefined'">
+              <duration-text :seconds="videos[data.video_id].duration" />
+            </span>
+            <span v-else class="red">已删除</span>
+          </template>
+        </TableItem>
+        <TableItem title="已观看" :width="100">
+          <template slot-scope="{ data }">
+            <duration-text :seconds="data.watch_seconds" />
           </template>
         </TableItem>
         <TableItem title="开始时间">
@@ -61,11 +75,17 @@
 </template>
 
 <script>
+import DurationText from '@/components/common/duration-text';
+
 export default {
-  props: ['id'],
+  props: ['id', 'course_id', 'user_id'],
+  components: {
+    DurationText
+  },
   data() {
     return {
       list: [],
+      videos: [],
       users: [],
       pagination: {
         page: 1,
@@ -74,7 +94,8 @@ export default {
       },
       loading: false,
       filter: {
-        user_id: null,
+        course_id: this.course_id,
+        user_id: this.user_id || null,
         watched_start_at: null,
         watched_end_at: null
       },
@@ -110,6 +131,7 @@ export default {
       R.Video.WatchRecords(data).then(res => {
         this.list = res.data.data.data;
         this.users = res.data.users;
+        this.videos = res.data.videos;
         this.pagination.total = res.data.data.total;
         this.loading = false;
       });

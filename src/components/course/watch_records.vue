@@ -56,6 +56,11 @@
             <span v-else class="red">否</span>
           </template>
         </TableItem>
+        <TableItem title="订阅">
+          <template slot-scope="{ data }">
+            <Button class="h-btn h-btn-s h-btn-primary" @click="showDesc(data)">详情</Button>
+          </template>
+        </TableItem>
       </Table>
 
       <div class="mt-10">
@@ -123,6 +128,28 @@ export default {
     },
     changePage() {
       this.getData();
+    },
+    showDesc(item) {
+      this.$Modal({
+        hasCloseIcon: true,
+        closeOnMask: false,
+        component: {
+          vue: resolve => {
+            require(['../video/watch_records'], resolve);
+          },
+          datas: {
+            id: 0,
+            course_id: item.course_id,
+            user_id: item.user_id
+          }
+        },
+        events: {
+          success: (modal, data) => {
+            modal.close();
+            this.getData(true);
+          }
+        }
+      });
     }
   }
 };

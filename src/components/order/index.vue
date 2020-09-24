@@ -14,7 +14,7 @@
           <Row :space="10">
             <Cell :width="6">
               <FormItem label="UID">
-                <input type="text" v-model="cond.user_id" placeholder="用户ID" />
+                <user-filter v-model="cond.user_id"></user-filter>
               </FormItem>
             </Cell>
             <Cell :width="6">
@@ -42,33 +42,30 @@
         <TableItem prop="user_id" title="UID" :width="100"></TableItem>
         <TableItem title="用户" :width="120">
           <template slot-scope="{ data }">
-            <span v-if="users[data.user_id]">{{users[data.user_id].nick_name}}</span>
+            <span v-if="users[data.user_id]">{{ users[data.user_id].nick_name }}</span>
             <span v-else class="red">已删除</span>
           </template>
         </TableItem>
         <TableItem title="订单号" :width="120">
-          <template slot-scope="{data}">
+          <template slot-scope="{ data }">
             <copytext :copytext="data.order_id" />
           </template>
         </TableItem>
         <TableItem title="总价" :width="100">
-          <template slot-scope="{data}">
-            <span>￥{{data.charge}}</span>
+          <template slot-scope="{ data }">
+            <span>￥{{ data.charge }}</span>
           </template>
         </TableItem>
         <TableItem title="状态" :width="80">
-          <template slot-scope="{data}">
+          <template slot-scope="{ data }">
             <span v-if="data.status_text === '已支付'" class="red">已支付</span>
-            <span v-else>{{data.status_text}}</span>
+            <span v-else>{{ data.status_text }}</span>
           </template>
         </TableItem>
         <TableItem title="商品">
-          <template slot-scope="{data}">
+          <template slot-scope="{ data }">
             <ul>
-              <li
-                v-for="item in data.goods"
-                :key="item.id"
-              >[{{item.goods_text}}]{{item.goods_name}}:￥{{item.charge}}</li>
+              <li v-for="item in data.goods" :key="item.id">[{{ item.goods_text }}]{{ item.goods_name }}:￥{{ item.charge }}</li>
             </ul>
           </template>
         </TableItem>
@@ -81,22 +78,12 @@
               @click="finishOrder(datas, data)"
               v-if="data.status === 1 || data.status === 5"
             ></p-del-button>
-            <p-button
-              glass="h-btn h-btn-s h-btn-primary"
-              permission="order.detail"
-              text="详情"
-              @click="showDetail(data)"
-            ></p-button>
+            <p-button glass="h-btn h-btn-s h-btn-primary" permission="order.detail" text="详情" @click="showDetail(data)"></p-button>
           </template>
         </TableItem>
       </Table>
       <p></p>
-      <Pagination
-        v-if="pagination.total > 0"
-        align="right"
-        v-model="pagination"
-        @change="changePage"
-      />
+      <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
     </div>
   </div>
 </template>

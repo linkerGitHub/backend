@@ -9,7 +9,7 @@
           <Row :space="10">
             <Cell :width="6">
               <FormItem label="UID">
-                <input type="text" v-model="filter.user_id" placeholder="用户ID" />
+                <user-filter v-model="filter.user_id"></user-filter>
               </FormItem>
             </Cell>
             <Cell :width="10">
@@ -31,25 +31,23 @@
         <TableItem title="UID" prop="user_id" :width="80"></TableItem>
         <TableItem title="用户" :width="120">
           <template slot-scope="{ data }">
-            <span
-              v-if="typeof users[data.user_id] !== 'undefined'"
-            >{{users[data.user_id].nick_name}}</span>
+            <span v-if="typeof users[data.user_id] !== 'undefined'">{{ users[data.user_id].nick_name }}</span>
             <span v-else class="red">已删除</span>
           </template>
         </TableItem>
         <TableItem title="观看进度">
           <template slot-scope="{ data }">
-            <span>{{data.progress}}%</span>
+            <span>{{ data.progress }}%</span>
           </template>
         </TableItem>
         <TableItem title="开始时间">
           <template slot-scope="{ data }">
-            <span>{{data.created_at}}</span>
+            <span>{{ data.created_at }}</span>
           </template>
         </TableItem>
         <TableItem title="看完时间">
           <template slot-scope="{ data }">
-            <span>{{data.watched_at}}</span>
+            <span>{{ data.watched_at }}</span>
           </template>
         </TableItem>
         <TableItem title="订阅">
@@ -61,12 +59,7 @@
       </Table>
 
       <div class="mt-10">
-        <Pagination
-          v-if="pagination.total > 0"
-          align="right"
-          v-model="pagination"
-          @change="changePage"
-        />
+        <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
       </div>
     </div>
   </div>

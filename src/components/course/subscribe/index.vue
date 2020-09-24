@@ -9,7 +9,7 @@
           <Row :space="10">
             <Cell :width="6">
               <FormItem label="UID">
-                <input type="text" v-model="filter.user_id" placeholder="用户ID" />
+                <user-filter v-model="filter.user_id"></user-filter>
               </FormItem>
             </Cell>
             <Cell :width="10">
@@ -27,40 +27,27 @@
         </Form>
       </div>
       <div class="mb-10">
-        <p-button
-          glass="h-btn h-btn-primary"
-          icon="h-icon-plus"
-          permission="course.subscribe.create"
-          text="添加"
-          @click="create()"
-        ></p-button>
+        <p-button glass="h-btn h-btn-primary" icon="h-icon-plus" permission="course.subscribe.create" text="添加" @click="create()"></p-button>
       </div>
       <Table :loading="loading" :datas="data">
         <TableItem title="CID" prop="course_id" :width="80"></TableItem>
         <TableItem title="UID" prop="user_id" :width="80"></TableItem>
         <TableItem title="用户" :width="120">
-          <template slot-scope="{data}">
-            <span
-              v-if="typeof users[data.user_id] !== 'undefined'"
-            >{{users[data.user_id].nick_name}}</span>
+          <template slot-scope="{ data }">
+            <span v-if="typeof users[data.user_id] !== 'undefined'">{{ users[data.user_id].nick_name }}</span>
             <span v-else class="red">已删除</span>
           </template>
         </TableItem>
         <TableItem title="订阅时间" prop="created_at" :width="120"></TableItem>
         <TableItem title="操作" :width="120">
-          <template slot-scope="{data}">
+          <template slot-scope="{ data }">
             <p-del-button permission="course.subscribe.delete" @click="remove(data)"></p-del-button>
           </template>
         </TableItem>
       </Table>
 
       <div class="mt-10">
-        <Pagination
-          v-if="pagination.total > 0"
-          align="right"
-          v-model="pagination"
-          @change="changePage"
-        />
+        <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
       </div>
     </div>
   </div>

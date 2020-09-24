@@ -14,7 +14,7 @@
             </Cell>
             <Cell :width="6">
               <FormItem label="UID">
-                <input type="text" v-model="filter.user_id" placeholder="用户ID" />
+                <user-filter v-model="filter.user_id"></user-filter>
               </FormItem>
             </Cell>
             <Cell :width="6">
@@ -31,13 +31,7 @@
       </div>
       <div class="float-box mt-10">
         <p-del-button permission="promoCode.destroy.multi" @click="deleteSubmit()"></p-del-button>
-        <p-button
-          glass="h-btn h-btn-primary h-btn-s"
-          icon="h-icon-plus"
-          permission="promoCode.store"
-          text="添加"
-          @click="create()"
-        ></p-button>
+        <p-button glass="h-btn h-btn-primary h-btn-s" icon="h-icon-plus" permission="promoCode.store" text="添加" @click="create()"></p-button>
 
         <p-button
           glass="h-btn h-btn-primary h-btn-s"
@@ -57,16 +51,16 @@
         <Table :loading="loading" :datas="datas" :checkbox="true" ref="table" @sort="sortEvt">
           <TableItem prop="id" :sort="true" title="ID" :width="80"></TableItem>
           <TableItem title="优惠码">
-            <template slot-scope="{data}">
+            <template slot-scope="{ data }">
               <copytext :copytext="data.code" />
             </template>
           </TableItem>
           <TableItem prop="invited_user_reward" :sort="true" title="抵扣" unit="元" :width="80"></TableItem>
           <TableItem prop="invite_user_reward" :sort="true" title="奖励" unit="元" :width="80"></TableItem>
           <TableItem title="可使用次数" :sort="true" :width="100">
-            <template slot-scope="{data}">
+            <template slot-scope="{ data }">
               <span v-if="data.use_times === 0 || data.use_times === null" class="red">不限制</span>
-              <span v-else>{{data.use_times}}次</span>
+              <span v-else>{{ data.use_times }}次</span>
             </template>
           </TableItem>
           <TableItem prop="used_times" :sort="true" title="已使用次数" unit="次" :width="100"></TableItem>
@@ -75,12 +69,7 @@
         </Table>
       </div>
       <div class="float-box mt-10 mb-10">
-        <Pagination
-          v-if="pagination.total > 0"
-          align="right"
-          v-model="pagination"
-          @change="changePage"
-        />
+        <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
       </div>
     </div>
   </div>

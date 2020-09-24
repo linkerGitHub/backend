@@ -9,7 +9,7 @@
           <Row :space="10">
             <Cell :width="6">
               <FormItem label="UID">
-                <input type="text" v-model="filter.user_id" placeholder="用户ID" />
+                <user-filter v-model="filter.user_id"></user-filter>
               </FormItem>
             </Cell>
             <Cell :width="6">
@@ -28,11 +28,7 @@
       </div>
 
       <div class="float-box mb-10">
-        <p-del-button
-          permission="member.inviteBalance.withdrawOrders"
-          text="批量操作"
-          @click="multiHandle"
-        ></p-del-button>
+        <p-del-button permission="member.inviteBalance.withdrawOrders" text="批量操作" @click="multiHandle"></p-del-button>
       </div>
 
       <div class="float-box mb-10">
@@ -41,30 +37,30 @@
           <TableItem prop="user_id" title="UID" :width="80"></TableItem>
           <TableItem title="用户" :width="120">
             <template slot-scope="{ data }">
-              <span v-if="users[data.user_id]">{{users[data.user_id].nick_name}}</span>
+              <span v-if="users[data.user_id]">{{ users[data.user_id].nick_name }}</span>
               <span v-else class="red">已删除</span>
             </template>
           </TableItem>
           <TableItem prop="total" title="金额" unit="元" :width="100"></TableItem>
           <TableItem title="渠道" :width="100">
-            <template slot-scope="{data}">
+            <template slot-scope="{ data }">
               <copytext :copytext="data.channel" />
             </template>
           </TableItem>
           <TableItem title="渠道姓名" :width="100">
-            <template slot-scope="{data}">
+            <template slot-scope="{ data }">
               <copytext :copytext="data.channel_name" />
             </template>
           </TableItem>
           <TableItem title="渠道账号" :width="100">
-            <template slot-scope="{data}">
+            <template slot-scope="{ data }">
               <copytext :copytext="data.channel_account" />
             </template>
           </TableItem>
           <TableItem title="状态" :wdith="80">
-            <template slot-scope="{data}">
-              <span v-if="data.status_text === '成功'" class="red">{{data.status_text}}</span>
-              <span v-else>{{data.status_text}}</span>
+            <template slot-scope="{ data }">
+              <span v-if="data.status_text === '成功'" class="red">{{ data.status_text }}</span>
+              <span v-else>{{ data.status_text }}</span>
             </template>
           </TableItem>
           <TableItem prop="created_at" title="创建时间" :width="120"></TableItem>
@@ -73,12 +69,7 @@
       </div>
 
       <div class="float-box mb-10">
-        <Pagination
-          v-if="pagination.total > 0"
-          align="right"
-          v-model="pagination"
-          @change="changePage"
-        />
+        <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
       </div>
     </div>
   </div>

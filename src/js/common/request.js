@@ -467,6 +467,9 @@ const Request = {
       return Ajax.get('/nav', param);
     },
     Create(param) {
+      return Ajax.get('/nav/create', param);
+    },
+    Store(param) {
       return Ajax.postJson('/nav', param);
     },
     Edit(param) {

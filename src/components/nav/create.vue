@@ -5,16 +5,18 @@
       <span class="h-panel-title">添加</span>
     </div>
     <div class="h-panel-body">
-      <Form
-        mode="block"
-        ref="form"
-        :validOnChange="true"
-        :showErrorTip="true"
-        :labelWidth="80"
-        :rules="rules"
-        :model="nav"
-      >
+      <Form mode="block" ref="form" :validOnChange="true" :showErrorTip="true" :labelWidth="80" :rules="rules" :model="nav">
         <Row :space="10">
+          <Cell :width="6">
+            <FormItem label="上级" prop="parent_id">
+              <Select v-model="nav.parent_id" :datas="navs" keyName="id" titleName="name"></Select>
+            </FormItem>
+          </Cell>
+          <Cell :width="6">
+            <FormItem label="平台" prop="platform">
+              <Select v-model="nav.platform" :datas="platforms" keyName="id" titleName="name"></Select>
+            </FormItem>
+          </Cell>
           <Cell :width="6">
             <FormItem label="升序" prop="sort">
               <input type="number" v-model="nav.sort" />
@@ -25,12 +27,12 @@
               <input type="text" v-model="nav.name" />
             </FormItem>
           </Cell>
-          <Cell :width="6">
+          <Cell :width="12">
             <FormItem label="链接地址" prop="url">
               <input type="text" v-model="nav.url" />
             </FormItem>
           </Cell>
-          <Cell :width="6">
+          <Cell :width="12">
             <FormItem label="Active" prop="active_routes">
               <input type="text" v-model="nav.active_routes" />
               <warn text="不清楚可不填写"></warn>
@@ -52,16 +54,24 @@ export default {
   data() {
     return {
       nav: Nav.parse({}),
+      platforms: [],
+      navs: [],
       rules: {
         required: ['sort', 'name', 'url']
       }
     };
   },
+  mounted() {
+    R.Nav.Create().then(res => {
+      this.navs = res.data.navs;
+      this.platforms = res.data.platforms;
+    });
+  },
   methods: {
     create() {
       let validResult = this.$refs.form.valid();
       if (validResult.result) {
-        R.Nav.Create(this.nav).then(resp => {
+        R.Nav.Store(this.nav).then(resp => {
           HeyUI.$Message.success('成功');
           this.$emit('success');
         });

@@ -1,10 +1,10 @@
 <template>
-  <div class="table-basic-vue frame-page h-panel h-panel-margin-0 w-1000">
+  <div class="h-panel w-1200">
     <div class="h-panel-bar">
       <span class="h-panel-title">观看记录</span>
     </div>
     <div class="h-panel-body">
-      <div class="mb-10">
+      <div class="float-box mb-10">
         <Form>
           <Row :space="10">
             <Cell :width="6">
@@ -26,44 +26,49 @@
           </Row>
         </Form>
       </div>
-      <Table :loading="loading" :datas="list">
-        <TableItem title="CID" prop="course_id" :width="80"></TableItem>
-        <TableItem title="UID" prop="user_id" :width="80"></TableItem>
-        <TableItem title="用户" :width="120">
-          <template slot-scope="{ data }">
-            <span v-if="typeof users[data.user_id] !== 'undefined'">{{ users[data.user_id].nick_name }}</span>
-            <span v-else class="red">已删除</span>
-          </template>
-        </TableItem>
-        <TableItem title="观看进度">
-          <template slot-scope="{ data }">
-            <span>{{ data.progress }}%</span>
-          </template>
-        </TableItem>
-        <TableItem title="开始时间">
-          <template slot-scope="{ data }">
-            <span>{{ data.created_at }}</span>
-          </template>
-        </TableItem>
-        <TableItem title="看完时间">
-          <template slot-scope="{ data }">
-            <span>{{ data.watched_at }}</span>
-          </template>
-        </TableItem>
-        <TableItem title="订阅">
-          <template slot-scope="{ data }">
-            <span v-if="typeof subscribeRecords[data.user_id] !== 'undefined'">是</span>
-            <span v-else class="red">否</span>
-          </template>
-        </TableItem>
-        <TableItem title="订阅">
-          <template slot-scope="{ data }">
-            <Button class="h-btn h-btn-s h-btn-primary" @click="showDesc(data)">详情</Button>
-          </template>
-        </TableItem>
-      </Table>
+      <div class="float-box mb-10">
+        <Button class="h-btn h-btn-s h-btn-primary" @click="exportExcel()">导出excel</Button>
+      </div>
+      <div class="float-box mb-10">
+        <Table :loading="loading" :datas="list">
+          <TableItem title="CID" prop="course_id" :width="80"></TableItem>
+          <TableItem title="UID" prop="user_id" :width="80"></TableItem>
+          <TableItem title="用户" :width="120">
+            <template slot-scope="{ data }">
+              <span v-if="typeof users[data.user_id] !== 'undefined'">{{ users[data.user_id].nick_name }}</span>
+              <span v-else class="red">已删除</span>
+            </template>
+          </TableItem>
+          <TableItem title="观看进度">
+            <template slot-scope="{ data }">
+              <span>{{ data.progress }}%</span>
+            </template>
+          </TableItem>
+          <TableItem title="开始时间">
+            <template slot-scope="{ data }">
+              <span>{{ data.created_at }}</span>
+            </template>
+          </TableItem>
+          <TableItem title="看完时间">
+            <template slot-scope="{ data }">
+              <span>{{ data.watched_at }}</span>
+            </template>
+          </TableItem>
+          <TableItem title="订阅">
+            <template slot-scope="{ data }">
+              <span v-if="typeof subscribeRecords[data.user_id] !== 'undefined'">是</span>
+              <span v-else class="red">否</span>
+            </template>
+          </TableItem>
+          <TableItem title="订阅">
+            <template slot-scope="{ data }">
+              <Button class="h-btn h-btn-s h-btn-primary" @click="showDesc(data)">详情</Button>
+            </template>
+          </TableItem>
+        </Table>
+      </div>
 
-      <div class="mt-10">
+      <div class="float-box mb-10">
         <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
       </div>
     </div>
@@ -149,6 +154,24 @@ export default {
             this.getData(true);
           }
         }
+      });
+    },
+    exportExcel() {
+      let data = {
+        video_id: 0,
+        export: 1,
+        course_id: this.id
+      };
+      R.Video.WatchRecords(data).then(res => {
+        if (res.data.data.length === 1) {
+          HeyUI.$Message.warn('数据为空');
+          return;
+        }
+        let date = new Date();
+        let filename = '课程观看记录|' + date.getFullYear() + '年' + date.getMonth() + '月' + date.getDate() + '日.xlsx';
+        let sheetName = '默认';
+
+        Utils.exportExcel(res.data.data, filename, sheetName);
       });
     }
   }

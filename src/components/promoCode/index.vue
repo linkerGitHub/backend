@@ -33,19 +33,9 @@
         <p-del-button permission="promoCode.destroy.multi" @click="deleteSubmit()"></p-del-button>
         <p-button glass="h-btn h-btn-primary h-btn-s" icon="h-icon-plus" permission="promoCode.store" text="添加" @click="create()"></p-button>
 
-        <p-button
-          glass="h-btn h-btn-primary h-btn-s"
-          permission="addons.promo_code_multi_import.import"
-          text="批量导入"
-          @click="showImportPage()"
-        ></p-button>
+        <p-button glass="h-btn h-btn-primary h-btn-s" permission="promoCode.import" text="批量导入" @click="showImportPage()"></p-button>
 
-        <p-button
-          glass="h-btn h-btn-primary h-btn-s"
-          permission="addons.promo_code_multi_import.generate"
-          text="批量生成"
-          @click="showGeneratePage()"
-        ></p-button>
+        <p-button glass="h-btn h-btn-primary h-btn-s" permission="promoCode.generator" text="批量生成" @click="showGeneratePage()"></p-button>
       </div>
       <div class="float-box mt-10">
         <Table :loading="loading" :datas="datas" :checkbox="true" ref="table" @sort="sortEvt">
@@ -169,7 +159,7 @@ export default {
         closeOnMask: false,
         component: {
           vue: resolve => {
-            require(['@/components/extentions/promoCodeImport/import'], resolve);
+            require(['./import'], resolve);
           }
         }
       });

@@ -520,6 +520,12 @@ const Request = {
     },
     Delete(param) {
       return Ajax.postJson('/promoCode/delete/multi', param);
+    },
+    Import(param) {
+      return Ajax.postJson('/promoCode/import', param);
+    },
+    Generator(param) {
+      return Ajax.postJson('/promoCode/generator', param);
     }
   },
   VideoUpload: {

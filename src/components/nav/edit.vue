@@ -69,7 +69,7 @@ export default {
     init() {
       R.Nav.Create().then(res => {
         let data = [];
-        for (let i = 0; i < res.data.navs; i++) {
+        for (let i = 0; i < res.data.navs.length; i++) {
           if (res.data.navs[i].id !== this.id) {
             data.push(res.data.navs[i]);
           }

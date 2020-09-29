@@ -27,24 +27,12 @@
             </Cell>
             <Cell :width="6">
               <FormItem label="会员">
-                <Select
-                  v-model="cond.role_id"
-                  :filterable="true"
-                  :datas="roles"
-                  keyName="id"
-                  titleName="name"
-                ></Select>
+                <Select v-model="cond.role_id" :filterable="true" :datas="roles" keyName="id" titleName="name"></Select>
               </FormItem>
             </Cell>
             <Cell :width="6">
               <FormItem label="标签">
-                <Select
-                  v-model="cond.tag_id"
-                  :filterable="true"
-                  :datas="tags"
-                  keyName="id"
-                  titleName="name"
-                ></Select>
+                <Select v-model="cond.tag_id" :filterable="true" :datas="tags" keyName="id" titleName="name"></Select>
               </FormItem>
             </Cell>
             <Cell :width="6">
@@ -57,18 +45,12 @@
         </Form>
       </div>
       <div class="float-box mb-10">
-        <p-button
-          glass="h-btn h-btn-primary h-btn-s"
-          icon="h-icon-plus"
-          permission="member.store"
-          text="添加"
-          @click="create()"
-        ></p-button>
+        <p-button glass="h-btn h-btn-primary h-btn-s" icon="h-icon-plus" permission="member.store" text="添加" @click="create()"></p-button>
       </div>
       <div class="float-box mb-10">
         <Table :loading="loading" :datas="datas" @sort="sortEvt">
           <TableItem title="用户" :width="240">
-            <template slot-scope="{data}">
+            <template slot-scope="{ data }">
               <copytext :copytext="data.id" />
               <span class="grey">/</span>
               <copytext :copytext="data.nick_name" />
@@ -77,7 +59,7 @@
             </template>
           </TableItem>
           <TableItem title="标签" :width="200">
-            <template slot-scope="{data}">
+            <template slot-scope="{ data }">
               <span class="tag-item" v-for="tag in data.tags" :key="tag.id">
                 <copytext :copytext="tag.name" />
               </span>
@@ -85,12 +67,12 @@
           </TableItem>
           <TableItem prop="created_at" title="注册时间" :sort="true" :width="120"></TableItem>
           <TableItem title="VIP" :width="100">
-            <template slot-scope="{data}">
-              <template v-if="data.role">{{data.role.name}}</template>
+            <template slot-scope="{ data }">
+              <template v-if="data.role">{{ data.role.name }}</template>
             </template>
           </TableItem>
           <TableItem title="备注" :width="200">
-            <template slot-scope="{data}">
+            <template slot-scope="{ data }">
               <template v-if="typeof userRemarks[data.id] !== 'undefined'">
                 <div v-html="userRemarks[data.id].remark"></div>
               </template>
@@ -98,41 +80,16 @@
           </TableItem>
           <TableItem title="操作" align="center" :width="240">
             <template slot-scope="{ data }">
-              <p-button
-                glass="h-btn h-btn-s h-btn-primary"
-                permission="member.edit"
-                text="编辑"
-                @click="edit(data)"
-              ></p-button>
-              <p-button
-                glass="h-btn h-btn-s"
-                permission="member.detail"
-                text="详情"
-                @click="detail(data)"
-              ></p-button>
-              <p-button
-                glass="h-btn h-btn-s"
-                permission="member.tags"
-                text="标签"
-                @click="showTags(data)"
-              ></p-button>
-              <p-button
-                glass="h-btn h-btn-s"
-                permission="member.remark"
-                text="备注"
-                @click="showRemark(data)"
-              ></p-button>
+              <p-button glass="h-btn h-btn-s h-btn-primary" permission="member.edit" text="编辑" @click="edit(data)"></p-button>
+              <p-button glass="h-btn h-btn-s" permission="member.detail" text="详情" @click="detail(data)"></p-button>
+              <p-button glass="h-btn h-btn-s" permission="member.tags" text="标签" @click="showTags(data)"></p-button>
+              <p-button glass="h-btn h-btn-s" permission="member.remark" text="备注" @click="showRemark(data)"></p-button>
             </template>
           </TableItem>
         </Table>
       </div>
       <div class="float-box mb-10">
-        <Pagination
-          v-if="pagination.total > 0"
-          align="right"
-          v-model="pagination"
-          @change="changePage"
-        />
+        <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
       </div>
     </div>
   </div>
@@ -156,6 +113,7 @@ export default {
       datas: [],
       loading: false,
       roles: [],
+      tags: [],
       userRemarks: []
     };
   },

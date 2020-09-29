@@ -9,19 +9,13 @@
           <Row :space="10">
             <Cell :width="6">
               <FormItem label="UID">
-                <input type="number" v-model="filter.user_id" min="0" placeholder="用户ID" />
+                <user-filter v-model="filter.user_id"></user-filter>
               </FormItem>
             </Cell>
             <Cell :width="8">
               <FormItem label="课程">
                 <template v-slot:label>课程</template>
-                <Select
-                  v-model="filter.course_id"
-                  :filterable="true"
-                  :datas="courses"
-                  keyName="id"
-                  titleName="title"
-                ></Select>
+                <Select v-model="filter.course_id" :filterable="true" :datas="courses" keyName="id" titleName="title"></Select>
               </FormItem>
             </Cell>
             <Cell :width="6">
@@ -44,17 +38,13 @@
         <TableItem prop="course_id" title="CID" :width="100"></TableItem>
         <TableItem title="用户" :width="120">
           <template slot-scope="{ data }">
-            <span v-if="users[data.user_id]">{{users[data.user_id].nick_name}}</span>
+            <span v-if="users[data.user_id]">{{ users[data.user_id].nick_name }}</span>
             <span class="red" v-else>不存在</span>
           </template>
         </TableItem>
         <TableItem title="课程">
           <template slot-scope="{ data }">
-            <a
-              v-if="data.course"
-              :href="'/course/' + data.course.id + '/' + data.course.slug"
-              target="_blank"
-            >{{data.course.title}}</a>
+            <a v-if="data.course" :href="'/course/' + data.course.id + '/' + data.course.slug" target="_blank">{{ data.course.title }}</a>
             <span class="red" v-else>已删除</span>
           </template>
         </TableItem>
@@ -67,12 +57,7 @@
       </Table>
 
       <div class="mt-10">
-        <Pagination
-          v-if="pagination.total > 0"
-          align="right"
-          v-model="pagination"
-          @change="changePage"
-        />
+        <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
       </div>
     </div>
   </div>

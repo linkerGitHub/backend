@@ -17,16 +17,10 @@
                 <input type="text" v-model="cond.keywords" placeholder="视频标题模糊搜索" />
               </FormItem>
             </Cell>
-            <Cell :width="6">
+            <Cell :width="10">
               <FormItem label="课程">
                 <template v-slot:label>课程</template>
-                <Select
-                  v-model="cond.course_id"
-                  :filterable="true"
-                  :datas="courses"
-                  keyName="id"
-                  titleName="title"
-                ></Select>
+                <Select v-model="cond.course_id" :filterable="true" :datas="courses" keyName="id" titleName="title"></Select>
               </FormItem>
             </Cell>
             <Cell :width="6">
@@ -40,20 +34,9 @@
       </div>
       <div class="flaot-box mb-10">
         <p-del-button permission="video.destroy.multi" text="批量删除" @click="deleteSubmit()"></p-del-button>
-        <p-button
-          glass="h-btn h-btn-primary h-btn-s"
-          icon="h-icon-plus"
-          permission="video.store"
-          text="添加"
-          @click="create()"
-        ></p-button>
+        <p-button glass="h-btn h-btn-primary h-btn-s" icon="h-icon-plus" permission="video.store" text="添加" @click="create()"></p-button>
 
-        <p-button
-          glass="h-btn h-btn-primary h-btn-s"
-          permission="video.aliyun_hls.list"
-          text="阿里云视频HLS转码"
-          @click="showHlsPage()"
-        ></p-button>
+        <p-button glass="h-btn h-btn-primary h-btn-s" permission="video.aliyun_hls.list" text="阿里云视频HLS转码" @click="showHlsPage()"></p-button>
         <p-button
           glass="h-btn h-btn-primary h-btn-s"
           permission="addons.TencentCloudHls.videos"
@@ -73,50 +56,30 @@
           <TableItem prop="id" title="VID" :sort="true" :width="80"></TableItem>
           <TableItem title="视频">
             <template slot-scope="{ data }">
-              <span class="course-title">{{data.course.title}}</span>
+              <span class="course-title">{{ data.course.title }}</span>
               /
-              <span class="video-title">{{data.title}}</span>
+              <span class="video-title">{{ data.title }}</span>
             </template>
           </TableItem>
           <TableItem title="价格" :width="80">
-            <template slot-scope="{data}">￥{{data.charge}}</template>
+            <template slot-scope="{ data }">￥{{ data.charge }}</template>
           </TableItem>
           <TableItem title="时长" :width="90">
-            <template slot-scope="{data}">
+            <template slot-scope="{ data }">
               <duration-text :seconds="data.duration" />
             </template>
           </TableItem>
           <TableItem title="操作" align="center" :width="200">
             <template slot-scope="{ data }">
-              <p-button
-                glass="h-btn h-btn-s h-btn-primary"
-                permission="video.edit"
-                text="编辑"
-                @click="edit(data)"
-              ></p-button>
-              <p-button
-                glass="h-btn h-btn-s"
-                permission="video.subscribes"
-                text="订阅"
-                @click="showSubscribePage(data)"
-              ></p-button>
-              <p-button
-                glass="h-btn h-btn-s"
-                permission="video.watch.records"
-                text="观看记录"
-                @click="showWatchRecords(data)"
-              ></p-button>
+              <p-button glass="h-btn h-btn-s h-btn-primary" permission="video.edit" text="编辑" @click="edit(data)"></p-button>
+              <p-button glass="h-btn h-btn-s" permission="video.subscribes" text="订阅" @click="showSubscribePage(data)"></p-button>
+              <p-button glass="h-btn h-btn-s" permission="video.watch.records" text="观看记录" @click="showWatchRecords(data)"></p-button>
             </template>
           </TableItem>
         </Table>
       </div>
       <div class="float-box mb-10">
-        <Pagination
-          v-if="pagination.total > 0"
-          align="right"
-          v-model="pagination"
-          @change="changePage"
-        />
+        <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
       </div>
     </div>
   </div>

@@ -467,6 +467,9 @@ const Request = {
       return Ajax.get('/nav', param);
     },
     Create(param) {
+      return Ajax.get('/nav/create', param);
+    },
+    Store(param) {
       return Ajax.postJson('/nav', param);
     },
     Edit(param) {
@@ -520,6 +523,12 @@ const Request = {
     },
     Delete(param) {
       return Ajax.postJson('/promoCode/delete/multi', param);
+    },
+    Import(param) {
+      return Ajax.postJson('/promoCode/import', param);
+    },
+    Generator(param) {
+      return Ajax.postJson('/promoCode/generator', param);
     }
   },
   VideoUpload: {

@@ -16,29 +16,17 @@
         <Row :space="10">
           <Cell :width="6">
             <FormItem label="UID">
-              <input type="number" v-model="filter.user_id" min="0" placeholder="用户ID" />
+              <user-filter v-model="filter.user_id"></user-filter>
             </FormItem>
           </Cell>
           <Cell :width="6">
             <FormItem label="课程">
-              <Select
-                v-model="filter.course_id"
-                :filterable="true"
-                :datas="courses"
-                keyName="id"
-                titleName="title"
-              ></Select>
+              <Select v-model="filter.course_id" :filterable="true" :datas="courses" keyName="id" titleName="title"></Select>
             </FormItem>
           </Cell>
           <Cell :width="6">
             <FormItem label="视频">
-              <Select
-                v-model="filter.video_id"
-                :datas="getVideos"
-                keyName="id"
-                titleName="title"
-                :filterable="true"
-              ></Select>
+              <Select v-model="filter.video_id" :datas="getVideos" keyName="id" titleName="title" :filterable="true"></Select>
             </FormItem>
           </Cell>
           <Cell :width="6">
@@ -60,17 +48,15 @@
         <TableItem prop="video_id" title="VID" :width="100"></TableItem>
         <TableItem title="用户" :width="120">
           <template slot-scope="{ data }">
-            <span v-if="users[data.user_id]">{{users[data.user_id].nick_name}}</span>
+            <span v-if="users[data.user_id]">{{ users[data.user_id].nick_name }}</span>
             <span class="red" v-else>不存在</span>
           </template>
         </TableItem>
         <TableItem title="视频">
           <template slot-scope="{ data }">
-            <a
-              v-if="data.video"
-              :href="'/course/' + data.video.course_id + '/video/' + data.video.id + '/' + data.video.slug"
-              target="_blank"
-            >{{data.video.title}}</a>
+            <a v-if="data.video" :href="'/course/' + data.video.course_id + '/video/' + data.video.id + '/' + data.video.slug" target="_blank">{{
+              data.video.title
+            }}</a>
             <span class="red" v-else>已删除</span>
           </template>
         </TableItem>
@@ -82,12 +68,7 @@
         <TableItem prop="created_at" title="时间" :width="120"></TableItem>
       </Table>
       <p></p>
-      <Pagination
-        v-if="pagination.total > 0"
-        align="right"
-        v-model="pagination"
-        @change="changePage"
-      />
+      <Pagination v-if="pagination.total > 0" align="right" v-model="pagination" @change="changePage" />
     </div>
   </div>
 </template>

@@ -6,36 +6,16 @@
         <span class="h-panel-title">添加</span>
       </div>
       <div class="h-panel-body">
-        <Form
-          ref="form"
-          mode="block"
-          :validOnChange="true"
-          :showErrorTip="true"
-          :rules="rules"
-          :model="video"
-        >
+        <Form ref="form" mode="block" :validOnChange="true" :showErrorTip="true" :rules="rules" :model="video">
           <Row :space="10">
             <Cell :width="5">
               <FormItem label="所属课程" prop="course_id">
-                <Select
-                  v-model="video.course_id"
-                  :datas="courses"
-                  keyName="id"
-                  titleName="title"
-                  :filterable="true"
-                  @change="selectCourse"
-                ></Select>
+                <Select v-model="video.course_id" :datas="courses" keyName="id" titleName="title" :filterable="true" @change="selectCourse"></Select>
               </FormItem>
             </Cell>
             <Cell :width="4">
               <FormItem label="章节" prop="chapter_id">
-                <Select
-                  v-model="video.chapter_id"
-                  :datas="chapters"
-                  keyName="id"
-                  titleName="title"
-                  :filterable="true"
-                ></Select>
+                <Select v-model="video.chapter_id" :datas="chapters" keyName="id" titleName="title" :filterable="true"></Select>
               </FormItem>
             </Cell>
             <Cell :width="6">
@@ -177,7 +157,7 @@ export default {
   },
   data() {
     return {
-      video: Video.parse({}),
+      video: Video.parse({ duration: 0, free_seconds: 0 }),
       courses: [],
       chapters: [],
       tabs: ['阿里云', '腾讯云', '直链'],

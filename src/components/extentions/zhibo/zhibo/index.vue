@@ -9,24 +9,12 @@
           <Row :space="10">
             <Cell :width="6">
               <FormItem label="课程">
-                <Select
-                  v-model="course_id"
-                  :datas="courses"
-                  keyName="id"
-                  titleName="title"
-                  :filterable="true"
-                ></Select>
+                <Select v-model="course_id" :datas="courses" keyName="id" titleName="title" :filterable="true"></Select>
               </FormItem>
             </Cell>
             <Cell :width="6">
               <FormItem label="课程安排">
-                <Select
-                  v-model="video_id"
-                  :datas="videos[course_id]"
-                  keyName="id"
-                  titleName="title"
-                  :filterable="true"
-                ></Select>
+                <Select v-model="video_id" :datas="videos[course_id]" keyName="id" titleName="title" :filterable="true"></Select>
               </FormItem>
             </Cell>
             <Cell :width="6">
@@ -36,12 +24,7 @@
             </Cell>
             <Cell :width="6">
               <FormItem>
-                <p-button
-                  glass="h-btn h-btn-primary"
-                  permission="addons.Zhibo.zhibo.open"
-                  text="开始直播"
-                  @click="create()"
-                ></p-button>
+                <p-button glass="h-btn h-btn-primary" permission="addons.Zhibo.zhibo.open" text="开始直播" @click="create()"></p-button>
               </FormItem>
             </Cell>
           </Row>
@@ -53,47 +36,23 @@
           <div class="h-input-group mb-10">
             <span class="h-input-addon">推流地址</span>
             <input type="text" v-model="push_url" />
-            <Button color="primary" @click="$Clipboard({text: push_url})">复制</Button>
+            <Button color="primary" @click="$Clipboard({ text: push_url })">复制</Button>
           </div>
           <div class="h-input-group mb-10">
             <span class="h-input-addon">OBS服务器</span>
             <input type="text" v-model="obs.server" />
-            <Button color="primary" @click="$Clipboard({text: obs.server})">复制</Button>
+            <Button color="primary" @click="$Clipboard({ text: obs.server })">复制</Button>
           </div>
           <div class="h-input-group mb-10">
             <span class="h-input-addon">OBS串流密钥</span>
             <input type="text" v-model="obs.token" />
-            <Button color="primary" @click="$Clipboard({text: obs.token})">复制</Button>
+            <Button color="primary" @click="$Clipboard({ text: obs.token })">复制</Button>
           </div>
         </div>
         <div class="float-box mb-10">
-          <p-button
-            glass="h-btn h-btn-primary"
-            permission="addons.Zhibo.zhibo.pause"
-            text="停止直播"
-            @click="pause()"
-          ></p-button>
+          <p-button glass="h-btn h-btn-primary" permission="addons.Zhibo.zhibo.pause" text="停止直播" @click="pause()"></p-button>
 
-          <p-button
-            glass="h-btn h-btn-primary"
-            permission="addons.Zhibo.zhibo.resume"
-            text="恢复直播"
-            @click="resume()"
-          ></p-button>
-
-          <p-button
-            glass="h-btn h-btn-primary"
-            permission="addons.Zhibo.zhibo.pauseChat"
-            text="关闭直播聊天室"
-            @click="pauseChat()"
-          ></p-button>
-
-          <p-button
-            glass="h-btn h-btn-primary"
-            permission="addons.Zhibo.zhibo.resumeChat"
-            text="恢复直播聊天室"
-            @click="resumeChat()"
-          ></p-button>
+          <p-button glass="h-btn h-btn-primary" permission="addons.Zhibo.zhibo.resume" text="恢复直播" @click="resume()"></p-button>
         </div>
       </template>
     </div>
@@ -171,22 +130,6 @@ export default {
       R.Extentions.zhibo.Zhibo.resume({ video_id: this.video_id, service: this.service }).then(res => {
         HeyUI.$Message.success('成功');
       });
-    },
-    pauseChat() {
-      R.Extentions.zhibo.Zhibo.pauseChat({ video_id: this.video_id }).then(res => {
-        HeyUI.$Message.success('成功');
-      });
-    },
-    resumeChat() {
-      R.Extentions.zhibo.Zhibo.resumeChat({ video_id: this.video_id }).then(res => {
-        HeyUI.$Message.success('成功');
-      });
-    },
-    onCopy() {
-      HeyUI.$Message.success('复制成功');
-    },
-    onCopyError() {
-      HeyUI.$Message.warn('复制失败');
     }
   }
 };

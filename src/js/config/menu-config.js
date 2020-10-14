@@ -28,6 +28,14 @@ const fullMenus = [{
     key: 'IndexBanner'
   },
   {
+    title: '首页推荐课程',
+    key: 'IndexRecommendLesson'
+  },
+  {
+    title: '课程分类（专题）',
+    key: 'SpecialProject'
+  },
+  {
     title: '推广链接',
     key: 'AdFrom'
   },

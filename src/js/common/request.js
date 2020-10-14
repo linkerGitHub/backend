@@ -167,6 +167,23 @@ const Request = {
       return Ajax.delete('/slider/' + param.id, param);
     }
   },
+  IndexRecommendLesson: {
+    List(param) {
+      return Ajax.get('/index-recommend-lesson', param);
+    },
+    Store(param) {
+      return Ajax.postJson('/index-recommend-lesson', param);
+    },
+    Edit(param) {
+      return Ajax.get('/index-recommend-lesson/' + param.id);
+    },
+    Update(param) {
+      return Ajax.putJson('/index-recommend-lesson/' + param.id, param);
+    },
+    Delete(param) {
+      return Ajax.delete('/index-recommend-lesson/' + param.id, param);
+    }
+  },
   IndexBanner: {
     List(param) {
       return Ajax.get('/indexBanner', param);
@@ -294,7 +311,7 @@ const Request = {
     },
     RemarkUpdate(param) {
       return Ajax.putJson('/member/' + param.id + '/remark', param);
-    },
+    }
   },
   Course: {
     List(param) {
@@ -482,6 +499,29 @@ const Request = {
       return Ajax.delete('/nav/' + param.id, param);
     }
   },
+  SpecialProject: {
+    List(param) {
+      return Ajax.get('/special-project', param);
+    },
+    FindBy(param) {
+      return Ajax.get('/special-project/find', param);
+    },
+    Create(param) {
+      return Ajax.get('/special-project/create', param);
+    },
+    Store(param) {
+      return Ajax.postJson('/special-project', param);
+    },
+    Edit(param) {
+      return Ajax.get('/special-project/' + param.id);
+    },
+    Update(param) {
+      return Ajax.putJson('/special-project/' + param.id, param);
+    },
+    Delete(param) {
+      return Ajax.delete('/special-project/' + param.id, param);
+    }
+  },
   Statistic: {
     userRegister(param) {
       return Ajax.get('/statistic/userRegister', param);
@@ -633,7 +673,7 @@ const Request = {
         },
         Delete(param) {
           return Ajax.delete('/backend/addons/LearningPaths/step/relation/' + param.id, param);
-        },
+        }
       }
     },
     meeduBooks: {
@@ -1320,7 +1360,6 @@ const Request = {
           return Ajax.postJson('/backend/addons/zhibo/course_comment/check', param);
         },
         Delete(param) {
-
           return Ajax.postJson('/backend/addons/zhibo/course_comment/delete', param);
         }
       },
@@ -1373,7 +1412,7 @@ const Request = {
         Delete(param) {
           return Ajax.delete('/backend/addons/multi_level_share/poster/' + param.id, param);
         }
-      },
+      }
     },
     xiaoBanKe: {
       Order: {
@@ -1390,7 +1429,7 @@ const Request = {
       Dashboard: {
         Index(param) {
           return Ajax.get('/backend/addons/XiaoBanKe/dashboard', param);
-        },
+        }
       },
       CourseCategory: {
         List(param) {
@@ -1451,7 +1490,7 @@ const Request = {
         Delete(param) {
           return Ajax.delete('/backend/addons/XiaoBanKe/teacher/' + param.id, param);
         }
-      },
+      }
     },
     Snapshot: {
       Images: {
@@ -1460,7 +1499,7 @@ const Request = {
         },
         Delete(param) {
           return Ajax.postJson('/backend/addons/Snapshot/images/delete/multi', param);
-        },
+        }
       }
     }
   }

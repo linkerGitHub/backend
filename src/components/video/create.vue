@@ -89,6 +89,10 @@
             <template v-slot:label>视频URL地址（以mp4,m3u8等格式结尾的链接）</template>
             <input type="text" v-model="video.url" />
           </FormItem>
+          <FormItem label="iframe代码" prop="url" v-show="tab === 'iframe'">
+            <template v-slot:label>iframe代码</template>
+            <input type="text" v-model="video.url" />
+          </FormItem>
 
           <FormItem label="视频时长" prop="duration">
             <template v-slot:label>视频时长</template>
@@ -160,7 +164,7 @@ export default {
       video: Video.parse({ duration: 0, free_seconds: 0 }),
       courses: [],
       chapters: [],
-      tabs: ['阿里云', '腾讯云', '直链'],
+      tabs: ['阿里云', '腾讯云', '直链', 'iframe'],
       tab: '阿里云',
       commentStatus: [
         {
@@ -188,6 +192,10 @@ export default {
         {
           title: '阿里云',
           key: 'aliyun'
+        },
+        {
+          title: 'iframe代码',
+          key: 'iframe'
         }
       ],
       playerH5: [

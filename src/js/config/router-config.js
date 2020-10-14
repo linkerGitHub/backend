@@ -42,12 +42,21 @@ const initRouter = () => {
         component: (resolve) => require(['components/slider/index'], resolve),
         meta: { title: '幻灯片' }
       }, {
+        path: '/indexRecommendLesson',
+        name: 'IndexRecommendLesson',
+        component: (resolve) => require(['components/indexRecommendLesson/index'], resolve),
+        meta: { title: '首页推荐课程' }
+      }, {
+        path: '/specialProject',
+        name: 'SpecialProject',
+        component: (resolve) => require(['components/SpecialProject/index'], resolve),
+        meta: { title: '课程分类(专题)' }
+      }, {
         path: '/indexBanner',
         name: 'IndexBanner',
         component: (resolve) => require(['components/index_banner/index'], resolve),
         meta: { title: '首页推荐' }
-      },
-      {
+      }, {
         path: '/link',
         name: 'Link',
         component: (resolve) => require(['components/link/index'], resolve),

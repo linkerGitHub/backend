@@ -5,32 +5,29 @@
       <span class="h-panel-title">编辑</span>
     </div>
     <div class="h-panel-body">
-      <Form mode="block" ref="form" :validOnChange="true" :showErrorTip="true" :labelWidth="80" :rules="rules" :model="nav">
+      <Form mode="block" ref="form" :validOnChange="true" :showErrorTip="true" :labelWidth="80" :rules="rules" :model="cate">
         <Row :space="10">
           <Cell :width="6">
             <FormItem label="上级" prop="parent_id">
-              <Select v-model="nav.parent_id" :datas="availableParents" keyName="id" titleName="name"></Select>
+              <Select v-model="cate.parent_id" @change="cate.layer_count = $event.layer_count + 1" :datas="availableParents" keyName="id" titleName="name"></Select>
             </FormItem>
           </Cell>
           <Cell :width="6">
             <FormItem label="升序" prop="sort">
-              <input type="number" v-model="nav.sort" />
+              <input type="number" v-model="cate.sort" />
             </FormItem>
           </Cell>
           <Cell :width="6">
-            <FormItem label="链接名" prop="name">
-              <input type="text" v-model="nav.name" />
+            <FormItem label="分类名称" prop="name">
+              <input type="text" v-model="cate.name" />
             </FormItem>
           </Cell>
-          <Cell :width="12">
-            <FormItem label="链接地址" prop="url">
-              <input type="text" v-model="nav.url" />
-            </FormItem>
-          </Cell>
-          <Cell :width="12">
-            <FormItem label="Active" prop="active_routes">
-              <input type="text" v-model="nav.active_routes" />
-              <warn text="不清楚可不填写"></warn>
+        </Row>
+
+        <Row :space="10">
+          <Cell>
+            <FormItem label="课程" prop="courses">
+              <Select multiple v-model="cate.courses" :datas="courseSrc" keyName="id" titleName="title"></Select>
             </FormItem>
           </Cell>
         </Row>
@@ -43,20 +40,25 @@
   </div>
 </template>
 <script>
-import Nav from 'model/Nav';
-
 export default {
   props: ['id'],
   data() {
     return {
-      nav: Nav.parse({}),
+      courseSrc: [],
+      cate: {
+        sort: 0,
+        name: '',
+        parent_id: 0,
+        courses: []
+      },
       cateLayers: {
         0: [],
         1: [],
         2: []
       },
+      flatCateLayers: {},
       rules: {
-        required: ['sort', 'name', 'url']
+        required: ['sort', 'name', 'parent_id']
       },
       parentLayer: 0
     };
@@ -66,15 +68,26 @@ export default {
   },
   computed: {
     availableParents() {
-      const ret = []
+      let ret = [
+        {
+          id: 0,
+          layer_count: -1,
+          name: '无'
+        }
+      ];
+      if (this.cate && this.cate.layer_count) {
+        for (let i = 0; i < this.cate.layer_count; i++) {
+          ret = ret.concat(this.cateLayers[i]);
+        }
+      }
+      return ret;
     }
   },
   methods: {
     init() {
-      R.SpecialProject.FindBy({
-        layer_count: this.parentLayer
-      }).then(res => {
+      R.SpecialProject.FindBy().then(res => {
         res.data.forEach(p => {
+          this.flatCateLayers[p.id] = p;
           if (this.cateLayers[p.layer_count]) {
             this.cateLayers[p.layer_count].push(p);
           } else {
@@ -84,13 +97,18 @@ export default {
       });
 
       R.SpecialProject.Edit({ id: this.id }).then(resp => {
-        this.nav = resp.data;
+        this.cate = resp.data;
+        this.cate.courses = this.cate.courses.map(c => c.id);
+      });
+
+      R.Course.All().then(res => {
+        this.courseSrc = res.data.data;
       });
     },
     create() {
       let validResult = this.$refs.form.valid();
       if (validResult.result) {
-        R.Nav.Update(this.nav).then(resp => {
+        R.SpecialProject.Update(this.cate).then(resp => {
           HeyUI.$Message.success('成功');
           this.$emit('success');
         });

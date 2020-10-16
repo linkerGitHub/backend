@@ -24,7 +24,7 @@
             </FormItem>
           </Cell>
           <Cell :width="12">
-            <FormItem label="升序" prop="course_ids">
+            <FormItem label="所含课程" prop="course_ids">
               <Select
                 v-model="banner.course_ids"
                 :datas="courses"
